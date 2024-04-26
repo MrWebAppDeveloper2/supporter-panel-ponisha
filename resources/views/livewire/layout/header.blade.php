@@ -1,11 +1,18 @@
 <aside id="layout-menu" class="layout-menu-horizontal menu-horizontal menu bg-menu-theme flex-grow-0">
     <div class="container-xxl d-flex h-100">
         <ul class="menu-inner">
-            <!-- Dashboards -->
+            <!-- Dashboard -->
             <li @class(['menu-item', 'active' => (request()->routeIs('dashboard'))])>
                 <a href="{{ route('dashboard') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-home-circle"></i>
                     <div>داشبورد</div>
+                </a>
+            </li>
+            <!-- Role -->
+            <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/role'))])>
+                <a href="{{ route('role.index') }}" class="menu-link">
+                    <i class='menu-icon bx bx-universal-access'></i>
+                    <div>نقش ها</div>
                 </a>
             </li>
 {{--            <li class="menu-item active">--}}
