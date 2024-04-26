@@ -143,10 +143,10 @@ class User extends Authenticatable
     /**
      * Customer record of this user if its type is customer and customer_id not null
      *
-     * @return HasOne
+     * @return BelongsTo
      */
-    public function customer(): HasOne
+    public function customer(): BelongsTo
     {
-        return $this->hasOne(Customer::class);
+        return $this->belongsTo(Customer::class);
     }
 }

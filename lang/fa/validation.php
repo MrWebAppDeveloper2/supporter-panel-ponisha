@@ -188,7 +188,14 @@ return [
         'last_name' => 'نام خانوادگی',
         'password' => 'رمز عبور',
         'password_confirmation' => 'تاییدیه رمز عبور',
-        'title' => 'عنوان'
+        'title' => 'عنوان',
+        'nation_code' => 'کد ملی',
+        'phone' => 'شماره تلفن همراه',
+        'tel' => 'شماره تلفن',
+        'address' => 'آدرس',
+        'type' => 'نوع',
+        'company_name' => 'نام شرکت',
+        'economic_code' => 'کد اقتصادی',
     ],
 
 ];

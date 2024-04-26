@@ -6,12 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Customer extends Authenticatable
 {
     use HasFactory;
+
+    public $guarded;
 
     /**
      * Reported bugs
@@ -46,10 +49,10 @@ class Customer extends Authenticatable
     /**
      * Customer record in users table
      *
-     * @return BelongsTo
+     * @return HasOne
      */
-    public function customer(): BelongsTo
+    public function customer(): HasOne
     {
-        return $this->belongsTo(User::class);
+        return $this->HasOne(User::class);
     }
 }
