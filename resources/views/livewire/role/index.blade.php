@@ -32,7 +32,7 @@
                                 </button>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="{{ route('role.permission', $role) }}" wire:navigate><i class='bx bx-universal-access me-1'></i></i>دسترسی ها</a>
-                                    <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> ویرایش</a>
+                                    <a class="dropdown-item" href="{{ route('role.edit', $role)}}" wire:navigate><i class="bx bx-edit-alt me-1"></i> ویرایش</a>
                                     <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> حذف</a>
                                 </div>
                             </div>

@@ -21,4 +21,9 @@ class RoleRepository
     {
         return Role::create($data);
     }
+
+    public function update(Role $role, array $data):bool
+    {
+        return $role->update($data);
+    }
 }
