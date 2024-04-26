@@ -6,18 +6,36 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
 use Livewire\Volt\Component;
 
-new class extends Component
-{
-    public string $name = '';
-    public string $email = '';
+new class extends Component {
+    public ?string $name = '';
+    public ?string $nation_code = '';
+    public ?string $phone = '';
+    public ?string $tel = '';
+    public ?string $address = '';
+    public ?string $customerType = '';
+    public ?string $company_name = '';
+    public ?string $economic_code = '';
+    public ?string $email = '';
 
     /**
      * Mount the component.
      */
     public function mount(): void
     {
-        $this->name = Auth::user()->name;
-        $this->email = Auth::user()->email;
+        $user = auth()->user();
+
+        $this->name = $user->name;
+        $this->email = $user->email;
+
+        if ($user->type == \App\Enums\User\UserType::CUSTOMER->value) {
+            $this->phone = $user->customer->phone;
+            $this->nation_code = $user->customer->nation_code;
+            $this->tel = $user->customer->tel;
+            $this->address = $user->customer->address;
+            $this->customerType = $user->customer->type;
+            $this->company_name = $user->customer->company_name;
+            $this->economic_code = $user->customer->economic_code;
+        }
     }
 
     /**
@@ -27,10 +45,35 @@ new class extends Component
     {
         $user = Auth::user();
 
-        $validated = $this->validate([
+        $rules = [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
-        ]);
+        ];
+
+        if ($user->type == \App\Enums\User\UserType::CUSTOMER->value) {
+            $rules = array_merge($rules, [
+                'nation_code' => ['required', 'string', 'min:10', 'max:10', \Illuminate\Validation\Rule::unique(\App\Models\Customer::class)->ignore($user->customer->id)],
+                'phone' => ['required', 'string', 'min:11', 'max:11'],
+                'tel' => ['nullable', 'string', 'min:11', 'max:11'],
+                'address' => ['nullable', 'string', 'max:3000'],
+                'customerType' => ['required', 'string', \Illuminate\Validation\Rule::in([\App\Enums\Customer\CustomerType::REAL->value, \App\Enums\Customer\CustomerType::LEGAL->value])],
+                'company_name' => ['nullable', 'string', 'max:255', \Illuminate\Validation\Rule::requiredIf(fn() => $this->customerType == \App\Enums\Customer\CustomerType::LEGAL->value)],
+                'economic_code' => ['nullable', 'string', 'max:255', \Illuminate\Validation\Rule::requiredIf(fn() => $this->customerType == \App\Enums\Customer\CustomerType::LEGAL->value)],
+            ]);
+        }
+
+        $validated = $this->validate($rules);
+
+        if ($user->type == \App\Enums\User\UserType::CUSTOMER->value)
+            $user->customer->update([
+                'nation_code' => $this->nation_code,
+                'phone' => $this->phone,
+                'tel' => $this->tel,
+                'address' => $this->address,
+                'type' => $this->customerType,
+                'company_name' => $this->company_name,
+                'economic_code' => $this->economic_code,
+            ]);
 
         $user->fill($validated);
 
@@ -65,32 +108,101 @@ new class extends Component
 <section>
     <header>
         <h2 class="text-lg font-medium text-gray-900">
-            {{ __('Profile Information') }}
+            مشخصات پروفایل
         </h2>
-
-        <p class="mt-1 text-sm text-gray-600">
-            {{ __("Update your account's profile information and email address.") }}
-        </p>
     </header>
 
     <form wire:submit="updateProfileInformation" class="mt-6 space-y-6">
+        <!-- Name -->
         <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input wire:model="name" id="name" name="name" type="text" class="mt-1 block w-full" required autofocus autocomplete="name" />
-            <x-input-error class="mt-2" :messages="$errors->get('name')" />
+            <label for="name">نام*:</label>
+            <x-text-input wire:model="name" id="name" class="block mt-1 w-full" type="text" name="name" required
+                          autofocus autocomplete="name"/>
+            <x-input-error :messages="$errors->get('name')" class="mt-2"/>
+        </div>
+
+        @if(auth()->user()->type == \App\Enums\User\UserType::CUSTOMER->value)
+            <!-- Nation code -->
+                <div class="mt-4">
+                    <label for="nation_code">کد ملی*:</label>
+                    <x-text-input wire:model="nation_code" id="nation_code" class="block mt-2 w-full" type="text"
+                                  name="nation_code" required autofocus autocomplete="nation_code"/>
+                    <x-input-error :messages="$errors->get('nation_code')" class="mt-2"/>
+                </div>
+
+                <!-- Phone -->
+                <div class="mt-4">
+                    <label for="phone">شماره تلفن همراه*:</label>
+                    <x-text-input wire:model="phone" id="phone" class="block mt-2 w-full" type="text" name="phone" required
+                                  autofocus autocomplete="phone"/>
+                    <x-input-error :messages="$errors->get('phone')" class="mt-2"/>
+                </div>
+
+                <!-- Type -->
+                <div class="mt-4">
+                    <label for="type">نوع*:</label>
+                    <select wire:model.live="customerType" id="type" class="form-control px-5">
+                        <option value="{{ \App\Enums\Customer\CustomerType::REAL->value }}" selected>حقیقی</option>
+                        <option value="{{ \App\Enums\Customer\CustomerType::LEGAL->value }}">حقوقی</option>
+                    </select>
+                    <x-input-error :messages="$errors->get('type')" class="mt-2"/>
+                </div>
+
+                <!-- Company name -->
+                @if($customerType == \App\Enums\Customer\CustomerType::LEGAL->value)
+                    <div class="mt-4">
+                        <label for="company_name">نام شرکت*:</label>
+                        <x-text-input wire:model="company_name" id="company_name" class="block mt-2 w-full" type="text"
+                                      name="company_name" autofocus autocomplete="company_name"/>
+                        <x-input-error :messages="$errors->get('company_name')" class="mt-2"/>
+                    </div>
+                @endif
+
+            <!-- Economic code -->
+                @if($customerType == \App\Enums\Customer\CustomerType::LEGAL->value)
+                    <div class="mt-4">
+                        <label for="economic_code">کد اقتصادی*:</label>
+                        <x-text-input wire:model="economic_code" id="economic_code" class="block mt-2 w-full" type="text"
+                                      name="economic_code" autofocus autocomplete="economic_code"/>
+                        <x-input-error :messages="$errors->get('economic_code')" class="mt-2"/>
+                    </div>
+            @endif
+
+
+            <!-- Tel -->
+                <div class="mt-4">
+                    <label for="tel">شماره تلفن:</label>
+                    <x-text-input wire:model="tel" id="tel" class="block mt-2 w-full" type="text" name="tel" autofocus
+                                  autocomplete="tel"/>
+                    <x-input-error :messages="$errors->get('tel')" class="mt-2"/>
+                </div>
+
+                <!-- Address -->
+                <div class="mt-4">
+                    <label for="address">آدرس :</label>
+                    <x-text-input wire:model="address" id="address" class="block mt-2 w-full" type="text" name="address"
+                                  autofocus autocomplete="address"/>
+                    <x-input-error :messages="$errors->get('address')" class="mt-2"/>
+                </div>
+        @endif
+
+        <!-- Email Address -->
+        <div class="mt-4">
+            <label for="name">ایمیل*:</label>
+            <x-text-input wire:model="email" id="email" class="block mt-1 w-full" type="email" name="email" required
+                          autocomplete="username"/>
+            <x-input-error :messages="$errors->get('email')" class="mt-2"/>
         </div>
 
         <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input wire:model="email" id="email" name="email" type="email" class="mt-1 block w-full" required autocomplete="username" />
-            <x-input-error class="mt-2" :messages="$errors->get('email')" />
 
             @if (auth()->user() instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! auth()->user()->hasVerifiedEmail())
                 <div>
                     <p class="text-sm mt-2 text-gray-800">
                         {{ __('Your email address is unverified.') }}
 
-                        <button wire:click.prevent="sendVerification" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <button wire:click.prevent="sendVerification"
+                                class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                             {{ __('Click here to re-send the verification email.') }}
                         </button>
                     </p>
@@ -105,10 +217,10 @@ new class extends Component
         </div>
 
         <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('Save') }}</x-primary-button>
+            <x-primary-button>ذخیره</x-primary-button>
 
             <x-action-message class="me-3" on="profile-updated">
-                {{ __('Saved.') }}
+                ذخیره شد
             </x-action-message>
         </div>
     </form>
