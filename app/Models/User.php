@@ -1,0 +1,141 @@
+<?php
+
+namespace App\Models;
+
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+
+class User extends Authenticatable
+{
+    use HasFactory, Notifiable;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
+
+    /**
+     * Reported bugs
+     *
+     * @return MorphMany
+     */
+    public function bugs():MorphMany
+    {
+        return $this->morphMany(Bug::class, 'creator');
+    }
+
+    /**
+     * All meeting records that created by the user
+     *
+     * @return HasMany
+     */
+    public function meetings(): HasMany
+    {
+        return $this->hasMany(Meeting::class);
+    }
+
+    /**
+     * All purchase records that created by the user
+     *
+     * @return HasMany
+     */
+    public function purchases(): HasMany
+    {
+        return $this->hasMany(Purchase::class);
+    }
+
+    /**
+     * All tasks that created by the user.
+     *
+     * @return HasMany
+     */
+    public function submitTasks(): HasMany
+    {
+        return $this->hasMany(Task::class, 'creator_id');
+    }
+
+    /**
+     * All tasks that received in the user cartable.
+     *
+     * @return HasMany
+     */
+    public function receivedTasks(): HasMany
+    {
+        return $this->hasMany(Task::class, 'recipient_id');
+    }
+
+    /**
+     * All user workgroups
+     *
+     * @return BelongsToMany
+     */
+    public function workgroups(): BelongsToMany
+    {
+        return $this->belongsToMany(Workgroup::class);
+    }
+
+    /**
+     * All tickets that received in the user cartable.
+     *
+     * @return HasMany
+     */
+    public function receivedTickets(): HasMany
+    {
+        return $this->hasMany(Ticket::class, 'recipient_id');
+    }
+
+    /**
+     * The assigned role for user
+     *
+     * @return BelongsTo
+     */
+    public function role():BelongsTo
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    /**
+     * All media that uploaded with user
+     *
+     * @return HasMany
+     */
+    public function media(): HasMany
+    {
+        return $this->hasMany(Media::class);
+    }
+}

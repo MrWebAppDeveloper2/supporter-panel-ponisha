@@ -1,0 +1,44 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class Customer extends Authenticatable
+{
+    use HasFactory;
+
+    /**
+     * Reported bugs
+     *
+     * @return MorphMany
+     */
+    public function bugs():MorphMany
+    {
+        return $this->morphMany(Bug::class, 'creator');
+    }
+
+    /**
+     * All the meetings that the customer participated in
+     *
+     * @return HasMany
+     */
+    public function meetings(): HasMany
+    {
+        return $this->hasMany(Meeting::class);
+    }
+
+    /**
+     * The customer's tickets.
+     *
+     * @return HasMany
+     */
+    public function tickets(): HasMany
+    {
+        return $this->hasMany(Ticket::class);
+    }
+}
