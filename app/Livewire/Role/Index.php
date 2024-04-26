@@ -13,6 +13,19 @@ class Index extends Component
 {
     use WithPagination, WithoutUrlPagination;
 
+    public function delete(Role $role)
+    {
+        $repository = app()->make(RoleRepository::class);
+
+        $role->users()->update(['role_id' => null]);
+
+        $role->permissions()->detach();
+
+        $repository->delete($role) ?
+            session()->now('alert-success', 'نقش حذف شد !') :
+            session()->now('alert-danger', 'وجود خطا در سرور');
+    }
+
     #[Layout('layouts.app')]
     public function render(RoleRepository $repository)
     {

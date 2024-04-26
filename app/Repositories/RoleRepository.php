@@ -26,4 +26,9 @@ class RoleRepository
     {
         return $role->update($data);
     }
+
+    public function delete(Role $role):bool
+    {
+        return $role->delete();
+    }
 }

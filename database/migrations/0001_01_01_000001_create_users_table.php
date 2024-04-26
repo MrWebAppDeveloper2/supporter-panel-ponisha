@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('type')->default(\App\Enums\User\UserType::CUSTOMER->value);
-            $table->foreignId('role_id')->nullable()->constrained();
+            $table->foreignId('role_id')->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('customer_id')->nullable()->comment('If type of user was customer.')->constrained();
             $table->string('status')->nullable();
             $table->rememberToken();
