@@ -55,4 +55,14 @@ class Customer extends Authenticatable
     {
         return $this->HasOne(User::class);
     }
+
+    /**
+     * Customer record in users table
+     *
+     * @return HasOne
+     */
+    public function user(): HasOne
+    {
+        return $this->hasOne(User::class);
+    }
 }

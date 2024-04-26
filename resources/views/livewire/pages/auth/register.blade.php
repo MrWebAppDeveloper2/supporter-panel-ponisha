@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
@@ -46,11 +47,7 @@ new #[Layout('layouts.guest')] class extends Component {
 
         $validated['password'] = Hash::make($validated['password']);
 
-        event(new Registered($user = User::create($validated)));
-
-        Auth::login($user);
-
-        $user->customer()->create([
+        $customer = Customer::create([
             'nation_code' => $this->nation_code,
             'phone' => $this->phone,
             'tel' => $this->tel,
@@ -59,6 +56,10 @@ new #[Layout('layouts.guest')] class extends Component {
             'company_name' => $this->company_name,
             'economic_code' => $this->economic_code,
         ]);
+
+        event(new Registered($user = $customer->user()->create($validated)));
+
+        Auth::login($user);
 
         $this->redirect(route('dashboard', absolute: false), navigate: true);
     }
