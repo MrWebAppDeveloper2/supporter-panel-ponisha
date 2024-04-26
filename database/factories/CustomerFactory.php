@@ -20,9 +20,6 @@ class CustomerFactory extends Factory
     public function definition(): array
     {
         return [
-            'email' => $this->faker->email,
-            'password' => Hash::make(Str::random()),
-            'name' => $this->faker->name,
             'nation_code' => rand(1111111111, 9999999999),
             'phone' => $this->faker->phoneNumber,
             'tel' => $this->faker->phoneNumber,
