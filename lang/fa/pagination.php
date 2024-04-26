@@ -15,5 +15,9 @@ return [
 
     'previous' => '&laquo; قبلی',
     'next' => 'بعدی &raquo;',
+    'showing' => 'نمایش ردیف',
+    'of' => 'از مجموع',
+    'to' => 'تار ردیف',
+    'results' => 'ردیف'
 
 ];
