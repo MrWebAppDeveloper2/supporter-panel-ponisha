@@ -2,9 +2,9 @@
     <div class="card-header d-flex justify-content-between align-items-center">
         <h4 class="my-0">کاربران نقش {{ $role->name }}</h4>
 
-{{--        <div>--}}
-{{--            <a href="{{ route('role.add.user') }}" class="btn btn-outline-primary" wire:navigate>اضافه کردن کاربر</a>--}}
-{{--        </div>--}}
+        <div>
+            <a href="{{ route('role.add.user', $role) }}" class="btn btn-outline-primary" wire:navigate>اضافه کردن کاربر</a>
+        </div>
     </div>
     <div class="card-body">
         <x-alert/>
@@ -19,7 +19,7 @@
                 </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
-                @foreach($roleUsers as $user)
+                @foreach($users as $user)
                     <tr wire:key="{{ $user->id }}">
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $user->name }}</td>

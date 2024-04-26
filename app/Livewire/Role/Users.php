@@ -24,6 +24,6 @@ class Users extends Component
     public function render()
     {
         return view('livewire.role.users')
-            ->with('roleUsers', $this->role->users);
+            ->with('users', $this->role->users);
     }
 }
