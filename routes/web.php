@@ -14,6 +14,7 @@ Route::middleware(['auth', 'verified'])->group(function(){
        Route::get('/{role}/permissions', App\Livewire\Role\Permissions::class)->name('permission');
        Route::get('/create', App\Livewire\Role\Create::class)->name('create');
        Route::get('/{role}/edit', App\Livewire\Role\Edit::class)->name('edit');
+       Route::get('/{role}/users', App\Livewire\Role\Users::class)->name('users');
     });
 });
 
