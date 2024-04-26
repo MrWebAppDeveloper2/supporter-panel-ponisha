@@ -16,4 +16,9 @@ class RoleRepository
     {
         return Role::paginate($perPage);
     }
+
+    public function store(array $data):Role
+    {
+        return Role::create($data);
+    }
 }

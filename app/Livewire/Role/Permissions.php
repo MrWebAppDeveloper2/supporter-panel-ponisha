@@ -5,6 +5,7 @@ namespace App\Livewire\Role;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Repositories\PermissionRepository;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -15,7 +16,7 @@ class Permissions extends Component
     public $permissions;
 
     #[Validate([
-        'checkedPermissions' => 'required',
+        'checkedPermissions' => 'nullable',
         'checkedPermissions.*' => [
             'exists:' . Permission::class . ',id'
         ],
@@ -33,7 +34,9 @@ class Permissions extends Component
 
         $this->role->save();
 
-        session()->now('alert-success', 'ذخیره شد !');
+        session()->flash('alert-success', 'ذخیره شد !');
+
+        $this->redirect(route('role.index'), true);
     }
 
     public function mount(PermissionRepository $repository)
@@ -43,6 +46,7 @@ class Permissions extends Component
         $this->permissions = $repository->all();
     }
 
+    #[Layout('layouts.app')]
     public function render()
     {
         return view('livewire.role.permissions');

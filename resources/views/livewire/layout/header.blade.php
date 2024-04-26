@@ -11,7 +11,7 @@
             <!-- Role -->
             <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/role'))])>
                 <a href="{{ route('role.index') }}" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                    <i class='menu-icon bx bx-universal-access'></i>
                     <div>نقش ها</div>
                 </a>
             </li>

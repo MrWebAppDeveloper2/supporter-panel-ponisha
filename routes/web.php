@@ -11,6 +11,8 @@ Route::middleware(['auth', 'verified'])->group(function(){
     // role
     Route::prefix('role/')->name('role.')->group(function (){
        Route::get('/', App\Livewire\Role\Index::class)->name('index');
+       Route::get('/{role}/permissions', App\Livewire\Role\Permissions::class)->name('permission');
+       Route::get('/create', App\Livewire\Role\Create::class)->name('create');
     });
 });
 
