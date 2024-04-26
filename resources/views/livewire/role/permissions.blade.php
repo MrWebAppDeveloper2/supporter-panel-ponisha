@@ -1,7 +1,14 @@
 <div>
     <h4>دسترسی های نقش {{ $role->name }}</h4>
     <hr>
-    <form action="" class="">
+    <form wire:submit="save">
+        <div class="alert-danger">
+            <ul>
+                @foreach($errors->all() as $message)
+                    <li>{{ $message }}</li>
+                @endforeach
+            </ul>
+        </div>
         <ul class="list-unstyled d-flex justify-content-center justify-content-around row">
             <li class="col-3 text-center">Model</li>
 
@@ -9,20 +16,14 @@
                 <li class="col-2 text-center">{{ $permission->value }}</li>
             @endforeach
 
-            @php
-                $models =  $models = glob(app_path('/Models') . DIRECTORY_SEPARATOR . '*.php');
+            @foreach($permissions->groupBy('model') as $model => $modelPermissions)
+                <li class="col-3 mt-4 text-center">{{ __('model.'. class_basename($model))  }}</li>
 
-                $rolePermissions = $role->permissions;
-            @endphp
-
-            @foreach($models as $model)
-                <li class="col-3 mt-4 text-center">{{ __('model.'. pathinfo($model, PATHINFO_FILENAME))  }}</li>
-
-                @foreach(\App\Enums\Permission\BasicPermission::cases() as $permission)
+                @foreach($modelPermissions as $permission)
                     <li class="col-2 text-center">
                         <div class="form-check mt-3 d-flex justify-content-center">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"
-                                   @if($rolePermissions->where(['model' => "App\Models\\" . pathinfo($model, PATHINFO_BASENAME)]))
+                            <input class="form-check-input" type="checkbox" wire:model="checkedPermissions" value="{{ $permission->id }}" id="defaultCheck1"
+                                   @if(in_array($permission->id, $this->checkedPermissions))
                                    checked
                                 @endif>
                         </div>
@@ -30,5 +31,9 @@
                 @endforeach
             @endforeach
         </ul>
+        <x-alert />
+        <div class="d-flex justify-content-end flex-row">
+            <button class="btn btn-primary" type="submit">ذخیره</button>
+        </div>
     </form>
 </div>

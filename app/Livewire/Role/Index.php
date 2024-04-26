@@ -17,7 +17,7 @@ class Index extends Component
     public function render(RoleRepository $repository)
     {
         return view('livewire.role.index', [
-            'roles' => Role::paginate(2)
+            'roles' => Role::paginate()
         ]);
     }
 }
