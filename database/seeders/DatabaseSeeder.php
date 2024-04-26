@@ -28,5 +28,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'customer@example.com',
             'password'  => Hash::make('123456789')
         ]);
+
+        $this->call(PermissionSeeder::class);
     }
 }
