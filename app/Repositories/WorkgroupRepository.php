@@ -21,4 +21,9 @@ class WorkgroupRepository
     {
         return Workgroup::create($data);
     }
+
+    public function delete(Workgroup $workgroup):bool
+    {
+        return $workgroup->delete();
+    }
 }

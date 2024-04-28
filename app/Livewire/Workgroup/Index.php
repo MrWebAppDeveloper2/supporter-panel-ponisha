@@ -12,6 +12,17 @@ class Index extends Component
 {
     use WithPagination, WithoutUrlPagination;
 
+    public function delete(Workgroup $workgroup)
+    {
+        $this->authorize('delete', $workgroup);
+
+        $repository = app()->make(WorkgroupRepository::class);
+
+        $repository->delete($workgroup)?
+            session()->now('alert-success', 'گروه کاری حذف شد !'):
+            session()->now('alert-danger', 'وجود خطا در سرور !');
+    }
+
     public function mount()
     {
         $this->authorize('viewAny', Workgroup::class);

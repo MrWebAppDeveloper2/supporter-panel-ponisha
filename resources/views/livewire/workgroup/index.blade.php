@@ -41,9 +41,9 @@
 {{--                                        <a class="dropdown-item" href="{{ route('workgroup.edit', $workgroup)}}" wire:navigate><i class="bx bx-edit-alt me-1"></i> ویرایش</a>--}}
 {{--                                    @endcan--}}
 
-{{--                                    @can('delete', $workgroup)--}}
-{{--                                        <button class="dropdown-item" wire:click="delete({{ $workgroup }})"><i class="bx bx-trash me-1"></i> حذف</button>--}}
-{{--                                    @endcan--}}
+                                    @can('delete', $workgroup)
+                                        <button class="dropdown-item" wire:click="delete({{ $workgroup }})"><i class="bx bx-trash me-1"></i> حذف</button>
+                                    @endcan
                                 </div>
                             </div>
                         </td>
