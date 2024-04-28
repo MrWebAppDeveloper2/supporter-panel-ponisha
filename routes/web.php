@@ -24,6 +24,8 @@ Route::middleware(['auth', 'verified'])->group(function(){
         Route::get('/create', App\Livewire\Workgroup\Create::class)->name('create');
         Route::get('/{workgroup}/edit', App\Livewire\Workgroup\Edit::class)->name('edit');
         Route::get('/{workgroup}/users', App\Livewire\Workgroup\Users::class)->name('users');
+        Route::get('/{workgroup}/add/user', App\Livewire\Workgroup\AddUser::class)->name('add.user');
+
     });
 });
 

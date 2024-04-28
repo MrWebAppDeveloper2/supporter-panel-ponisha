@@ -2,17 +2,20 @@
 
 namespace App\Livewire\Workgroup;
 
+use App\Enums\User\UserType;
 use App\Models\User;
 use App\Models\Workgroup;
+use App\Repositories\UserRepository;
 use Illuminate\Database\Eloquent\Collection;
-use Livewire\Attributes\Reactive;
 use Livewire\Component;
 
-class Users extends Component
+class AddUser extends Component
 {
+    public Collection $users;
+
     public Workgroup $workgroup;
 
-    public Collection $users;
+    public string $search = '';
 
     public function detachUser(User $user)
     {
@@ -30,16 +33,26 @@ class Users extends Component
         session()->now('alert-success', 'کاربر به گروه کاری اضافه شد !');
     }
 
-    public function mount()
+    public function updatedSearch()
     {
-        $this->authorize('view', $this->workgroup);
-
-        $this->users = $this->workgroup->users;
+        $this->users = User::where('type', UserType::OPERATOR->value)
+            ->where(function ($query){
+                $query->where('name', 'like', $this->search . '%')
+                    ->orWhere('email', 'like', $this->search . '%');
+            })
+            ->get();
     }
 
-    public function render()
+    public function mount(UserRepository $repository)
     {
-        return view('livewire.workgroup.users')
-            ->with('users', $this->users);
+        $this->authorize('update', $this->workgroup);
+
+        $this->users = $repository->allOperators();
+    }
+
+    public function render(UserRepository $repository)
+    {
+
+        return view('livewire.workgroup.add-user');
     }
 }

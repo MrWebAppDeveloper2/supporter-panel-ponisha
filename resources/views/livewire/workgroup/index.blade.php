@@ -17,7 +17,7 @@
                 <tr>
                     <th>#</th>
                     <th>نام</th>
-                    <th>تعداد کاربران</th>
+                    <th>تعداد اعضای</th>
                     <th>عمل‌ها</th>
                 </tr>
                 </thead>
@@ -34,7 +34,7 @@
                                 </button>
                                 <div class="dropdown-menu">
                                     @can('view', $workgroup)
-                                        <a class="dropdown-item" href="{{ route('workgroup.users', $workgroup) }}" wire:navigate><i class='bx bxs-user-detail me-1'></i></i>کاربران</a>
+                                        <a class="dropdown-item" href="{{ route('workgroup.users', $workgroup) }}" wire:navigate><i class='bx bxs-user-detail me-1'></i></i>اعضا</a>
                                     @endcan
 
                                     @can('update', $workgroup)

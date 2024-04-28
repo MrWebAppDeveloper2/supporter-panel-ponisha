@@ -1,6 +1,10 @@
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
-        <h4 class="my-0">کاربران گروه کاری {{ $workgroup->name }}</h4>
+        <h4 class="my-0">اعضای گروه کاری {{ $workgroup->name }}</h4>
+
+        <div>
+            <a href="{{ route('workgroup.add.user', $workgroup) }}" class="btn btn-outline-primary" wire:navigate>اضافه کردن عضو</a>
+        </div>
     </div>
     <div class="card-body">
         <x-alert/>

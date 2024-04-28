@@ -23,4 +23,22 @@ class UserRepository
         return User::where('type', '!=', UserType::CUSTOMER->value)
             ->get();
     }
+
+    public function allOperators():Collection
+    {
+        return User::where('type', UserType::OPERATOR->value)
+            ->get();
+    }
+
+    public function allAdmins():Collection
+    {
+        return User::where('type', UserType::ADMIN->value)
+            ->get();
+    }
+
+    public function allCustomers():Collection
+    {
+        return User::where('type', UserType::CUSTOMER->value)
+            ->get();
+    }
 }

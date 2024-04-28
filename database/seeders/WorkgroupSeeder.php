@@ -17,6 +17,6 @@ class WorkgroupSeeder extends Seeder
         $workgroups = Workgroup::factory()->count(15)->create();
 
         foreach ($workgroups as $workgroup)
-            $workgroup->users()->attach(User::factory()->create());
+            $workgroup->users()->attach(User::factory()->operator()->create());
     }
 }
