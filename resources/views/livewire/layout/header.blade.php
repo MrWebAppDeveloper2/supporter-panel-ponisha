@@ -18,7 +18,7 @@
                 </li>
             @endcan
 
-            <!-- Workgroup -->
+        <!-- Workgroup -->
             @can('viewAny', \App\Models\Workgroup::class)
                 <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/workgroup'))])>
                     <a href="{{ route('workgroup.index') }}" class="menu-link">
@@ -27,20 +27,37 @@
                     </a>
                 </li>
             @endcan
-{{--            <li class="menu-item active">--}}
-{{--                <a href="javascript:void(0)" class="menu-link menu-toggle">--}}
-{{--                    <i class="menu-icon tf-icons bx bx-home-circle"></i>--}}
-{{--                    <div>داشبورد</div>--}}
-{{--                </a>--}}
-{{--                <ul class="menu-sub">--}}
-{{--                    <li class="menu-item active">--}}
-{{--                        <a href="index.html" class="menu-link">--}}
-{{--                            <i class="menu-icon tf-icons bx bx-pie-chart-alt-2"></i>--}}
-{{--                            <div data-i18n="Analytics">تجزیه و تحلیل</div>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-{{--                </ul>--}}
-{{--            </li>--}}
+
+            @can('viewAny', \App\Models\User::class)
+                <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/user'))])>
+                    <a href="javascript:void(0)" class="menu-link menu-toggle">
+                        <i class="menu-icon tf-icons bx bx-user"></i>
+                        <div>کاربران</div>
+                    </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item active">
+                            <a href="{{ route('operator.index') }}" class="menu-link">
+                                <i class="menu-icon tf-icons bx bx-headphone"></i>
+                                <div>اوپراتورها</div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            @endcan
+            {{--            <li class="menu-item active">--}}
+            {{--                <a href="javascript:void(0)" class="menu-link menu-toggle">--}}
+            {{--                    <i class="menu-icon tf-icons bx bx-home-circle"></i>--}}
+            {{--                    <div>داشبورد</div>--}}
+            {{--                </a>--}}
+            {{--                <ul class="menu-sub">--}}
+            {{--                    <li class="menu-item active">--}}
+            {{--                        <a href="index.html" class="menu-link">--}}
+            {{--                            <i class="menu-icon tf-icons bx bx-pie-chart-alt-2"></i>--}}
+            {{--                            <div data-i18n="Analytics">تجزیه و تحلیل</div>--}}
+            {{--                        </a>--}}
+            {{--                    </li>--}}
+            {{--                </ul>--}}
+            {{--            </li>--}}
         </ul>
     </div>
 </aside>
