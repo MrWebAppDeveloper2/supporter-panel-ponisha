@@ -9,17 +9,25 @@ use Livewire\Component;
 
 class Index extends Component
 {
-    public Collection $users;
-
-    public function mount(UserRepository $repository)
+    public function delete(User $user)
     {
-        $this->authorize('viewAny', User::class);
+        $this->authorize('delete', $user);
 
-        $this->users = $repository->allOperators();
+        $repository = app()->make(UserRepository::class);
+
+        $repository->delete($user) ?
+            session()->now('alert-success', 'کاربر حذف شد !') :
+            session()->now('alert-danger', 'وجود خطا در سامانه !') ;
     }
 
-    public function render()
+    public function mount()
     {
-        return view('livewire.operator.index');
+        $this->authorize('viewAny', User::class);
+    }
+
+    public function render(UserRepository $repository)
+    {
+        return view('livewire.operator.index')
+            ->with('users', $repository->allOperators());
     }
 }
