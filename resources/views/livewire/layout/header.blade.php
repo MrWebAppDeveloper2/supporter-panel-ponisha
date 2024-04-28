@@ -17,6 +17,16 @@
                     </a>
                 </li>
             @endcan
+
+            <!-- Workgroup -->
+            @can('viewAny', \App\Models\Workgroup::class)
+                <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/workgroup'))])>
+                    <a href="{{ route('workgroup.index') }}" class="menu-link">
+                        <i class='menu-icon bx bx-group'></i>
+                        <div>گروه کاری ها</div>
+                    </a>
+                </li>
+            @endcan
 {{--            <li class="menu-item active">--}}
 {{--                <a href="javascript:void(0)" class="menu-link menu-toggle">--}}
 {{--                    <i class="menu-icon tf-icons bx bx-home-circle"></i>--}}

@@ -3,11 +3,11 @@
 namespace App\Policies;
 
 use App\Enums\Permission\BasicPermission;
-use App\Models\Role;
 use App\Models\User;
+use App\Models\Workgroup;
 use Illuminate\Auth\Access\Response;
 
-class RolePolicy
+class WorkgroupPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -23,7 +23,7 @@ class RolePolicy
         if($user->isOperator()){
             return $user->role->permissions()
                 ->where("name", BasicPermission::READ->value)
-                ->where('model', Role::class)
+                ->where('model', Workgroup::class)
                 ->exists();
         }
 
@@ -33,7 +33,7 @@ class RolePolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Role $role): bool
+    public function view(User $user, Workgroup $workgroup): bool
     {
         if($user->isCustomer())
             return false;
@@ -44,7 +44,7 @@ class RolePolicy
         if($user->isOperator()){
             return $user->role->permissions()
                 ->where("name", BasicPermission::READ->value)
-                ->where('model', Role::class)
+                ->where('model', Workgroup::class)
                 ->exists();
         }
 
@@ -65,7 +65,7 @@ class RolePolicy
         if($user->isOperator()){
             return $user->role->permissions()
                 ->where("name", BasicPermission::CREATE->value)
-                ->where('model', Role::class)
+                ->where('model', Workgroup::class)
                 ->exists();
         }
 
@@ -75,7 +75,7 @@ class RolePolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Role $role): bool
+    public function update(User $user, Workgroup $workgroup): bool
     {
         if($user->isCustomer())
             return false;
@@ -86,7 +86,7 @@ class RolePolicy
         if($user->isOperator()){
             return $user->role->permissions()
                 ->where("name", BasicPermission::UPDATE->value)
-                ->where('model', Role::class)
+                ->where('model', Workgroup::class)
                 ->exists();
         }
 
@@ -96,7 +96,7 @@ class RolePolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Role $role): bool
+    public function delete(User $user, Workgroup $workgroup): bool
     {
         if($user->isCustomer())
             return false;
@@ -107,7 +107,7 @@ class RolePolicy
         if($user->isOperator()){
             return $user->role->permissions()
                 ->where("name", BasicPermission::DELETE->value)
-                ->where('model', Role::class)
+                ->where('model', Workgroup::class)
                 ->exists();
         }
 
@@ -117,7 +117,7 @@ class RolePolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Role $role): bool
+    public function restore(User $user, Workgroup $workgroup): bool
     {
         if($user->isCustomer())
             return false;
@@ -128,7 +128,7 @@ class RolePolicy
         if($user->isOperator()){
             return $user->role->permissions()
                 ->where("name", BasicPermission::UPDATE->value)
-                ->where('model', Role::class)
+                ->where('model', Workgroup::class)
                 ->exists();
         }
 
@@ -138,7 +138,7 @@ class RolePolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Role $role): bool
+    public function forceDelete(User $user, Workgroup $workgroup): bool
     {
         if($user->isCustomer())
             return false;
@@ -149,7 +149,7 @@ class RolePolicy
         if($user->isOperator()){
             return $user->role->permissions()
                 ->where("name", BasicPermission::DELETE->value)
-                ->where('model', Role::class)
+                ->where('model', Workgroup::class)
                 ->exists();
         }
 

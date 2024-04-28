@@ -20,7 +20,7 @@ class Workgroup extends Model
      */
     public function users(): BelongsToMany
     {
-        $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class);
     }
 
     /**

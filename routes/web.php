@@ -17,6 +17,16 @@ Route::middleware(['auth', 'verified'])->group(function(){
        Route::get('/{role}/users', App\Livewire\Role\Users::class)->name('users');
        Route::get('/{role}/add/user', App\Livewire\Role\AddUser::class)->name('add.user');
     });
+
+    // workgroup
+    Route::prefix('workgroup/')->name('workgroup.')->group(function (){
+        Route::get('/', \App\Livewire\Workgroup\Index::class)->name('index');
+        Route::get('/create', App\Livewire\Workgroup\Create::class)->name('create');
+        Route::get('/{workgroup}/edit', App\Livewire\Workgroup\Edit::class)->name('edit');
+        Route::get('/{workgroup}/users', App\Livewire\Workgroup\Users::class)->name('users');
+        Route::get('/{workgroup}/add/user', App\Livewire\Workgroup\AddUser::class)->name('add.user');
+
+    });
 });
 
 Route::view('profile', 'profile')
