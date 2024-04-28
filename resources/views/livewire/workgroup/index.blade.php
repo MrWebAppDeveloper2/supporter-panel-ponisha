@@ -33,9 +33,9 @@
                                     <i class="bx bx-dots-vertical-rounded"></i>
                                 </button>
                                 <div class="dropdown-menu">
-{{--                                    @can('view', $workgroup)--}}
-{{--                                        <a class="dropdown-item" href="{{ route('workgroup.users', $workgroup) }}" wire:navigate><i class='bx bxs-user-detail me-1'></i></i>کاربران</a>--}}
-{{--                                    @endcan--}}
+                                    @can('view', $workgroup)
+                                        <a class="dropdown-item" href="{{ route('workgroup.users', $workgroup) }}" wire:navigate><i class='bx bxs-user-detail me-1'></i></i>کاربران</a>
+                                    @endcan
 
                                     @can('update', $workgroup)
                                         <a class="dropdown-item" href="{{ route('workgroup.edit', $workgroup)}}" wire:navigate><i class="bx bx-edit-alt me-1"></i> ویرایش</a>

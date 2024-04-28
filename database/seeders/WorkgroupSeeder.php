@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use App\Models\Workgroup;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,6 +14,9 @@ class WorkgroupSeeder extends Seeder
      */
     public function run(): void
     {
-        Workgroup::factory()->count(15)->create();
+        $workgroups = Workgroup::factory()->count(15)->create();
+
+        foreach ($workgroups as $workgroup)
+            $workgroup->users()->attach(User::factory()->create());
     }
 }
