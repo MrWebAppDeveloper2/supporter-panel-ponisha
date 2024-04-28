@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\User\UserType;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -150,5 +151,35 @@ class User extends Authenticatable implements MustVerifyEmail
     public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    /**
+     * Check that user type is admin or no
+     *
+     * @return bool
+     */
+    public function isAdmin():bool
+    {
+        return $this->type == UserType::ADMIN->value;
+    }
+
+    /**
+     * Check that customer type is admin or no
+     *
+     * @return bool
+     */
+    public function isCustomer():bool
+    {
+        return $this->type == UserType::CUSTOMER->value;
+    }
+
+    /**
+     * Check that operator type is admin or no
+     *
+     * @return bool
+     */
+    public function isOperator():bool
+    {
+        return $this->type == UserType::OPERATOR->value;
     }
 }

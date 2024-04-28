@@ -16,9 +16,14 @@ class Users extends Component
     {
         $repository = app()->make(UserRepository::class);
 
-        $repository->update($user, ['role_id' => null])?
-            session()->now('alert-success', "کاربر از نقش {$this->role->name} حذف شد ! "):
+        $repository->update($user, ['role_id' => null]) ?
+            session()->now('alert-success', "کاربر از نقش {$this->role->name} حذف شد ! ") :
             session()->now('alert-danger', "وجود خطا در سرور");
+    }
+
+    public function mount()
+    {
+        $this->authorize('viewAny', Role::class);
     }
 
     public function render()

@@ -41,6 +41,8 @@ class Permissions extends Component
 
     public function mount(PermissionRepository $repository)
     {
+        $this->authorize('update', $this->role);
+
         $this->checkedPermissions = $this->role->permissions->pluck('id')->toArray();
 
         $this->permissions = $repository->all();

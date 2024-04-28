@@ -36,6 +36,8 @@ class Edit extends Component
 
     public function mount()
     {
+        $this->authorize('update', $this->role);
+
         $this->name = $this->role->name;
     }
 

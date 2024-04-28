@@ -13,6 +13,11 @@ class Create extends Component
     #[Validate(['required', 'unique:' . Role::class])]
     public string $name = '';
 
+    public function mount()
+    {
+        $this->authorize('create', Role::class);
+    }
+
     public function store()
     {
         $this->validate();

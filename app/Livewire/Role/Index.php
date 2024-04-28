@@ -13,8 +13,15 @@ class Index extends Component
 {
     use WithPagination, WithoutUrlPagination;
 
+    public function mount()
+    {
+        $this->authorize('viewAny', Role::class);
+    }
+
     public function delete(Role $role)
     {
+        $this->authorize('delete', $role);
+
         $repository = app()->make(RoleRepository::class);
 
         $role->users()->update(['role_id' => null]);

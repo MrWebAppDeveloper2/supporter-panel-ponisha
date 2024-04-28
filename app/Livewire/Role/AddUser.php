@@ -51,6 +51,8 @@ class AddUser extends Component
 
     public function mount(UserRepository $repository)
     {
+        $this->authorize('update', $this->role);
+
         $this->users = $repository->allExceptCustomers();
     }
 
