@@ -41,6 +41,7 @@
     @vite(['resources/js/app.js'])
 
     @yield('style')
+    {{ $style ?? '' }}
 </head>
     <body class="font-sans antialiased">
         <!-- Layout wrapper -->
@@ -112,5 +113,6 @@
         <script src="{{ asset('assets/js/pages-auth.js') }}"></script>
 
         @yield('script')
+        {{ $script ?? '' }}
     </body>
 </html>

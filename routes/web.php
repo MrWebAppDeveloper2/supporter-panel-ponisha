@@ -34,7 +34,7 @@ Route::middleware(['auth', 'verified'])->group(function(){
         Route::prefix('operator/')->name('operator.')->group(function (){
             Route::get('/', \App\Livewire\Operator\Index::class)->name('index');
 //        Route::get('/create', App\Livewire\Operator\Create::class)->name('create');
-//        Route::get('/{operator}/edit', App\Livewire\Operator\Edit::class)->name('edit');
+        Route::get('/{operator}/edit', App\Livewire\Operator\Edit::class)->name('edit');
 //        Route::get('/{operator}/users', App\Livewire\Operator\Users::class)->name('users');
 //        Route::get('/{operator}/add/user', App\Livewire\Operator\AddUser::class)->name('add.user');
 
