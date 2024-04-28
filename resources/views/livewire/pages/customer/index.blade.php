@@ -26,7 +26,7 @@
                         <td>{{ $customer->type }}</td>
                         <td>{{ \Morilog\Jalali\Jalalian::forge('last sunday')->format('%D') }}</td>
                         <td>
-                            <a href="{{ route('customer.show', $customer) }}" class="btn btn-outline-primary btn-sm">مشاهده جزئیات</a>
+                            <a href="{{ route('customer.show', $customer) }}" class="btn btn-outline-primary btn-sm" wire:navigate>مشاهده جزئیات</a>
                         </td>
                     </tr>
                 @endforeach

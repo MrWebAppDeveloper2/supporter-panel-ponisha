@@ -3,7 +3,7 @@
         <ul class="menu-inner">
             <!-- Dashboard -->
             <li @class(['menu-item', 'active' => (request()->routeIs('dashboard'))])>
-                <a href="{{ route('dashboard') }}" class="menu-link">
+                <a wire:navigate href="{{ route('dashboard') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-home-circle"></i>
                     <div>داشبورد</div>
                 </a>
@@ -11,7 +11,7 @@
             <!-- Role -->
             @can('viewAny', \App\Models\Role::class)
                 <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/role'))])>
-                    <a href="{{ route('role.index') }}" class="menu-link">
+                    <a wire:navigate href="{{ route('role.index') }}" class="menu-link">
                         <i class='menu-icon bx bx-universal-access'></i>
                         <div>نقش ها</div>
                     </a>
@@ -21,7 +21,7 @@
         <!-- Workgroup -->
             @can('viewAny', \App\Models\Workgroup::class)
                 <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/workgroup'))])>
-                    <a href="{{ route('workgroup.index') }}" class="menu-link">
+                    <a wire:navigate href="{{ route('workgroup.index') }}" class="menu-link">
                         <i class='menu-icon bx bx-group'></i>
                         <div>گروه کاری ها</div>
                     </a>
@@ -36,13 +36,13 @@
                     </a>
                     <ul class="menu-sub">
                         <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/user/operator'))])>
-                            <a href="{{ route('operator.index') }}" class="menu-link">
+                            <a wire:navigate href="{{ route('operator.index') }}" class="menu-link">
                                 <i class="menu-icon tf-icons bx bx-headphone"></i>
                                 <div>اوپراتورها</div>
                             </a>
                         </li>
                         <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/user/customer'))])>
-                            <a href="{{ route('customer.index') }}" class="menu-link">
+                            <a wire:navigate href="{{ route('customer.index') }}" class="menu-link">
                                 <i class="menu-icon tf-icons bx bxs-user-account"></i>
                                 <div>مشتری ها</div>
                             </a>
@@ -51,13 +51,13 @@
                 </li>
             @endcan
             {{--            <li class="menu-item active">--}}
-            {{--                <a href="javascript:void(0)" class="menu-link menu-toggle">--}}
+            {{--                <a wire:navigate href="javascript:void(0)" class="menu-link menu-toggle">--}}
             {{--                    <i class="menu-icon tf-icons bx bx-home-circle"></i>--}}
             {{--                    <div>داشبورد</div>--}}
             {{--                </a>--}}
             {{--                <ul class="menu-sub">--}}
             {{--                    <li class="menu-item active">--}}
-            {{--                        <a href="index.html" class="menu-link">--}}
+            {{--                        <a wire:navigate href="index.html" class="menu-link">--}}
             {{--                            <i class="menu-icon tf-icons bx bx-pie-chart-alt-2"></i>--}}
             {{--                            <div data-i18n="Analytics">تجزیه و تحلیل</div>--}}
             {{--                        </a>--}}
