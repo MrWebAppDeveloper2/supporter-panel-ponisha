@@ -57,4 +57,24 @@ class UserFactory extends Factory
             'customer_id' => Customer::factory(),
         ]);
     }
+
+    /**
+     * Indicate operator type for new user.
+     */
+    public function operator(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'type' => UserType::OPERATOR->value,
+        ]);
+    }
+
+    /**
+     * Indicate admin type for new user.
+     */
+    public function admin(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'type' => UserType::ADMIN->value,
+        ]);
+    }
 }

@@ -41,5 +41,12 @@ class DatabaseSeeder extends Seeder
             'email' => 'customer@example.com',
             'password'  => Hash::make('123456789')
         ]);
+
+        // create operator user for example
+        User::factory()->operator()->create([
+            'name' => 'Test Operator',
+            'email' => 'operator@example.com',
+            'password'  => Hash::make('123456789')
+        ]);
     }
 }
