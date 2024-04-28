@@ -58,6 +58,6 @@ class AddUser extends Component
 
     public function render(UserRepository $repository)
     {
-        return view('livewire.role.add-user');
+        return view('livewire.pages.role.add-user');
     }
 }

@@ -38,6 +38,6 @@ class Create extends Component
     #[Layout('layouts.app')]
     public function render()
     {
-        return view('livewire.role.create');
+        return view('livewire.pages.role.create');
     }
 }

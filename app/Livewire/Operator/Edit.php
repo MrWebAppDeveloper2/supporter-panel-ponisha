@@ -70,7 +70,7 @@ class Edit extends Component
         RoleRepository $roleRepository,
     )
     {
-        return view('livewire.operator.edit')
+        return view('livewire.pages.operator.edit')
             ->with('workgroups', $workgroupRepository->all(['id', 'name']))
             ->with('roles', $roleRepository->all(['id', 'name']));
     }

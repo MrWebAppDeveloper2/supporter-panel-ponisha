@@ -35,10 +35,16 @@
                         <div>کاربران</div>
                     </a>
                     <ul class="menu-sub">
-                        <li class="menu-item active">
+                        <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/user/operator'))])>
                             <a href="{{ route('operator.index') }}" class="menu-link">
                                 <i class="menu-icon tf-icons bx bx-headphone"></i>
                                 <div>اوپراتورها</div>
+                            </a>
+                        </li>
+                        <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/user/customer'))])>
+                            <a href="{{ route('customer.index') }}" class="menu-link">
+                                <i class="menu-icon tf-icons bx bxs-user-account"></i>
+                                <div>مشتری ها</div>
                             </a>
                         </li>
                     </ul>

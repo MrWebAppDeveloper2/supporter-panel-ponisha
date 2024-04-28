@@ -27,7 +27,7 @@ class Index extends Component
 
     public function render(UserRepository $repository)
     {
-        return view('livewire.operator.index')
+        return view('livewire.pages.operator.index')
             ->with('users', $repository->allOperators());
     }
 }

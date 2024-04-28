@@ -57,6 +57,8 @@ new #[Layout('layouts.guest')] class extends Component {
             'economic_code' => $this->economic_code,
         ]);
 
+        $validated['type'] = \App\Enums\User\UserType::CUSTOMER->value;
+
         event(new Registered($user = $customer->user()->create($validated)));
 
         Auth::login($user);
