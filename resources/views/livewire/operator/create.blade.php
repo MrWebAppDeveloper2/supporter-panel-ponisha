@@ -4,20 +4,29 @@
 
 <div class="card col-12 col-md-6">
     <div class="card-body">
-        <form class="row">
+        <form class="row" wire:submit="store">
+            <div class="form-group p-3">
+                <label for="defaultFormControlInput" class="form-label">ایمیل *</label>
+                <input type="text" @class(['form-control', 'is-invalid' => $errors->has('email')]) wire:model="email"
+                       id="defaultFormControlInput" placeholder="ایمیل اوپراتور جدید"
+                       aria-describedby="defaultFormControlHelp">
+                @error('email')
+                <span class="invalid-feedback">{{ $message }}</span>
+                @enderror
+            </div>
             <div class="form-group p-3">
                 <label for="defaultFormControlInput" class="form-label">نام *</label>
                 <input type="text" @class(['form-control', 'is-invalid' => $errors->has('name')]) wire:model="name"
-                       id="defaultFormControlInput" placeholder="نام اوپراتور"
+                       id="defaultFormControlInput" placeholder="نام اوپراتور جدید"
                        aria-describedby="defaultFormControlHelp">
                 @error('name')
                 <span class="invalid-feedback">{{ $message }}</span>
                 @enderror
             </div>
             <div class="form-group p-3">
-                <label for="defaultFormControlInput" class="form-label">کلمه عبور</label>
+                <label for="defaultFormControlInput" class="form-label">کلمه عبور </label>
                 <input type="password" @class(['form-control', 'is-invalid' => $errors->has('password')]) wire:model="password"
-                       id="defaultFormControlInput" placeholder="کلمه عبور اوپراتور را تغییر دهید"
+                       id="defaultFormControlInput" placeholder="کلمه عبور اوپراتور"
                        aria-describedby="defaultFormControlHelp">
                 @error('password')
                 <span class="invalid-feedback">{{ $message }}</span>
@@ -51,7 +60,7 @@
                 @enderror
             </div>
             <div class="form-group p-3">
-                <button class="btn btn-primary" type="button" wire:click="update">ذخیره</button>
+                <button class="btn btn-success" type="submit">ذخیره</button>
                 <a class="btn btn-warning" href="{{ route('operator.index') }}">بازگشت</a>
             </div>
         </form>
@@ -67,13 +76,13 @@
     workgroups.on('change', function (e) {
         console.log(workgroups.val())
 
-        @this.set('workgroup_ids', workgroups.val())
+    @this.set('workgroup_ids', workgroups.val())
     })
 
     let role_id = $('#role').select2()
 
     role_id.on('change', function (e) {
-        @this.set('role_id', role_id.val())
+    @this.set('role_id', role_id.val())
     })
 </script>
 @endscript

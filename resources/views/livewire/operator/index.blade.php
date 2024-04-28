@@ -2,9 +2,9 @@
     <div class="card-header d-flex justify-content-between align-items-center">
         <h4 class="my-0">اوپراتور ها</h4>
 
-{{--        <div>--}}
-{{--            <a href="{{ route('workgroup.add.user', $workgroup) }}" class="btn btn-outline-primary" wire:navigate>اضافه کردن عضو</a>--}}
-{{--        </div>--}}
+        <div>
+            <a href="{{ route('operator.create') }}" class="btn btn-outline-primary">ایجاد اوپراتور جدید</a>
+        </div>
     </div>
     <div class="card-body">
         <x-alert/>
@@ -15,6 +15,7 @@
                     <th>#</th>
                     <th>نام</th>
                     <th>ایمیل</th>
+                    <th>نقش</th>
                     <th>عمل‌ها</th>
                 </tr>
                 </thead>
@@ -24,6 +25,7 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
+                        <td>{{ $user->role->name }}</td>
                         <td>
                             <div class="dropdown">
                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">

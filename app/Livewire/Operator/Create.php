@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Operator;
 
+use App\Enums\User\UserType;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Workgroup;
@@ -9,13 +10,13 @@ use App\Repositories\RoleRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\WorkgroupRepository;
 use Illuminate\Support\Facades\Hash;
-use Livewire\Attributes\Rule;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
-class Edit extends Component
+class Create extends Component
 {
-    public User $operator;
+    #[Validate(['required', 'email', 'max:255'])]
+    public string $email;
 
     #[Validate(['required', 'string', 'max:255'])]
     public string $name;
@@ -35,34 +36,27 @@ class Edit extends Component
     #[Validate(['required', 'numeric', 'exists:' . Role::class . ',id'])]
     public int $role_id;
 
-    public function update()
+    public function store()
     {
         $this->validate();
 
         $repository = app()->make(UserRepository::class);
 
-        $fields = $this->only(['name', 'role_id']);
+        $this->password = Hash::make($this->password);
 
-        if(!empty($this->password))
-            $fields['password'] = Hash::make($this->password);
-
-        $repository->update($this->operator, $fields) &&
-        $this->operator->workgroups()->sync($this->workgroup_ids) ?
-            session()->flash('alert-success', 'اوپراتور ویرایش شد !'):
+        ($user = $repository->create($this->only(['email', 'name', 'role_id', 'password']))) &&
+        $user->workgroups()->sync($this->workgroup_ids) ?
+            session()->flash('alert-success', 'اوپراتور جدید ایجاد شد !'):
             session()->flash('alert-danger', 'وجود خطا در سرور');
+
+        $repository->update($user, ['type' => UserType::OPERATOR->value]);
 
         $this->redirect(route('operator.index'));
     }
 
     public function mount()
     {
-        $this->authorize('update', $this->operator);
-
-        $this->name = $this->operator->name;
-
-        $this->workgroup_ids = $this->operator->workgroups->pluck('id')->toArray();
-
-        $this->role_id = $this->operator->role_id;
+        $this->authorize('create', User::class);
     }
 
     public function render(
@@ -70,7 +64,7 @@ class Edit extends Component
         RoleRepository $roleRepository,
     )
     {
-        return view('livewire.operator.edit')
+        return view('livewire.operator.create')
             ->with('workgroups', $workgroupRepository->all(['id', 'name']))
             ->with('roles', $roleRepository->all(['id', 'name']));
     }
