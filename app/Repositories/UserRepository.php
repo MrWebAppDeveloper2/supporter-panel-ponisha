@@ -13,6 +13,16 @@ class UserRepository
         return $user->update($data);
     }
 
+    public function create(array $data):User|false
+    {
+        return User::create($data);
+    }
+
+    public function delete(User $user):bool
+    {
+        return $user->delete();
+    }
+
     public function paginate(int $perPage = 20)
     {
         return User::paginate($perPage);
