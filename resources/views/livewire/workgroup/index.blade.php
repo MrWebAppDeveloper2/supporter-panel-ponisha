@@ -37,9 +37,9 @@
 {{--                                        <a class="dropdown-item" href="{{ route('workgroup.users', $workgroup) }}" wire:navigate><i class='bx bxs-user-detail me-1'></i></i>کاربران</a>--}}
 {{--                                    @endcan--}}
 
-{{--                                    @can('update', $workgroup)--}}
-{{--                                        <a class="dropdown-item" href="{{ route('workgroup.edit', $workgroup)}}" wire:navigate><i class="bx bx-edit-alt me-1"></i> ویرایش</a>--}}
-{{--                                    @endcan--}}
+                                    @can('update', $workgroup)
+                                        <a class="dropdown-item" href="{{ route('workgroup.edit', $workgroup)}}" wire:navigate><i class="bx bx-edit-alt me-1"></i> ویرایش</a>
+                                    @endcan
 
                                     @can('delete', $workgroup)
                                         <button class="dropdown-item" wire:click="delete({{ $workgroup }})"><i class="bx bx-trash me-1"></i> حذف</button>

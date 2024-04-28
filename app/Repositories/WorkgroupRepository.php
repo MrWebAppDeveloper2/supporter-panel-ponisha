@@ -26,4 +26,9 @@ class WorkgroupRepository
     {
         return $workgroup->delete();
     }
+
+    public function update(Workgroup $workgroup, array $data):bool
+    {
+        return $workgroup->update($data);
+    }
 }

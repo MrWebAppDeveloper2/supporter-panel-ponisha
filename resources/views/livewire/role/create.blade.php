@@ -9,7 +9,7 @@
                 @enderror
             </div>
             <div class="form-group p-3">
-                <button class="btn btn-primary" type="submit">ذخیره</button>
+                <button class="btn btn-success" type="submit">ذخیره</button>
                 <a class="btn btn-warning" href="{{ route('role.index') }}" wire:navigate>بازگشت</a>
             </div>
         </form>
