@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Repositories;
+
+use App\Models\Workgroup;
+use Illuminate\Database\Eloquent\Collection;
+
+class WorkgroupRepository
+{
+    public function all(array $columns = ['*']):Collection
+    {
+        return Workgroup::all($columns);
+    }
+
+    public function paginate(int $perPage = 10)
+    {
+        return Workgroup::paginate($perPage);
+    }
+}
