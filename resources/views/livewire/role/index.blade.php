@@ -2,10 +2,12 @@
     <div class="card-header d-flex justify-content-between align-items-center">
         <h4 class="my-0">نقش ها</h4>
 
-        <a href="{{ route('role.create') }}" wire:navigate class="btn btn-primary">
-            <i class='bx bxs-plus-circle' style="padding-left: 10px"></i>
-            <span>نقش جدید</span>
-        </a>
+       @can('create', \App\Models\Role::class)
+            <a href="{{ route('role.create') }}" wire:navigate class="btn btn-primary">
+                <i class='bx bxs-plus-circle' style="padding-left: 10px"></i>
+                <span>نقش جدید</span>
+            </a>
+        @endcan
     </div>
     <div class="card-body">
         <x-alert/>

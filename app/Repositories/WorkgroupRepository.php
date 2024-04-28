@@ -16,4 +16,9 @@ class WorkgroupRepository
     {
         return Workgroup::paginate($perPage);
     }
+
+    public function store(array $data):Workgroup|false
+    {
+        return Workgroup::create($data);
+    }
 }

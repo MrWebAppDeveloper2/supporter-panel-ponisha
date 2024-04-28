@@ -21,11 +21,10 @@ Route::middleware(['auth', 'verified'])->group(function(){
     // workgroup
     Route::prefix('workgroup/')->name('workgroup.')->group(function (){
         Route::get('/', \App\Livewire\Workgroup\Index::class)->name('index');
-//        Route::get('/{workgroup}/permissions', App\Livewire\Role\Permissions::class)->name('permission');
-//        Route::get('/create', App\Livewire\Role\Create::class)->name('create');
-//        Route::get('/{workgroup}/edit', App\Livewire\Role\Edit::class)->name('edit');
-//        Route::get('/{workgroup}/users', App\Livewire\Role\Users::class)->name('users');
-//        Route::get('/{workgroup}/add/user', App\Livewire\Role\AddUser::class)->name('add.user');
+        Route::get('/create', App\Livewire\Workgroup\Create::class)->name('create');
+//        Route::get('/{workgroup}/edit', App\Livewire\Workgroup\Edit::class)->name('edit');
+//        Route::get('/{workgroup}/users', App\Livewire\Workgroup\Users::class)->name('users');
+//        Route::get('/{workgroup}/add/user', App\Livewire\Workgroup\AddUser::class)->name('add.user');
     });
 });
 
