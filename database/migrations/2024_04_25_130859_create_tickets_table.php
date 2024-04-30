@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('status')->nullable();
             $table->timestamps();
 
-            $table->foreign('recipient_id')->on(\App\Models\User::class)->references('id');
+            $table->foreign('recipient_id')->on('users')->references('id');
         });
     }
 

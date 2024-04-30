@@ -43,6 +43,11 @@ Route::middleware(['auth', 'verified'])->group(function(){
             Route::get('/{user}', \App\Livewire\Customer\Show::class)->name('show');
         });
     });
+
+    // ticket
+    Route::prefix('ticket/')->name('ticket.')->group(function(){
+        Route::get('/', \App\Livewire\Ticket\Index::class)->name('index');
+    });
 });
 //
 Route::view('profile', 'profile')

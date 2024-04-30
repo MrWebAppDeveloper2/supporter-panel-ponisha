@@ -18,7 +18,7 @@
                 </li>
             @endcan
 
-        <!-- Workgroup -->
+            <!-- Workgroup -->
             @can('viewAny', \App\Models\Workgroup::class)
                 <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/workgroup'))])>
                     <a wire:navigate href="{{ route('workgroup.index') }}" class="menu-link">
@@ -28,6 +28,7 @@
                 </li>
             @endcan
 
+            <!-- User -->
             @can('viewAny', \App\Models\User::class)
                 <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/user'))])>
                     <a href="javascript:void(0)" class="menu-link menu-toggle">
@@ -50,20 +51,14 @@
                     </ul>
                 </li>
             @endcan
-            {{--            <li class="menu-item active">--}}
-            {{--                <a wire:navigate href="javascript:void(0)" class="menu-link menu-toggle">--}}
-            {{--                    <i class="menu-icon tf-icons bx bx-home-circle"></i>--}}
-            {{--                    <div>داشبورد</div>--}}
-            {{--                </a>--}}
-            {{--                <ul class="menu-sub">--}}
-            {{--                    <li class="menu-item active">--}}
-            {{--                        <a wire:navigate href="index.html" class="menu-link">--}}
-            {{--                            <i class="menu-icon tf-icons bx bx-pie-chart-alt-2"></i>--}}
-            {{--                            <div data-i18n="Analytics">تجزیه و تحلیل</div>--}}
-            {{--                        </a>--}}
-            {{--                    </li>--}}
-            {{--                </ul>--}}
-            {{--            </li>--}}
+
+            <!-- Ticket -->
+            <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/ticket'))])>
+                <a wire:navigate href="{{ route('ticket.index') }}" class="menu-link">
+                    <i class='menu-icon bx bx-support'></i>
+                    <div>تیکت ها</div>
+                </a>
+            </li>
         </ul>
     </div>
 </aside>
