@@ -30,7 +30,7 @@ class Index extends Component
 
     public function render(WorkgroupRepository $repository)
     {
-        return view('livewire.workgroup.index')
+        return view('livewire.pages.workgroup.index')
             ->with('workgroups', $repository->paginate());
     }
 }

@@ -44,6 +44,6 @@ class Edit extends Component
     #[Layout('layouts.app')]
     public function render()
     {
-        return view('livewire.role.edit');
+        return view('livewire.pages.role.edit');
     }
 }

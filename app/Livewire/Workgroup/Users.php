@@ -39,7 +39,7 @@ class Users extends Component
 
     public function render()
     {
-        return view('livewire.workgroup.users')
+        return view('livewire.pages.workgroup.users')
             ->with('users', $this->users);
     }
 }

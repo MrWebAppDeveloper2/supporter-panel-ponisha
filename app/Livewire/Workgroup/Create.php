@@ -37,6 +37,6 @@ class Create extends Component
 
     public function render()
     {
-        return view('livewire.workgroup.create');
+        return view('livewire.pages.workgroup.create');
     }
 }

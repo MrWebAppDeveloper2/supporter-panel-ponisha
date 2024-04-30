@@ -53,6 +53,6 @@ class AddUser extends Component
     public function render(UserRepository $repository)
     {
 
-        return view('livewire.workgroup.add-user');
+        return view('livewire.pages.workgroup.add-user');
     }
 }

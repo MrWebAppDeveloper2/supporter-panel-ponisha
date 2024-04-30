@@ -64,7 +64,7 @@ class Create extends Component
         RoleRepository $roleRepository,
     )
     {
-        return view('livewire.operator.create')
+        return view('livewire.pages.operator.create')
             ->with('workgroups', $workgroupRepository->all(['id', 'name']))
             ->with('roles', $roleRepository->all(['id', 'name']));
     }

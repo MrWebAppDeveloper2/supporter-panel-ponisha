@@ -32,12 +32,6 @@
                                     <i class="bx bx-dots-vertical-rounded"></i>
                                 </button>
                                 <div class="dropdown-menu">
-{{--                                    @can('view', $user)--}}
-{{--                                        <a class="dropdown-item" href="{{ route('user.permission', $user) }}" wire:navigate><i class='bx bx-universal-access me-1'></i></i>دسترسی ها</a>--}}
-
-{{--                                        <a class="dropdown-item" href="{{ route('user.users', $user) }}" wire:navigate><i class='bx bxs-user-detail me-1'></i></i>کاربران</a>--}}
-{{--                                    @endcan--}}
-
                                     @can('update', $user)
                                         <a class="dropdown-item" href="{{ route('operator.edit', $user)}}"><i class="bx bx-edit-alt me-1"></i> ویرایش</a>
                                     @endcan

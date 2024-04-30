@@ -51,6 +51,6 @@ class Permissions extends Component
     #[Layout('layouts.app')]
     public function render()
     {
-        return view('livewire.role.permissions');
+        return view('livewire.pages.role.permissions');
     }
 }

@@ -33,15 +33,18 @@ Route::middleware(['auth', 'verified'])->group(function(){
         // operator
         Route::prefix('operator/')->name('operator.')->group(function (){
             Route::get('/', \App\Livewire\Operator\Index::class)->name('index');
-        Route::get('/create', App\Livewire\Operator\Create::class)->name('create');
-        Route::get('/{operator}/edit', App\Livewire\Operator\Edit::class)->name('edit');
-//        Route::get('/{operator}/users', App\Livewire\Operator\Users::class)->name('users');
-//        Route::get('/{operator}/add/user', App\Livewire\Operator\AddUser::class)->name('add.user');
+            Route::get('/create', App\Livewire\Operator\Create::class)->name('create');
+            Route::get('/{operator}/edit', App\Livewire\Operator\Edit::class)->name('edit');
+        });
 
+        // customer
+        Route::prefix('customer/')->name('customer.')->group(function (){
+            Route::get('/', \App\Livewire\Customer\Index::class)->name('index');
+            Route::get('/{user}', \App\Livewire\Customer\Show::class)->name('show');
         });
     });
 });
-
+//
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');

@@ -38,6 +38,6 @@ class Edit extends Component
 
     public function render()
     {
-        return view('livewire.workgroup.edit');
+        return view('livewire.pages.workgroup.edit');
     }
 }
