@@ -69,28 +69,21 @@
 
 @script
 <script>
-    console.log({{ $workgroups->count() }})
-
     let workgroups = $('#workgroups').select2()
 
     workgroups.on('change', function (e) {
-        console.log(workgroups.val())
-
-    @this.set('workgroup_ids', workgroups.val())
+        @this.set('workgroup_ids', workgroups.val())
     })
 
     let role_id = $('#role').select2()
 
     role_id.on('change', function (e) {
-    @this.set('role_id', role_id.val())
+        @this.set('role_id', role_id.val())
     })
 </script>
 @endscript
 
 <x-slot:script>
-
     <script src="{{ asset('assets/vendor/libs/select2/select2.js') }}"></script>
-
-
 </x-slot:script>
 

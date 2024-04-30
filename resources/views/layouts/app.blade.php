@@ -63,7 +63,7 @@
                         <!-- Content -->
 
                         <div class="container-xxl flex-grow-1 container-p-y">
-                            <div class="row px-3">
+                            <div class="row px-3 justify-content-center">
                                 {{ $slot }}
                             </div>
                         </div>

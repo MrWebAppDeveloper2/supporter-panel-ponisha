@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Collection;
 
 class TicketRepository
 {
+    public function create(array $data):Ticket|false
+    {
+        return Ticket::create($data);
+    }
+
     public function delete(Ticket $ticket):bool
     {
         return (bool)$ticket->delete();

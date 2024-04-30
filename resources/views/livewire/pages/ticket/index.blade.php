@@ -3,7 +3,7 @@
         <h4 class="my-0">تیکت ها</h4>
 
         @can('create', \App\Models\Ticket::class)
-            <a href="{{ route('ticket.create') }}" wire:navigate class="btn btn-primary">
+            <a href="{{ route('ticket.create') }}" class="btn btn-primary">
                 <i class='bx bxs-plus-circle' style="padding-left: 10px"></i>
                 <span>تیکت جدید</span>
             </a>
