@@ -38,22 +38,9 @@
                                     <i class="bx bx-dots-vertical-rounded"></i>
                                 </button>
                                 <div class="dropdown-menu">
-                                    @can('view', $ticket)
-                                        <a class="dropdown-item" href="{{ route('ticket.permission', $ticket) }}"
-                                           wire:navigate><i class='bx bx-universal-access me-1'></i></i>دسترسی ها</a>
-
-                                        <a class="dropdown-item" href="{{ route('ticket.users', $ticket) }}"
-                                           wire:navigate><i class='bx bxs-user-detail me-1'></i></i>کاربران</a>
-                                    @endcan
-
-                                    @can('update', $ticket)
-                                        <a class="dropdown-item" href="{{ route('ticket.edit', $ticket)}}"
-                                           wire:navigate><i class="bx bx-edit-alt me-1"></i> ویرایش</a>
-                                    @endcan
-
                                     @can('delete', $ticket)
-                                        <button class="dropdown-item" wire:click="delete({{ $ticket }})"><i
-                                                class="bx bx-trash me-1"></i> حذف
+                                        <button class="dropdown-item" wire:click="delete({{ $ticket }})"
+                                        wire:confirm="آیا از حذف این تیکت مطمئن هستید ؟"><i class="bx bx-trash me-1"></i> حذف
                                         </button>
                                     @endcan
                                 </div>

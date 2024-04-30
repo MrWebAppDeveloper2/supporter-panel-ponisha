@@ -53,12 +53,15 @@
             @endcan
 
             <!-- Ticket -->
-            <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/ticket'))])>
-                <a wire:navigate href="{{ route('ticket.index') }}" class="menu-link">
-                    <i class='menu-icon bx bx-support'></i>
-                    <div>تیکت ها</div>
-                </a>
-            </li>
+
+            @can('viewAny', \App\Models\Ticket::class)
+                <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/ticket'))])>
+                    <a wire:navigate href="{{ route('ticket.index') }}" class="menu-link">
+                        <i class='menu-icon bx bx-support'></i>
+                        <div>تیکت ها</div>
+                    </a>
+                </li>
+            @endcan
         </ul>
     </div>
 </aside>
