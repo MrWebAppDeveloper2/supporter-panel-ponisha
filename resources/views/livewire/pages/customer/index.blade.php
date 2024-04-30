@@ -26,7 +26,16 @@
                         <td>{{ $customer->type }}</td>
                         <td>{{ \Morilog\Jalali\Jalalian::forge('last sunday')->format('%D') }}</td>
                         <td>
-                            <a href="{{ route('customer.show', $customer) }}" class="btn btn-outline-primary btn-sm" wire:navigate>مشاهده جزئیات</a>
+                            @can('view', $customer)
+                                <a href="{{ route('customer.show', $customer) }}" class="btn btn-outline-primary btn-sm"
+                                   wire:navigate>مشاهده جزئیات</a>
+                            @endcan
+                            @can('delete', $customer)
+                                <button class="btn btn-outline-danger btn-sm" type="button"
+                                        wire:click="delete({{ $customer }})"
+                                        wire:confirm="آیا از حذف این مشتری مطمئن هستید ؟">حذف
+                                </button>
+                            @endcan
                         </td>
                     </tr>
                 @endforeach

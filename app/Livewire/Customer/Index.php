@@ -8,6 +8,20 @@ use Livewire\Component;
 
 class Index extends Component
 {
+    private UserRepository $userRepository;
+
+    public function __construct()
+    {
+        $this->userRepository = app()->make(UserRepository::class);
+    }
+
+    public function delete(User $user)
+    {
+        $this->authorize('delete', $user);
+
+        $this->userRepository->delete($user);
+    }
+
     public function mount()
     {
         $this->authorize('viewAny', User::class);
