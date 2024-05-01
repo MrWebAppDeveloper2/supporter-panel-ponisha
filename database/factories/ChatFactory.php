@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\Chat;
+use App\Enums\Chat\ChatType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Message>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Chat>
  */
-class MessageFactory extends Factory
+class ChatFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,8 +18,8 @@ class MessageFactory extends Factory
     public function definition(): array
     {
         return [
-            'body' => $this->faker->realText,
-            'chat_id' => Chat::factory(),
+            'link' => $this->faker->uuid,
+            'type' => $this->faker->randomElement(array_values(ChatType::cases())),
         ];
     }
 }

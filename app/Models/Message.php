@@ -3,32 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class Message extends Model
+class Message extends Pivot
 {
     use HasFactory;
 
-    public $guarded = ['id'];
-
-    /**
-     * The message sender
-     *
-     * @return MorphTo
-     */
-    public function senderable(): MorphTo
+    public function chat():BelongsTo
     {
-        return $this->morphTo();
-    }
-
-    /**
-     * The entity which message is belongs to
-     *
-     * @return MorphTo
-     */
-    public function messageable(): MorphTo
-    {
-        return $this->morphTo();
+        return $this->belongsTo(Chat::class);
     }
 }

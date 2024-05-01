@@ -156,6 +156,16 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * User's chats
+     *
+     * @return BelongsToMany
+     */
+    public function chats():BelongsToMany
+    {
+        return $this->belongsToMany(Chat::class);
+    }
+
+    /**
      * Check that user type is admin or no
      *
      * @return bool

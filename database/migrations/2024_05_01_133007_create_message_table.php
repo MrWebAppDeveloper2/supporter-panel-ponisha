@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('messages', function (Blueprint $table) {
+        Schema::create('message', function (Blueprint $table) {
             $table->id();
-            $table->longText('body');
-            $table->morphs('messageable');
-            $table->morphs('senderable');
-            $table->string('status')->nullable();
+            $table->mediumText('body');
+            $table->string('status')->default(\App\Enums\Message\MessageStatus::SENT->value);
+            $table->foreignId('chat_id')->constrained();
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('messages');
+        Schema::dropIfExists('message');
     }
 };
