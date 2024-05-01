@@ -28,6 +28,19 @@ class Index extends Component
         $this->ticketRepository->delete($ticket);
     }
 
+    public function closeTicket(Ticket $ticket)
+    {
+        $this->authorize('update', $ticket);
+
+        $this->ticketRepository->update($ticket,
+            [
+                'status' => TicketStatus::CLOSED->value,
+                'recipient_id' => null,
+            ]) ?
+            session()->now('alert-success', 'تیکت بسته شد !') :
+            session()->now('alert-danger', 'وجود خطا در سرور !');
+    }
+
     public function mount()
     {
         $this->authorize('viewAny', Ticket::class);

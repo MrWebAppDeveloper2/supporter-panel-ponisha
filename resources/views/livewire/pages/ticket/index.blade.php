@@ -16,19 +16,25 @@
                 <ul class="nav nav-pills" role="tablist">
                     @if(auth()->user()->type != \App\Enums\User\UserType::CUSTOMER->value)
                         <li class="nav-item">
-                            <a href="{{ route('ticket.index', ['status' => \App\Enums\Ticket\TicketStatus::WAITING->value]) }}" wire:navigate
-                                @class(['nav-link', 'active' => (request()->query('status') == \App\Enums\Ticket\TicketStatus::WAITING->value)])>در انتظار پاسخگو
+                            <a href="{{ route('ticket.index', ['status' => \App\Enums\Ticket\TicketStatus::WAITING->value]) }}"
+                               wire:navigate
+                                @class(['nav-link', 'active' => (request()->query('status') == \App\Enums\Ticket\TicketStatus::WAITING->value)])>در
+                                انتظار پاسخگو
                             </a>
                         </li>
                     @endcan
                     <li class="nav-item">
-                        <a href="{{ route('ticket.index', ['status' => \App\Enums\Ticket\TicketStatus::PENDING->value]) }}" wire:navigate
-                            @class(['nav-link', 'active' => (request()->query('status') == \App\Enums\Ticket\TicketStatus::PENDING->value)])>تیکت های باز
+                        <a href="{{ route('ticket.index', ['status' => \App\Enums\Ticket\TicketStatus::PENDING->value]) }}"
+                           wire:navigate
+                            @class(['nav-link', 'active' => (request()->query('status') == \App\Enums\Ticket\TicketStatus::PENDING->value)])>تیکت
+                            های باز
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('ticket.index', ['status' => \App\Enums\Ticket\TicketStatus::CLOSED->value]) }}" wire:navigate
-                            @class(['nav-link', 'active' => (request()->query('status') == \App\Enums\Ticket\TicketStatus::CLOSED->value)])>بسته شده
+                        <a href="{{ route('ticket.index', ['status' => \App\Enums\Ticket\TicketStatus::CLOSED->value]) }}"
+                           wire:navigate
+                            @class(['nav-link', 'active' => (request()->query('status') == \App\Enums\Ticket\TicketStatus::CLOSED->value)])>بسته
+                            شده
                         </a>
                     </li>
                 </ul>
@@ -55,20 +61,11 @@
                                 </td>
                                 <td>{{ \Morilog\Jalali\Jalalian::forge($ticket->created_at)->format('%D') }}</td>
                                 <td>
-                                    <div class="dropdown">
-                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                data-bs-toggle="dropdown">
-                                            <i class="bx bx-dots-vertical-rounded"></i>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            @can('delete', $ticket)
-                                                <button class="dropdown-item" wire:click="delete({{ $ticket }})"
-                                                        wire:confirm="آیا از حذف این تیکت مطمئن هستید ؟"><i
-                                                        class="bx bx-trash me-1"></i> حذف
-                                                </button>
-                                            @endcan
-                                        </div>
-                                    </div>
+                                @can('update', $ticket)
+                                        <button class="btn btn-outline-warning btn-sm"
+                                                wire:click="closeTicket({{ $ticket }})"
+                                                wire:confirm="ایا از بستن این تیکت مطمئن هستید ؟">بستن تیکت</button>
+                                @endcan
                                 </td>
                             </tr>
                         @endforeach

@@ -86,6 +86,11 @@ class TicketRepository
         return Ticket::create($data);
     }
 
+    public function update(Ticket $ticket, array $data):bool
+    {
+        return $ticket->update($data);
+    }
+
     public function delete(Ticket $ticket):bool
     {
         return (bool)$ticket->delete();

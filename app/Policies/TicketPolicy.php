@@ -73,17 +73,13 @@ class TicketPolicy
     public function update(User $user, Ticket $ticket): bool
     {
         if($user->isCustomer())
-            return false;
+            return $ticket->customer_id == $user->customer->id;
 
         if($user->isAdmin())
             return true;
 
-        if($user->isOperator()){
-            return $user->role->permissions()
-                ->where("name", BasicPermission::UPDATE->value)
-                ->where('model', Ticket::class)
-                ->exists();
-        }
+        if($user->isOperator())
+            return false;
 
         return false;
     }
