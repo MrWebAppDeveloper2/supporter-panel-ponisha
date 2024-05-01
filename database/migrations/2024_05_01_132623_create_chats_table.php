@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('chats', function (Blueprint $table) {
             $table->id();
             $table->string('type')->default(\App\Enums\Chat\ChatType::PV->value);
-            $table->text('link');
+            $table->text('link')->unique();
             $table->string('status')->nullable();
             $table->timestamps();
         });
