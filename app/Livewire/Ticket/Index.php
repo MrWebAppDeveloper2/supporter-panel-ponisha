@@ -2,13 +2,19 @@
 
 namespace App\Livewire\Ticket;
 
+use App\Enums\Ticket\TicketStatus;
+use App\Enums\User\UserType;
 use App\Models\Ticket;
 use App\Repositories\TicketRepository;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 
 class Index extends Component
 {
     private TicketRepository $ticketRepository;
+
+    #[Url]
+    public string $status = '';
 
     public function __construct()
     {
@@ -29,7 +35,14 @@ class Index extends Component
 
     public function render()
     {
+        if(auth()->user()->type == UserType::CUSTOMER->value)
+            $tickets = $this->status == TicketStatus::CLOSED->value ?
+                $this->ticketRepository->closedTickets() :
+                $this->ticketRepository->notClosedTickets();
+        else
+            $tickets = $this->ticketRepository->getWithStatusScope($this->status);
+
         return view('livewire.pages.ticket.index')
-            ->with('tickets', $this->ticketRepository->paginate());
+            ->with('tickets', $tickets);
     }
 }

@@ -2,11 +2,85 @@
 
 namespace App\Repositories;
 
+use App\Enums\Ticket\TicketStatus;
 use App\Models\Ticket;
 use Illuminate\Database\Eloquent\Collection;
 
 class TicketRepository
 {
+    /**
+     * Returns waiting status tickets
+     *
+     * @param bool $pagination
+     * @param int|null $perpage
+     * @return Collection
+     */
+    public function waitingTickets(bool $pagination = true, ?int $perpage = 10):mixed
+    {
+        $query = Ticket::where('status', TicketStatus::WAITING->value);
+
+        return $pagination ?
+            $query->paginate($perpage) :
+            $query->get();
+    }
+
+    /**
+     * Returns pending status tickets
+     *
+     * @param bool $pagination
+     * @param int|null $perpage
+     * @return Collection
+     */
+    public function pendingTickets(bool $pagination = true, ?int $perpage = 10):mixed
+    {
+        $query = Ticket::where('status', TicketStatus::PENDING->value);
+
+        return $pagination ?
+            $query->paginate($perpage) :
+            $query->get();
+    }
+
+    /**
+     * Returns closed status tickets
+     *
+     * @param bool $pagination
+     * @param int|null $perpage
+     * @return Collection
+     */
+    public function closedTickets(bool $pagination = true, ?int $perpage = 10):mixed
+    {
+        $query = Ticket::where('status', TicketStatus::CLOSED->value);
+
+        return $pagination ?
+            $query->paginate($perpage) :
+            $query->get();
+    }
+
+    /**
+     * Returns tickets where their status are not equivalent to closed
+     *
+     * @param bool $pagination
+     * @param int|null $perpage
+     * @return Collection
+     */
+    public function notClosedTickets(bool $pagination = true, ?int $perpage = 10):mixed
+    {
+        $query = Ticket::where('status', '!=', TicketStatus::CLOSED->value);
+
+        return $pagination ?
+            $query->paginate($perpage) :
+            $query->get();
+    }
+
+    public function getWithStatusScope(string $status, bool $pagination = true, ?int $perpage = 10):mixed
+    {
+        $query = Ticket::where('status', $status);
+
+        return $pagination ?
+            $query->paginate($perpage) :
+            $query->get();
+    }
+
     public function create(array $data):Ticket|false
     {
         return Ticket::create($data);
