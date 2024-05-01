@@ -50,6 +50,11 @@ Route::middleware(['auth', 'verified'])->group(function(){
         Route::get('/create', \App\Livewire\Ticket\Create::class)->name('create');
         Route::get('/{ticket}', \App\Livewire\Ticket\Show::class)->name('show');
     });
+
+    // cartable
+    Route::prefix('cartable/')->name('cartable.')->group(function(){
+        Route::get('/', \App\Livewire\Cartable\Index::class)->name('index');
+    });
 });
 //
 Route::view('profile', 'profile')

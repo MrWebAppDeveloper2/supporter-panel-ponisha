@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('type')->default(\App\Enums\Chat\ChatType::PV->value);
             $table->text('link')->unique();
+            $table->text('meta')->nullable()->comment('Meta data.');
             $table->string('status')->nullable();
             $table->timestamps();
         });

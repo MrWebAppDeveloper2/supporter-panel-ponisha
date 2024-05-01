@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\NewTicket;
 use App\Models\Scopes\TicketUserTypeScope;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,6 +18,10 @@ class Ticket extends Model
     use HasFactory;
 
     public $guarded = ['id'];
+
+    protected $dispatchesEvents = [
+        'created' => NewTicket::class
+    ];
 
     /**
      * Specify the workgroup to which the ticket was sent

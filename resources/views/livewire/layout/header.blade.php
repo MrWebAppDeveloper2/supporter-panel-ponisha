@@ -18,7 +18,7 @@
                 </li>
             @endcan
 
-            <!-- Workgroup -->
+        <!-- Workgroup -->
             @can('viewAny', \App\Models\Workgroup::class)
                 <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/workgroup'))])>
                     <a wire:navigate href="{{ route('workgroup.index') }}" class="menu-link">
@@ -28,7 +28,7 @@
                 </li>
             @endcan
 
-            <!-- User -->
+        <!-- User -->
             @can('viewAny', \App\Models\User::class)
                 <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/user'))])>
                     <a href="javascript:void(0)" class="menu-link menu-toggle">
@@ -52,21 +52,36 @@
                 </li>
             @endcan
 
-            <!-- Ticket -->
-
+        <!-- Ticket -->
             @can('viewAny', \App\Models\Ticket::class)
                 <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/ticket'))])>
                     @if(auth()->user()->type == \App\Enums\User\UserType::CUSTOMER)
-                        <a wire:navigate href="{{ route('ticket.index', ['status' => (\App\Enums\Ticket\TicketStatus::WAITING->value)]) }}" class="menu-link">
+                        <a wire:navigate
+                           href="{{ route('ticket.index', ['status' => (\App\Enums\Ticket\TicketStatus::PENDING->value)]) }}"
+                           class="menu-link">
                             <i class='menu-icon bx bx-support'></i>
                             <div>تیکت ها</div>
                         </a>
                     @else
-                        <a wire:navigate href="{{ route('ticket.index', ['status' => (\App\Enums\Ticket\TicketStatus::PENDING->value)]) }}" class="menu-link">
+                        <a wire:navigate
+                           href="{{ route('ticket.index', ['status' => (\App\Enums\Ticket\TicketStatus::WAITING->value)]) }}"
+                           class="menu-link">
                             <i class='menu-icon bx bx-support'></i>
                             <div>تیکت ها</div>
                         </a>
                     @endif
+                </li>
+            @endcan
+
+        <!-- Ticket -->
+            @if(\Illuminate\Support\Facades\Gate::allows('cartable'))
+                <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/cartable'))])>
+                    <a wire:navigate
+                       href="{{ route('cartable.index') }}"
+                       class="menu-link">
+                        <i class='menu-icon bx bx-briefcase'></i>
+                        <div>کارتابل</div>
+                    </a>
                 </li>
             @endcan
         </ul>

@@ -27,13 +27,13 @@ class TicketUserTypeScope implements Scope
      */
     public function apply(Builder $builder, Model $model): void
     {
-        if(auth()->user()->type == UserType::ADMIN)
+        if(auth()->user()->type == UserType::ADMIN->value)
             return;
 
-        elseif(auth()->user()->type == UserType::CUSTOMER)
+        elseif(auth()->user()->type == UserType::CUSTOMER->value)
             $builder->where('customer_id', auth()->user()->customer->id);
 
-        elseif(auth()->user()->type == UserType::OPERATOR)
+        elseif(auth()->user()->type == UserType::OPERATOR->value)
             $builder
                 ->where(function($query){
                     $query

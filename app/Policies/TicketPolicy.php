@@ -35,8 +35,13 @@ class TicketPolicy
      */
     public function view(User $user, Ticket $ticket): bool
     {
+
+
         if($user->isCustomer())
-            return $ticket->customer_id == $user->customer->id;
+            if(!$ticket->chat)
+                return false;
+            else
+                return $ticket->customer_id == $user->customer->id;
 
         if($user->isAdmin())
             return true;
