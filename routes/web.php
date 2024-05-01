@@ -48,6 +48,7 @@ Route::middleware(['auth', 'verified'])->group(function(){
     Route::prefix('ticket/')->name('ticket.')->group(function(){
         Route::get('/', \App\Livewire\Ticket\Index::class)->name('index');
         Route::get('/create', \App\Livewire\Ticket\Create::class)->name('create');
+        Route::get('/{ticket}', \App\Livewire\Ticket\Show::class)->name('show');
     });
 });
 //

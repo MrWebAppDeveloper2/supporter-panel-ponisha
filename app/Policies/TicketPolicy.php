@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Enums\Permission\BasicPermission;
+use App\Enums\Ticket\TicketStatus;
 use App\Models\Ticket;
 use App\Models\User;
 
@@ -35,16 +36,16 @@ class TicketPolicy
     public function view(User $user, Ticket $ticket): bool
     {
         if($user->isCustomer())
-            return false;
+            return $ticket->customer_id == $user->customer->id;
 
         if($user->isAdmin())
             return true;
 
         if($user->isOperator()){
-            return $user->role->permissions()
-                ->where("name", BasicPermission::READ->value)
-                ->where('model', Ticket::class)
-                ->exists();
+            return
+                $ticket->recipient_id == $user->id ||
+                $ticket->status == TicketStatus::WAITING->value;
+
         }
 
         return false;

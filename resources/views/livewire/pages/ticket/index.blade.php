@@ -55,17 +55,23 @@
                         @foreach($tickets as $ticket)
                             <tr wire:key="{{ $ticket->id }}">
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $ticket->title }}</td>
+                                <td class="underline">
+                                    <a href="{{ route('ticket.show', $ticket) }}">{{ $ticket->title }}</a>
+                                </td>
                                 <td>
                                     <x-ticket-status :status="$ticket->status"/>
                                 </td>
                                 <td>{{ \Morilog\Jalali\Jalalian::forge($ticket->created_at)->format('%D') }}</td>
                                 <td>
-                                @can('update', $ticket)
+                                    @can('update', $ticket)
                                         <button class="btn btn-outline-warning btn-sm"
                                                 wire:click="closeTicket({{ $ticket }})"
-                                                wire:confirm="ایا از بستن این تیکت مطمئن هستید ؟">بستن تیکت</button>
-                                @endcan
+                                                wire:confirm="ایا از بستن این تیکت مطمئن هستید ؟">بستن تیکت
+                                        </button>
+                                    @endcan
+                                    @can('view', $ticket)
+                                        <button class="btn btn-outline-primary btn-sm">گفتگو</button>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach
