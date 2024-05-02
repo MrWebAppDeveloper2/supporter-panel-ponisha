@@ -27,7 +27,7 @@
                         <div class="chat-contact-info flex-grow-1 ms-3">
                             <h6 class="chat-contact-name text-truncate m-0">{{ \Illuminate\Support\Str::words($item->name, 4) }}</h6>
                             <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                {{ $item->messages()->latest()->first()->body }}
+                                {{ $item->messages()->latest()->first()?->body }}
                             </p>
                         </div>
                         <small class="text-muted mb-auto">

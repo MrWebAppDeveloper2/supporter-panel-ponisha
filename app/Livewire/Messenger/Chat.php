@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Reactive;
 use Livewire\Component;
 use App\Models\Chat as ChatModel;
 
@@ -20,8 +21,6 @@ class Chat extends Component
     public function open(ChatModel $chat)
     {
         $this->chat = $chat;
-
-        $this->loadMessages($chat);
     }
 
     public function render()
