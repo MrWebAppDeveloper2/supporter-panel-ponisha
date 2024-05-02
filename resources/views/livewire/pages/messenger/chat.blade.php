@@ -174,7 +174,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="chat-history-body bg-body ps ps__rtl ps--active-y">
+                        <div class="chat-history-body bg-body" style="overflow: auto">
                             <ul class="list-unstyled chat-history mb-0">
                                 @foreach($this->getGroupByMessages() as $key => $group)
                                     <li @class(["chat-message", "chat-message-right" => ($group[0]->user_id == auth()->id())])>
@@ -291,3 +291,14 @@
         </div>
     </div>
 </div>
+@script
+    <script>
+        $wire.on('NewMessageSent', ($event) => {
+            let lastMessage = document.querySelector('.chat-message:last-child')
+
+            let chatHistoryBody = document.querySelector('.chat-history-body')
+
+            chatHistoryBody.scrollTo(0, chatHistoryBody.scrollHeight + lastMessage.scrollHeight);
+        })
+    </script>
+@endscript
