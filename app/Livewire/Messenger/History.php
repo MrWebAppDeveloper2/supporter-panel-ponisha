@@ -15,12 +15,32 @@ class History extends Component
 
     public Collection $messages;
 
+    public bool $isContactOnline = false;
+
     protected function getListeners()
     {
         return [
-            'NewMessageSent' => 'pushMessage',
-            'echo-presence:' . $this->getChatSocketChannelName($this->chat) . ',MessageCreated' => 'pushMessage'
+            'NewMessageSentOnChat.' . $this->chat->id => 'pushMessage',
+            'echo-presence:' . $this->getChatSocketChannelName($this->chat) . ',MessageCreated' => 'pushMessage',
+            'echo-presence:' . $this->getChatSocketChannelName($this->chat) . ',here' => 'checkContactOnline',
+            'echo-presence:' . $this->getChatSocketChannelName($this->chat) . ',joining' => 'contactWentOnline',
+            'echo-presence:' . $this->getChatSocketChannelName($this->chat) . ',leaving' => 'contactWentOffline',
         ];
+    }
+
+    public function checkContactOnline($event)
+    {
+        $this->isContactOnline = count($event) > 1;
+    }
+
+    public function contactWentOnline($event)
+    {
+        $this->isContactOnline = true;
+    }
+
+    public function contactWentOffline($event)
+    {
+        $this->isContactOnline = false;
     }
 
     public function groupByMessages($messages)

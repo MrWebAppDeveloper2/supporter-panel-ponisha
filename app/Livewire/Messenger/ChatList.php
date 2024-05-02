@@ -2,10 +2,11 @@
 
 namespace App\Livewire\Messenger;
 
+use App\Models\User;
 use App\Repositories\ChatRepository;
 use Illuminate\Database\Eloquent\Collection;
-use Livewire\Component;
 use function Laravel\Prompts\alert;
+use App\Livewire\Messenger\Component;
 
 class ChatList extends Component
 {
@@ -19,6 +20,7 @@ class ChatList extends Component
     {
         $this->chats = \App\Models\Chat::where('name', 'LIKE', "%$this->search%")->get();
     }
+
 
     public function mount()
     {

@@ -11,6 +11,11 @@ use Illuminate\Support\Str;
 
 class ChatRepository
 {
+    public function find(int $id):Chat|null
+    {
+        return Chat::find($id);
+    }
+
     public function all(array $columns = ['*']):Collection
     {
         return Chat::all($columns);

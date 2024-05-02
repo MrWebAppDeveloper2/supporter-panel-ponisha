@@ -27,9 +27,9 @@ class Sender extends Component
         ]);
 
         if($message){
-            $this->reset('body');
+            $this->dispatch('NewMessageSentOnChat.' . $this->chat->id, data: ['id' => $message->id, 'body' => $this->body]);
 
-            $this->dispatch('NewMessageSent', data: ['id' => $message->id]);
+            $this->reset('body');
         } else
             session()->now('toast-danger', 'مشکلی پیش آمده است !');
     }

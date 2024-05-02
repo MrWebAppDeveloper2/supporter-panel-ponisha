@@ -19,26 +19,7 @@
                 <h6 class="text-muted mb-0">گفتگویی پیدا نشد</h6>
             </li>
             @foreach($chats as $item)
-                <li class="chat-contact-list-item">
-                    <a class="d-flex align-items-center" wire:click="$parent.open({{ $item }})">
-                        <div @class(["flex-shrink-0", "avatar", "avatar-busy" => $item->isAnyoneOnline])>
-                            <span class="avatar-initial rounded-circle bg-label-success">{{ \Illuminate\Support\Str::take(\Illuminate\Support\Str::reverse($item->name), 2) }}</span>
-                        </div>
-                        <div class="chat-contact-info flex-grow-1 ms-3">
-                            <h6 class="chat-contact-name text-truncate m-0">{{ \Illuminate\Support\Str::words($item->name, 4) }}</h6>
-                            <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                {{ $item->messages()->latest()->first()?->body }}
-                            </p>
-                        </div>
-                        <small class="text-muted mb-auto">
-                            {{
-                                ($agoDay = \Illuminate\Support\Carbon::parse($item->created_at)->diffInDays()) < 1 ?
-                                'امروز' :
-                                "{$agoDay} روز پیش"
-                            }}
-                        </small>
-                    </a>
-                </li>
+                <livewire:messenger.chat-list-item :chat="$item"/>
             @endforeach
         </ul>
         <div class="ps__rail-x" style="left: 0px; bottom: -518px;">

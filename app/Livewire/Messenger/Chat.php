@@ -18,9 +18,12 @@ class Chat extends Component
 {
     public ?ChatModel $chat;
 
-    public function open(ChatModel $chat)
+    #[On('open-chat')]
+    public function open(int $chatId)
     {
-        $this->chat = $chat;
+        $repository = app()->make(ChatRepository::class);
+
+        $this->chat = $repository->find($chatId);
     }
 
     public function render()

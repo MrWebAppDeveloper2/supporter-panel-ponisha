@@ -7,8 +7,8 @@
                        data-bs-toggle="sidebar" data-overlay="" data-target="#app-chat-contacts"></i>
                     <div class="chat-contact-info flex-grow-1 ms-3">
                         <h6 class="m-0">{{ $chat->name }}</h6>
-                        <small @class(["user-status", "text-muted" => !$chat->isAnyoneOnline, "text-primary" => $chat->isAnyoneOnline])>
-                            @if($chat->isAnyoneOnline)
+                        <small @class(["user-status", "text-muted" => !$isContactOnline, "text-primary" => $isContactOnline])>
+                            @if($isContactOnline)
                                 مخاطب آنلاین است
                             @else
                                 مخاطب آفلاین است
