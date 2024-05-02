@@ -19,7 +19,7 @@
                     <tr wire:key="{{ $ticket->id }}">
                         <td class="d-none d-xl-table-cell">{{ $loop->iteration }}</td>
                         <td class="underline">
-                            <a href="#" wire:click="accept({{ $ticket }})">
+                            <a href="#" wire:click="open({{ $ticket }})">
                                 {{ \Illuminate\Support\Str::words($ticket->title, 3) }}
                                 @if($ticket->status == \App\Enums\Ticket\TicketStatus::WAITING->value)
                                     <small class="badge text-white bg-danger p-1">جدید</small>

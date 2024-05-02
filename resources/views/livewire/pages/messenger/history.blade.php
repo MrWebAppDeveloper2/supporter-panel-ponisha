@@ -20,7 +20,7 @@
         </div>
         <div class="chat-history-body bg-body" style="overflow: auto">
             <ul class="list-unstyled chat-history mb-0">
-                @foreach($this->groupByMessages($this->getChatMessages($chat)) as $key => $group)
+                @foreach($this->groupByMessages($messages) as $key => $group)
                     <li @class(["chat-message", "chat-message-right" => ($group[0]->user_id == auth()->id())])>
                         <div class="d-flex overflow-hidden">
                             <div class="chat-message-wrapper flex-grow-1">
@@ -52,3 +52,17 @@
         <livewire:messenger.sender :$chat/>
     </div>
 </div>
+
+@script
+<script>
+    $wire.on('MessagesListUpdated', ($event) => {
+        setTimeout(function(){
+            let lastMessage = document.querySelector('.chat-message:last-child')
+
+            let chatHistoryBody = document.querySelector('.chat-history-body')
+
+            chatHistoryBody.scrollTo(0, chatHistoryBody.scrollHeight + lastMessage.scrollHeight);
+        }, 500)
+    })
+</script>
+@endscript

@@ -122,14 +122,4 @@
         </div>
     </div>
 </div>
-@script
-<script>
-    $wire.on('MessagesListUpdated', ($event) => {
-        let lastMessage = document.querySelector('.chat-message:last-child')
 
-        let chatHistoryBody = document.querySelector('.chat-history-body')
-
-        chatHistoryBody.scrollTo(0, chatHistoryBody.scrollHeight + lastMessage.scrollHeight);
-    })
-</script>
-@endscript

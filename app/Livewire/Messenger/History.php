@@ -39,24 +39,18 @@ class History extends Component
         $this->dispatch('MessagesListUpdated');
     }
 
-    public function getChatMessages(ChatModel $chat)
-    {
-        return $chat->messages()
-            ->orderBy('created_at', 'asc')
-            ->get();
-    }
-
-    public function updated()
-    {
-        dump('update');
-    }
-
     public function mount()
     {
+
     }
 
     public function render()
     {
-        return view('livewire.pages.messenger.history');
+        $this->messages = $this->chat->messages()
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        return view('livewire.pages.messenger.history')
+            ->with('messages', $this->messages);
     }
 }

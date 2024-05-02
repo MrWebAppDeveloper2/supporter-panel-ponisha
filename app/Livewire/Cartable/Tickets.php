@@ -51,6 +51,19 @@ class Tickets extends Component
             }
     }
 
+    public function open(Ticket $ticket)
+    {
+        if(!$ticket->recipient_id){
+            $this->accept($ticket);
+        }
+
+        if($ticket->recipient_id == auth()->id()){
+            $repository = app()->make(TicketRepository::class);
+
+            $this->redirect(route('chat', $repository->findRelevantChat($ticket)));
+        }
+    }
+
     /**
      * Accept ticket for handling and chat with ticket owner
      *
@@ -66,8 +79,7 @@ class Tickets extends Component
             if($ticket->status == TicketStatus::WAITING->value){
                 $repository = app()->make(TicketRepository::class);
 
-                if($repository->accept($ticket))
-                    $this->redirect(route('chat', $repository->findRelevantChat($ticket)));
+                $repository->accept($ticket);
             }
         });
     }
