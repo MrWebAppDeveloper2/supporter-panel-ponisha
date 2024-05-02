@@ -10,6 +10,8 @@ class Message extends Pivot
 {
     use HasFactory;
 
+    protected $table = 'messages';
+
     public function chat():BelongsTo
     {
         return $this->belongsTo(Chat::class);

@@ -37,7 +37,7 @@ class Create extends Component
         $this->ticketRepository->create(
             array_merge(
                 $this->only(['title', 'workgroup_id', 'description']),
-                ['customer_id' => auth()->user()->customer->id]
+                ['user_id' => auth()->id()]
             )
         ) ?
             session()->flash('alert-success', 'تیکت جدید با موفقیت ثبت شد !') :

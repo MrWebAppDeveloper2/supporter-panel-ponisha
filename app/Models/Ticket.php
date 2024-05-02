@@ -48,9 +48,9 @@ class Ticket extends Model
      *
      * @return BelongsTo
      */
-    public function customer():BelongsTo
+    public function owner():BelongsTo
     {
-        return $this->belongsTo(Customer::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     /**

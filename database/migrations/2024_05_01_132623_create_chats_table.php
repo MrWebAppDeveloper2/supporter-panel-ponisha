@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('chats', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->nullable()->comment('This name will display in chat item.');
             $table->string('type')->default(\App\Enums\Chat\ChatType::PV->value);
             $table->text('link')->unique();
             $table->text('meta')->nullable()->comment('Meta data.');

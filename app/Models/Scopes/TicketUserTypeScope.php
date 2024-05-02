@@ -31,7 +31,7 @@ class TicketUserTypeScope implements Scope
             return;
 
         elseif(auth()->user()->type == UserType::CUSTOMER->value)
-            $builder->where('customer_id', auth()->user()->customer->id);
+            $builder->where('user_id', auth()->id());
 
         elseif(auth()->user()->type == UserType::OPERATOR->value)
             $builder
