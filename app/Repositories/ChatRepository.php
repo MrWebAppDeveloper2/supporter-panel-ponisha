@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Chat;
 use App\Models\Ticket;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -47,5 +48,10 @@ class ChatRepository
         DB::commit();
 
         return $chat;
+    }
+
+    public function joinMember(Chat $chat, User $member):void
+    {
+        $chat->members()->attach($member->id);
     }
 }

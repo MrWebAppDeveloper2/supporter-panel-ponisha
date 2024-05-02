@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Enums\Ticket\TicketStatus;
+use App\Models\Chat;
 use App\Models\Ticket;
 use App\Models\User;
 use App\View\Components\InitialTicketMessage;
@@ -107,6 +108,43 @@ class TicketRepository
         DB::commit();
 
         return $ticket;
+    }
+
+    /**
+     * Accept ticket for handling and answer to customer often it does with operator
+     *
+     * @param Ticket $ticket
+     * @param User|null $acceptable the user/operator who accept ticket, current user id will set if it is null
+     * @return bool
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function accept(Ticket $ticket, ?User $acceptable = null):bool
+    {
+        DB::beginTransaction();
+
+        if(!$this->update($ticket,
+            [
+                'status' => TicketStatus::PENDING->value,
+                'recipient_id' => $acceptable ?? auth()->id()
+            ]
+        ))
+            return false;
+
+        if(!$chat = $this->findRelevantChat($ticket))
+            return false;
+
+        $chatRepository = app()->make(ChatRepository::class);
+
+        $chatRepository->joinMember($chat, $acceptable ?? auth()->user());
+
+        DB::commit();
+
+        return true;
+    }
+
+    public function findRelevantChat(Ticket $ticket):Chat|null
+    {
+        return Chat::where('meta', Ticket::class . ",$ticket->id")->first();
     }
 
     public function update(Ticket $ticket, array $data):bool

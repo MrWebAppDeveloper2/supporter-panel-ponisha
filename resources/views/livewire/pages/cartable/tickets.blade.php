@@ -19,8 +19,11 @@
                     <tr wire:key="{{ $ticket->id }}">
                         <td class="d-none d-xl-table-cell">{{ $loop->iteration }}</td>
                         <td class="underline">
-                            <a href="{{ route('ticket.show', $ticket) }}">
-                                {{ \Illuminate\Support\Str::words($ticket->title, 4) }}
+                            <a href="#" wire:click="accept({{ $ticket }})">
+                                {{ \Illuminate\Support\Str::words($ticket->title, 3) }}
+                                @if($ticket->status == \App\Enums\Ticket\TicketStatus::WAITING->value)
+                                    <small class="badge text-white bg-danger p-1">جدید</small>
+                                @endif
                             </a>
                         </td>
                         <td class="d-none d-sm-table-cell d-xl-none">
@@ -31,19 +34,22 @@
                         </td>
                         <td>
                             <div class="dropdown">
-                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                        data-bs-toggle="dropdown">
                                     <i class="bx bx-dots-vertical-rounded"></i>
                                 </button>
                                 <div class="dropdown-menu">
+                                    @if($ticket->status == \App\Enums\Ticket\TicketStatus::WAITING->value)
+                                    <div class="dropdown-item">
+                                        <a wire:click="accept({{ $ticket }})" class="dropdown-item" href="#"><i class="bx bx-message-dots me-1"></i>پذیرش
+                                            تیکت</a>
+                                    </div>
+                                    @endif
                                     @can('update', $ticket)
-                                        <button class="btn btn-outline-warning btn-sm"
-                                                wire:click="closeTicket({{ $ticket }})"
-                                                wire:confirm="ایا از بستن این تیکت مطمئن هستید ؟">بستن تیکت
-                                        </button>
-                                    @else
-                                        <p class="p-3 my-0">
-                                            در حال حاضر عملی در دسترس نیست !
-                                        </p>
+                                        <a class="dropdown-item" href="#"><i class="bx bx-message-dots me-1"
+                                            wire:click="closeTicket({{ $ticket }})"
+                                            wire:confirm="ایا از بستن این تیکت مطمئن هستید ؟"></i>بستن تیکت
+                                        </a>
                                     @endcan
                                 </div>
                             </div>

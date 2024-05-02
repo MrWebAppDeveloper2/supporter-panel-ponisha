@@ -31,6 +31,21 @@ class Tickets extends Component
         }
     }
 
+    /**
+     * Accept ticket for handling and chat with ticket owner
+     *
+     * @param Ticket $ticket
+     * @return void
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function accept(Ticket $ticket)
+    {
+        $repository = new TicketRepository();
+
+        if($repository->accept($ticket))
+            $this->redirect(route('chat', $repository->findRelevantChat($ticket)));
+    }
+
     public function mount(TicketRepository $ticketRepository)
     {
         $this->tickets =
