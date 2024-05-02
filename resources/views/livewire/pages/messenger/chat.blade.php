@@ -128,7 +128,7 @@
                         @foreach($chats as $item)
                             <li class="chat-contact-list-item">
                                 <a class="d-flex align-items-center" wire:click="open({{ $item }})">
-                                    <div class="flex-shrink-0 avatar avatar-busy">
+                                    <div @class(["flex-shrink-0", "avatar", "avatar-busy" => $item->isAnyoneOnline])>
                                         <span class="avatar-initial rounded-circle bg-label-success">{{ \Illuminate\Support\Str::take(\Illuminate\Support\Str::reverse($item->name), 2) }}</span>
                                     </div>
                                     <div class="chat-contact-info flex-grow-1 ms-3">
@@ -169,7 +169,13 @@
                                        data-bs-toggle="sidebar" data-overlay="" data-target="#app-chat-contacts"></i>
                                     <div class="chat-contact-info flex-grow-1 ms-3">
                                         <h6 class="m-0">{{ $chat->name }}</h6>
-                                        <small class="user-status text-muted">آنلاین</small>
+                                        <small @class(["user-status", "text-muted" => !$chat->isAnyoneOnline, "text-primary" => $chat->isAnyoneOnline])>
+                                            @if($chat->isAnyoneOnline)
+                                                مخاطب آنلاین است
+                                            @else
+                                                مخاطب آفلاین است
+                                            @endif
+                                        </small>
                                     </div>
                                 </div>
                             </div>
