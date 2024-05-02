@@ -56,7 +56,7 @@
                             <tr wire:key="{{ $ticket->id }}">
                                 <td>{{ $loop->iteration }}</td>
                                 <td class="underline">
-                                    <a href="{{ ($chat = $ticket->chat()) ? route('chat', $chat) : '#' }}">{{ $ticket->title }}</a>
+                                    <a href="#" wire:click="openChat({{ $ticket }})">{{ $ticket->title }}</a>
                                 </td>
                                 <td>
                                     <x-ticket-status :status="$ticket->status"/>

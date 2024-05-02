@@ -4,7 +4,9 @@ namespace App\Repositories;
 
 use App\Models\Chat;
 use App\Models\Message;
+use App\Models\Ticket;
 use App\Models\User;
+use App\View\Components\InitialTicketMessage;
 
 class MessageRepository
 {
@@ -23,6 +25,18 @@ class MessageRepository
     public function create(array $data):Message|false
     {
         return $this->chat->messages()->create($data);
+    }
+
+    public function createInitialTicketMessage(Ticket $ticket):Message|false
+    {
+        $initialMessageBody = app()->makeWith(InitialTicketMessage::class, ['ticket' => $ticket]);
+
+        $messageData = [
+            'body' => $initialMessageBody->render()->render(),
+            'user_id' => $ticket->user_id
+        ];
+
+        return $this->create($messageData);
     }
 
     public function find(int $id):Message|null

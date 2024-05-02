@@ -7,6 +7,7 @@ use App\Models\Ticket;
 use App\Models\User;
 use App\View\Components\InitialTicketMessage;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class TicketRepository
@@ -93,32 +94,17 @@ class TicketRepository
      */
     public function create(array $data):Ticket|false
     {
+        DB::beginTransaction();
+
         if(!$ticket = Ticket::create($data))
             return false;
 
-        $chatData = [
-            'name' => config('ticket.chat-name-prefix') . Str::words($ticket->title, 5),
-            'meta' => Ticket::class . ",{$ticket->id}",
-            'link' => config('ticket.chat-link-prefix') . $ticket->id,
-        ];
-
         $chatRepository = app()->make(ChatRepository::class);
 
-        if(!$chat = $chatRepository->create($chatData, [auth()->id()]))
+        if(!$chat = $chatRepository->createForTicket($ticket))
             return false;
 
-//        $initialMessageBody = app()->makeWith(InitialTicketMessage::class, ['ticket' => $ticket]);
-        $initialMessageBody = new InitialTicketMessage($ticket);
-
-        $messageData = [
-            'body' => $initialMessageBody->render()->render(),
-            'user_id' => $ticket->user_id
-        ];
-
-        $messageRepository = new MessageRepository($chat);
-
-        if(!$messageRepository->create($messageData))
-            return false;
+        DB::commit();
 
         return $ticket;
     }

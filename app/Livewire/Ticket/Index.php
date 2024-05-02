@@ -4,7 +4,9 @@ namespace App\Livewire\Ticket;
 
 use App\Enums\Ticket\TicketStatus;
 use App\Enums\User\UserType;
+use App\Models\Chat;
 use App\Models\Ticket;
+use App\Repositories\ChatRepository;
 use App\Repositories\TicketRepository;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -19,6 +21,20 @@ class Index extends Component
     public function __construct()
     {
         $this->ticketRepository = app()->make(TicketRepository::class);
+    }
+
+    public function openChat(Ticket $ticket)
+    {
+        $chat = Chat::where('meta', Ticket::class . ",$ticket->id")->first();
+
+        if(!$chat and auth()->user() == UserType::CUSTOMER->value){
+            $chatRepository = app()->make(ChatRepository::class);
+
+            if($chat = $chatRepository->createForTicket($ticket))
+                abort(500, 'Create chat failed !');
+        }
+
+        $this->redirect(route('chat', $chat));
     }
 
     public function delete(Ticket $ticket)
