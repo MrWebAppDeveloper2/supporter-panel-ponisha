@@ -25,8 +25,13 @@ class History extends Component
 
     public function groupByMessages($messages)
     {
-        return $messages->groupBy(function ($message) {
-            return $message->created_at->format('Y-m-d H:i') . '_' . $message->user_id;
+        return $messages->groupBy(function ($message) use ($messages) {
+            $changeUserAt = $messages
+                ->where('id', '>' , $message->id)
+                ->where('user_id', '!=' , $message->user_id)
+                ->first();
+
+            return $message->created_at->format('Y-m-d H:i') . '_' . $message->user_id . ($changeUserAt ? '_before_message_' . $changeUserAt->id : '');
         });
     }
 
@@ -37,11 +42,6 @@ class History extends Component
         $this->messages->push($repository->find($data['id']));
 
         $this->dispatch('MessagesListUpdated');
-    }
-
-    public function mount()
-    {
-
     }
 
     public function render()
