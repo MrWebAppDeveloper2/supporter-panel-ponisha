@@ -24,4 +24,9 @@ class MessageRepository
     {
         return $this->chat->messages()->create($data);
     }
+
+    public function find(int $id):Message|null
+    {
+        return Message::find($id);
+    }
 }
