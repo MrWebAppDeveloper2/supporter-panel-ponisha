@@ -50,13 +50,15 @@ class Chat extends Component
             ->get();
     }
 
-    public function mount(ChatRepository $chatRepository)
+
+    public function mount()
     {
-        $this->chats = $chatRepository->all();
+        $this->chatRepository = app()->make(ChatRepository::class);
+
+        $this->chats = $this->chatRepository->all();
 
         if(isset($this->chat))
             $this->loadMessages($this->chat);
-
     }
 
     public function render()
