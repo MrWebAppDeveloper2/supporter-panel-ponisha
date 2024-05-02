@@ -11,3 +11,8 @@ Broadcast::channel('admin', function (User $user){
 Broadcast::channel('workgroup.{workgroup_id}', function (User $user, int $workgroup_id){
     return in_array($workgroup_id, $user->workgroups->pluck('id')->toArray());
 });
+
+
+Broadcast::channel(config('chat.channel-prefix'). "{chat}", function (User $user, \App\Models\Chat $chat){
+    return $chat->members()->where('users.id', $user->id)->exists();
+});

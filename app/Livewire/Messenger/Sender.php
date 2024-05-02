@@ -29,7 +29,7 @@ class Sender extends Component
         if($message){
             $this->reset('body');
 
-            $this->dispatch('NewMessageSent', id: $message->id);
+            $this->dispatch('NewMessageSent', data: ['id' => $message->id]);
         } else
             session()->now('toast-danger', 'مشکلی پیش آمده است !');
     }
