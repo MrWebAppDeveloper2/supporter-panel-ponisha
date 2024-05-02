@@ -33,6 +33,8 @@ class History extends Component
         $repository = app()->makeWith(MessageRepository::class, ['chat' => $this->chat]);
 
         $this->messages->push($repository->find($data['id']));
+
+        $this->dispatch('MessagesListUpdated');
     }
 
     public function loadMessages(ChatModel $chat)

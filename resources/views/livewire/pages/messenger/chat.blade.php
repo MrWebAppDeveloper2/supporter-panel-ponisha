@@ -124,7 +124,7 @@
 </div>
 @script
 <script>
-    $wire.on('NewMessageSent', ($event) => {
+    $wire.on('MessagesListUpdated', ($event) => {
         let lastMessage = document.querySelector('.chat-message:last-child')
 
         let chatHistoryBody = document.querySelector('.chat-history-body')
