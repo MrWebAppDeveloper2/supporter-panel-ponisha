@@ -21,7 +21,8 @@ class WorkgroupPolicy
             return true;
 
         if($user->isOperator()){
-            return $user->role->permissions()
+            if($role = $user->role)
+            return $role->permissions()
                 ->where("name", BasicPermission::READ->value)
                 ->where('model', Workgroup::class)
                 ->exists();

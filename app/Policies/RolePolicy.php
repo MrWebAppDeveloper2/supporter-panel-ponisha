@@ -21,10 +21,11 @@ class RolePolicy
             return true;
 
         if($user->isOperator()){
-            return $user->role->permissions()
-                ->where("name", BasicPermission::READ->value)
-                ->where('model', Role::class)
-                ->exists();
+            if($role = $user->role)
+                return $role->permissions()
+                    ->where("name", BasicPermission::READ->value)
+                    ->where('model', Role::class)
+                    ->exists();
         }
 
         return false;
