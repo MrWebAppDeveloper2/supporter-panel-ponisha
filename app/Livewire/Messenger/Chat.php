@@ -36,14 +36,27 @@ class Chat extends Component
         $this->messages->push($repository->find($id));
     }
 
+    public function open(ChatModel $chat)
+    {
+        $this->chat = $chat;
+
+        $this->loadMessages($chat);
+    }
+
+    public function loadMessages(ChatModel $chat)
+    {
+        $this->messages = $chat->messages()
+            ->orderBy('created_at', 'asc')
+            ->get();
+    }
+
     public function mount(ChatRepository $chatRepository)
     {
         $this->chats = $chatRepository->all();
 
         if(isset($this->chat))
-            $this->messages = $this->chat->messages()
-                ->orderBy('created_at', 'asc')
-                ->get();
+            $this->loadMessages($this->chat);
+
     }
 
     public function render()

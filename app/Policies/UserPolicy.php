@@ -36,7 +36,7 @@ class UserPolicy
     public function view(User $user, User $target): bool
     {
         if($user->isCustomer())
-            return false;
+            return $target->id == auth()->id();
 
         if($user->isAdmin())
             return true;

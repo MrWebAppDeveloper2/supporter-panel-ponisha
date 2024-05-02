@@ -127,7 +127,7 @@
                         </li>
                         @foreach($chats as $item)
                             <li class="chat-contact-list-item">
-                                <a class="d-flex align-items-center">
+                                <a class="d-flex align-items-center" wire:click="open({{ $item }})">
                                     <div class="flex-shrink-0 avatar avatar-busy">
                                         <span class="avatar-initial rounded-circle bg-label-success">{{ \Illuminate\Support\Str::take(\Illuminate\Support\Str::reverse($item->name), 2) }}</span>
                                     </div>
