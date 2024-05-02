@@ -8,36 +8,43 @@
         <div class="row g-0">
             <!-- Sidebar Left -->
             <div class="col app-chat-sidebar-left app-sidebar overflow-hidden" id="app-chat-sidebar-left">
-                <div class="chat-sidebar-left-user sidebar-header d-flex flex-column justify-content-center align-items-center flex-wrap px-4 pt-5">
+                <div
+                    class="chat-sidebar-left-user sidebar-header d-flex flex-column justify-content-center align-items-center flex-wrap px-4 pt-5">
                     <div class="avatar avatar-xl avatar-online">
                         <img src="../../assets/img/avatars/1.png" alt="آواتار" class="rounded-circle">
                     </div>
                     <h5 class="mt-2 mb-0">جان اسنو</h5>
                     <small>مدیر</small>
-                    <i class="bx bx-x bx-sm cursor-pointer close-sidebar" data-bs-toggle="sidebar" data-overlay="" data-target="#app-chat-sidebar-left"></i>
+                    <i class="bx bx-x bx-sm cursor-pointer close-sidebar" data-bs-toggle="sidebar" data-overlay=""
+                       data-target="#app-chat-sidebar-left"></i>
                 </div>
                 <div class="sidebar-body px-4 pb-4 ps ps__rtl ps--active-y">
                     <div class="my-4">
                         <p class="text-muted text-uppercase">درباره</p>
-                        <textarea id="chat-sidebar-left-user-about" class="form-control chat-sidebar-left-user-about mt-3" rows="4" maxlength="120">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه</textarea>
+                        <textarea id="chat-sidebar-left-user-about"
+                                  class="form-control chat-sidebar-left-user-about mt-3" rows="4" maxlength="120">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه</textarea>
                     </div>
                     <div class="my-4">
                         <p class="text-muted text-uppercase">وضعیت</p>
                         <div class="d-grid gap-1">
                             <div class="form-check form-check-success">
-                                <input name="chat-user-status" class="form-check-input" type="radio" value="active" id="user-active" checked="">
+                                <input name="chat-user-status" class="form-check-input" type="radio" value="active"
+                                       id="user-active" checked="">
                                 <label class="form-check-label" for="user-active">فعال</label>
                             </div>
                             <div class="form-check form-check-danger">
-                                <input name="chat-user-status" class="form-check-input" type="radio" value="busy" id="user-busy">
+                                <input name="chat-user-status" class="form-check-input" type="radio" value="busy"
+                                       id="user-busy">
                                 <label class="form-check-label" for="user-busy">مشغول</label>
                             </div>
                             <div class="form-check form-check-warning">
-                                <input name="chat-user-status" class="form-check-input" type="radio" value="away" id="user-away">
+                                <input name="chat-user-status" class="form-check-input" type="radio" value="away"
+                                       id="user-away">
                                 <label class="form-check-label" for="user-away">دور</label>
                             </div>
                             <div class="form-check form-check-secondary">
-                                <input name="chat-user-status" class="form-check-input" type="radio" value="offline" id="user-offline">
+                                <input name="chat-user-status" class="form-check-input" type="radio" value="offline"
+                                       id="user-offline">
                                 <label class="form-check-label" for="user-offline">آفلاین</label>
                             </div>
                         </div>
@@ -82,47 +89,72 @@
                         </ul>
                     </div>
                     <div class="d-flex mt-4">
-                        <button class="btn btn-primary" data-bs-toggle="sidebar" data-overlay="" data-target="#app-chat-sidebar-left">
+                        <button class="btn btn-primary" data-bs-toggle="sidebar" data-overlay=""
+                                data-target="#app-chat-sidebar-left">
                             خروج
                         </button>
                     </div>
-                    <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 558px; right: 323px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 433px;"></div></div></div>
+                    <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+                        <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                    </div>
+                    <div class="ps__rail-y" style="top: 0px; height: 558px; right: 323px;">
+                        <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 433px;"></div>
+                    </div>
+                </div>
             </div>
             <!-- /Sidebar Left-->
 
             <!-- Chat & Contacts -->
-            <div class="col app-chat-contacts app-sidebar flex-grow-0 overflow-hidden border-end" id="app-chat-contacts">
+            <div class="col app-chat-contacts app-sidebar flex-grow-0 overflow-hidden border-end"
+                 id="app-chat-contacts">
                 <div class="sidebar-header px-4 border-bottom" style="padding: 17px 10px;">
                     <div class="d-flex align-items-center">
                         <div class="flex-grow-1 input-group input-group-merge rounded-pill">
-                            <span class="input-group-text" id="basic-addon-search31"><i class="bx bx-search fs-4"></i></span>
-                            <input type="text" class="form-control chat-search-input" placeholder="جستجو ..." aria-label="Search..." aria-describedby="basic-addon-search31">
+                            <span class="input-group-text" id="basic-addon-search31"><i
+                                    class="bx bx-search fs-4"></i></span>
+                            <input type="text" class="form-control chat-search-input" placeholder="جستجو ..."
+                                   aria-label="Search..." aria-describedby="basic-addon-search31">
                         </div>
                     </div>
-                    <i class="bx bx-x cursor-pointer position-absolute top-0 end-0 mt-2 me-1 fs-4 d-lg-none d-block" data-overlay="" data-bs-toggle="sidebar" data-target="#app-chat-contacts"></i>
+                    <i class="bx bx-x cursor-pointer position-absolute top-0 end-0 mt-2 me-1 fs-4 d-lg-none d-block"
+                       data-overlay="" data-bs-toggle="sidebar" data-target="#app-chat-contacts"></i>
                 </div>
                 <div class="sidebar-body ps ps__rtl ps--active-y">
                     <!-- Chats -->
                     <ul class="list-unstyled chat-contact-list" id="chat-list">
-                        <li class="chat-contact-list-item chat-list-item-0 d-none">
+                        <li @class(['chat-contact-list-item', 'chat-list-item-0', 'd-none' => $chats->isNotEmpty()])>
                             <h6 class="text-muted mb-0">گفتگویی پیدا نشد</h6>
                         </li>
-                        <li class="chat-contact-list-item">
-                            <a class="d-flex align-items-center">
-                                <div class="flex-shrink-0 avatar avatar-busy">
-                                    <span class="avatar-initial rounded-circle bg-label-success">اک</span>
-                                </div>
-                                <div class="chat-contact-info flex-grow-1 ms-3">
-                                    <h6 class="chat-contact-name text-truncate m-0">امیلیا کلارک</h6>
-                                    <p class="chat-contact-status text-truncate mb-0 text-muted">
-                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم
-                                    </p>
-                                </div>
-                                <small class="text-muted mb-auto">1 روز</small>
-                            </a>
-                        </li>
+                        @foreach($chats as $chat)
+                            <li class="chat-contact-list-item">
+                                <a class="d-flex align-items-center">
+                                    <div class="flex-shrink-0 avatar avatar-busy">
+                                        <span class="avatar-initial rounded-circle bg-label-success">{{ \Illuminate\Support\Str::take(\Illuminate\Support\Str::reverse($chat->name), 2) }}</span>
+                                    </div>
+                                    <div class="chat-contact-info flex-grow-1 ms-3">
+                                        <h6 class="chat-contact-name text-truncate m-0">{{ \Illuminate\Support\Str::words($chat->name, 4) }}</h6>
+                                        <p class="chat-contact-status text-truncate mb-0 text-muted">
+                                            {{ $chat->messages()->latest()->first()->body }}
+                                        </p>
+                                    </div>
+                                    <small class="text-muted mb-auto">
+                                        {{
+                                            ($agoDay = \Illuminate\Support\Carbon::parse($chat->created_at)->diffInDays()) < 1 ?
+                                            'امروز' :
+                                            "{$agoDay} روز پیش"
+                                        }}
+                                    </small>
+                                </a>
+                            </li>
+                        @endforeach
                     </ul>
-                    <div class="ps__rail-x" style="left: 0px; bottom: -518px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 518px; height: 651px; right: 322px;"><div class="ps__thumb-y" tabindex="0" style="top: 289px; height: 362px;"></div></div></div>
+                    <div class="ps__rail-x" style="left: 0px; bottom: -518px;">
+                        <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                    </div>
+                    <div class="ps__rail-y" style="top: 518px; height: 651px; right: 322px;">
+                        <div class="ps__thumb-y" tabindex="0" style="top: 289px; height: 362px;"></div>
+                    </div>
+                </div>
             </div>
             <!-- /Chat contacts -->
 
@@ -132,7 +164,8 @@
                     <div class="chat-history-header border-bottom px-1 py-2">
                         <div class="d-flex justify-content-between align-items-center py-1">
                             <div class="d-flex overflow-hidden align-items-center">
-                                <i class="bx bx-menu bx-sm cursor-pointer d-lg-none d-block me-2" data-bs-toggle="sidebar" data-overlay="" data-target="#app-chat-contacts"></i>
+                                <i class="bx bx-menu bx-sm cursor-pointer d-lg-none d-block me-2"
+                                   data-bs-toggle="sidebar" data-overlay="" data-target="#app-chat-contacts"></i>
                                 <div class="chat-contact-info flex-grow-1 ms-3">
                                     <h6 class="m-0">دیوید بکهام</h6>
                                     <small class="user-status text-muted">توسعه دهنده NextJS</small>
@@ -180,7 +213,8 @@
                                 <div class="d-flex overflow-hidden">
                                     <div class="chat-message-wrapper flex-grow-1">
                                         <div class="chat-message-text">
-                                            <p class="mb-0">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ</p>
+                                            <p class="mb-0">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت
+                                                چاپ</p>
                                         </div>
                                         <div class="text-end text-muted mt-1">
                                             <i class="bx bx-check-double text-success"></i>
@@ -280,7 +314,8 @@
                                     <div class="chat-message-wrapper flex-grow-1 w-50">
                                         <div class="chat-message-text">
                                             <p class="mb-0">
-                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک
+                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده
+                                                از طراحان گرافیک
                                             </p>
                                         </div>
                                         <div class="text-end text-muted mt-1">
@@ -294,11 +329,18 @@
                                 </div>
                             </li>
                         </ul>
-                        <div class="ps__rail-x" style="left: 0px; bottom: -787px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 787px; height: 567px; right: 1031px;"><div class="ps__thumb-y" tabindex="0" style="top: 330px; height: 237px;"></div></div></div>
+                        <div class="ps__rail-x" style="left: 0px; bottom: -787px;">
+                            <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                        </div>
+                        <div class="ps__rail-y" style="top: 787px; height: 567px; right: 1031px;">
+                            <div class="ps__thumb-y" tabindex="0" style="top: 330px; height: 237px;"></div>
+                        </div>
+                    </div>
                     <!-- Chat message form -->
                     <div class="chat-history-footer shadow-sm">
                         <form class="form-send-message d-flex justify-content-between align-items-center">
-                            <input class="form-control message-input border-0 me-3 shadow-none" placeholder="پیام خود را اینجا بنویسید">
+                            <input class="form-control message-input border-0 me-3 shadow-none"
+                                   placeholder="پیام خود را اینجا بنویسید">
                             <div class="message-actions d-flex align-items-center">
                                 <label for="attach-doc" class="form-label mb-0">
                                     <i class="bx bx-paperclip bx-sm cursor-pointer mx-3"></i>
@@ -317,19 +359,22 @@
 
             <!-- Sidebar Right -->
             <div class="col app-chat-sidebar-right app-sidebar overflow-hidden" id="app-chat-sidebar-right">
-                <div class="sidebar-header d-flex flex-column justify-content-center align-items-center flex-wrap px-4 pt-5">
+                <div
+                    class="sidebar-header d-flex flex-column justify-content-center align-items-center flex-wrap px-4 pt-5">
                     <div class="avatar avatar-xl avatar-online">
                         <img src="../../assets/img/avatars/2.png" alt="آواتار" class="rounded-circle">
                     </div>
                     <h6 class="mt-2 mb-0">دیوید بکهام</h6>
                     <span>توسعه دهنده NextJS</span>
-                    <i class="bx bx-x bx-sm cursor-pointer close-sidebar d-block" data-bs-toggle="sidebar" data-overlay="" data-target="#app-chat-sidebar-right"></i>
+                    <i class="bx bx-x bx-sm cursor-pointer close-sidebar d-block" data-bs-toggle="sidebar"
+                       data-overlay="" data-target="#app-chat-sidebar-right"></i>
                 </div>
                 <div class="sidebar-body px-4 pb-4 ps ps__rtl ps--active-y">
                     <div class="my-4">
                         <p class="text-muted text-uppercase">درباره</p>
                         <p class="mb-0 mt-3">
-                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و
+                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
+                            چاپگرها و متون بلکه روزنامه و
                         </p>
                     </div>
                     <div class="my-4">
@@ -374,7 +419,13 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 562px; right: 323px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 560px;"></div></div></div>
+                    <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+                        <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                    </div>
+                    <div class="ps__rail-y" style="top: 0px; height: 562px; right: 323px;">
+                        <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 560px;"></div>
+                    </div>
+                </div>
             </div>
             <!-- /Sidebar Right -->
 
