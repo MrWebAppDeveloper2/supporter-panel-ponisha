@@ -2,20 +2,24 @@
 
 namespace App\Livewire\Cartable;
 
+use App\Enums\Ticket\TicketStatus;
 use App\Models\Ticket;
 use App\Repositories\TicketRepository;
+use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
 
 class Tickets extends Component
 {
-    public $tickets;
+    public Collection $tickets;
 
     public function getListeners()
     {
         $listeners = [];
 
-        foreach (auth()->user()->workgroups as $workgroup)
+        foreach (auth()->user()->workgroups as $workgroup){
             $listeners["echo-private:workgroup.{$workgroup->id},NewTicket"] = 'newTicket';
+            $listeners["echo-private:workgroup.{$workgroup->id},TicketAccepted"] = 'removeTicket';
+        }
 
         return $listeners;
     }
@@ -32,6 +36,22 @@ class Tickets extends Component
     }
 
     /**
+     * Will execute when TicketAccepted event dispatches
+     *
+     * @param $event
+     * @return void
+     */
+    public function removeTicket($event)
+    {
+        foreach ($this->tickets as $key => $ticket)
+            if($ticket->id == $event['ticket']['id']){
+                $this->tickets->forget($key);
+
+                return;
+            }
+    }
+
+    /**
      * Accept ticket for handling and chat with ticket owner
      *
      * @param Ticket $ticket
@@ -40,14 +60,22 @@ class Tickets extends Component
      */
     public function accept(Ticket $ticket)
     {
-        $repository = new TicketRepository();
+        $lock = cache()->lock(config('ticket.accept-cache-lock-prefix') . $ticket->id, 2)->block(2, function() use ($ticket){
+            $ticket->fresh();
 
-        if($repository->accept($ticket))
-            $this->redirect(route('chat', $repository->findRelevantChat($ticket)));
+            if($ticket->status == TicketStatus::WAITING->value){
+                $repository = app()->make(TicketRepository::class);
+
+                if($repository->accept($ticket))
+                    $this->redirect(route('chat', $repository->findRelevantChat($ticket)));
+            }
+        });
     }
 
     public function mount(TicketRepository $ticketRepository)
     {
+        $this->authorize('viewAny', Ticket::class);
+
         $this->tickets =
             $ticketRepository->notClosedTickets(false)
                 ->sortByDesc('created_at');

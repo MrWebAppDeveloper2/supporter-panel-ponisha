@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Enums\Ticket\TicketStatus;
+use App\Events\TicketAccepted;
 use App\Models\Chat;
 use App\Models\Ticket;
 use App\Models\User;
@@ -138,6 +139,8 @@ class TicketRepository
         $chatRepository->joinMember($chat, $acceptable ?? auth()->user());
 
         DB::commit();
+
+        broadcast(new TicketAccepted($ticket))->toOthers();
 
         return true;
     }

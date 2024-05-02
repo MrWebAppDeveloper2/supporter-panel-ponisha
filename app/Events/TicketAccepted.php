@@ -11,7 +11,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class NewTicket implements ShouldBroadcast
+class TicketAccepted implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -20,7 +20,8 @@ class NewTicket implements ShouldBroadcast
      */
     public function __construct(
         public Ticket $ticket
-    ){}
+    )
+    {}
 
     /**
      * Get the channels the event should broadcast on.
@@ -30,7 +31,7 @@ class NewTicket implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel("workgroup.{$this->ticket->workgroup_id}")
+            new PrivateChannel("workgroup.{$this->ticket->workgroup_id}"),
         ];
     }
 }
