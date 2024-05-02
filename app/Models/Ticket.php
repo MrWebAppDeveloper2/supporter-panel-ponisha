@@ -62,4 +62,10 @@ class Ticket extends Model
     {
         return $this->morphMany(Message::class, 'messageable');
     }
+
+    public function chat(): Chat|null
+    {
+        return Chat::where('meta', Ticket::class . ",{$this->id}")
+            ->first();
+    }
 }
