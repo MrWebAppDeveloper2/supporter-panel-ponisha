@@ -4,7 +4,6 @@ namespace App\Livewire\Messenger;
 
 use App\Repositories\MessageRepository;
 use Livewire\Attributes\Validate;
-use Livewire\Component;
 
 class Sender extends Component
 {
@@ -27,7 +26,7 @@ class Sender extends Component
         ]);
 
         if($message){
-            $this->dispatch('NewMessageSentOnChat.' . $this->chat->id, data: ['id' => $message->id, 'body' => $this->body]);
+            $this->notifyNewMessageSent($this->chat->id, $message->id , $this->body);
 
             $this->reset('body');
         } else

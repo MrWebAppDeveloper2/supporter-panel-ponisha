@@ -5,6 +5,7 @@ namespace App\Livewire\Messenger;
 use App\Models\Chat as ChatModel;
 use App\Repositories\ChatRepository;
 use App\Repositories\MessageRepository;
+use Livewire\Attributes\On;
 
 class ChatListItem extends Component
 {
@@ -25,33 +26,36 @@ class ChatListItem extends Component
             'echo-presence:' . $this->getChatSocketChannelName($this->chat) . ',joining' => 'contactWentOnline',
             'echo-presence:' . $this->getChatSocketChannelName($this->chat) . ',leaving' => 'contactWentOffline',
             'echo-presence:' . $this->getChatSocketChannelName($this->chat) . ',MessageCreated' => 'newMessageReceived',
-            'NewMessageSentOnChat.' . $this->chat->id => 'newMessageSent',
+            'echo-presence:' . $this->getChatSocketChannelName($this->chat) . ',SeenMessage' => 'contactSeenMessage',
         ];
     }
 
     public function checkContactOnline($event)
     {
-        $this->isOnline = count($event) > 1;
-    }
+        $this->isOnline = (bool)(count($event) > 1);
 
-    public function contactWentOnline($event)
-    {
-        $this->isOnline = true;
+        $this->notifyOnlineStatus($this->chat->id, $this->isOnline);
     }
 
     public function contactWentOffline($event)
     {
         $this->isOnline = false;
+
+        $this->notifyOnlineStatus($this->chat->id, $this->isOnline);
     }
 
-    public function newMessageSent($data)
+    public function contactWentOnline($event)
     {
-        $this->lastMessage = $data['body'];
-//        $repository = app()->makeWith(MessageRepository::class, ['chat', $this->chat]);
-//
-//        $this->lastMessage = $repository->find($event['id'])->body;
-//
-//        $this->newMessagesCount++;
+        $this->isOnline = true;
+
+        $this->notifyOnlineStatus($this->chat->id, $this->isOnline);
+    }
+
+    #[On('notify-new-message-sent')]
+    public function updateLastMessage($chatId, $messageId, $body)
+    {
+        if($chatId == $this->chat->id)
+            $this->lastMessage = $body;
     }
 
     public function newMessageReceived($event)
@@ -61,6 +65,13 @@ class ChatListItem extends Component
         $this->lastMessage = $repository->find($event['id'])->body;
 
         $this->newMessagesCount++;
+
+        $this->notifyNewMessage($this->chat->id, $event['id']);
+    }
+
+    public function contactSeenMessage($event)
+    {
+        $this->notifyContactSeenMessage($this->chat->id, $event['id']);
     }
 
     public function open(ChatModel $chat)

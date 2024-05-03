@@ -2,45 +2,37 @@
 
 namespace App\Livewire\Messenger;
 
-use App\Models\Chat as ChatModel;
+use App\Enums\Message\MessageStatus;
+use App\Events\SeenMessage;
 use App\Repositories\MessageRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\On;
-use Livewire\Attributes\Reactive;
 
 class History extends Component
 {
-    #[Reactive]
     public \App\Models\Chat $chat;
 
     public Collection $messages;
 
     public bool $isContactOnline = false;
 
-    protected function getListeners()
-    {
-        return [
-            'NewMessageSentOnChat.' . $this->chat->id => 'pushMessage',
-            'echo-presence:' . $this->getChatSocketChannelName($this->chat) . ',MessageCreated' => 'pushMessage',
-            'echo-presence:' . $this->getChatSocketChannelName($this->chat) . ',here' => 'checkContactOnline',
-            'echo-presence:' . $this->getChatSocketChannelName($this->chat) . ',joining' => 'contactWentOnline',
-            'echo-presence:' . $this->getChatSocketChannelName($this->chat) . ',leaving' => 'contactWentOffline',
-        ];
-    }
+//    protected function getListeners()
+//    {
+//        return [
+//            'NewMessageSentOnChat.' . $this->chat->id => 'pushMessage',
+//            'echo-presence:' . $this->getChatSocketChannelName($this->chat) . ',MessageCreated' => 'pushMessage',
+//            'echo-presence:' . $this->getChatSocketChannelName($this->chat) . ',SeenMessage' => 'contactSeenMyMessage',
+//            'echo-presence:' . $this->getChatSocketChannelName($this->chat) . ',here' => 'checkContactOnline',
+//            'echo-presence:' . $this->getChatSocketChannelName($this->chat) . ',joining' => 'contactWentOnline',
+//            'echo-presence:' . $this->getChatSocketChannelName($this->chat) . ',leaving' => 'contactWentOffline',
+//        ];
+//    }
 
-    public function checkContactOnline($event)
+    #[On('notify-online-status')]
+    public function changeOnlineStatus($chatId, $isOnline)
     {
-        $this->isContactOnline = count($event) > 1;
-    }
-
-    public function contactWentOnline($event)
-    {
-        $this->isContactOnline = true;
-    }
-
-    public function contactWentOffline($event)
-    {
-        $this->isContactOnline = false;
+        if($chatId == $this->chat->id)
+            $this->isContactOnline = $isOnline;
     }
 
     public function groupByMessages($messages)
@@ -55,13 +47,30 @@ class History extends Component
         });
     }
 
-    public function pushMessage(array $data)
+    #[On('notify-contact-seen-message')]
+    public function changeMessageStatus($chatId, $messageId)
     {
-        $repository = app()->makeWith(MessageRepository::class, ['chat' => $this->chat]);
+        if($this->chat->id == $chatId)
+            $this->messages->where('id', $messageId)->first()->status = MessageStatus::SEEN->value;
+    }
 
-        $this->messages->push($repository->find($data['id']));
+    #[On('i-seen-message')]
+    public function iSeenMessage($messageId)
+    {
+        broadcast(new SeenMessage($messageId, $this->chat->id))->toOthers();
+    }
 
-        $this->dispatch('MessagesListUpdated');
+    #[On('notify-new-message-sent')]
+    #[On('notify-new-message')]
+    public function pushSentMessage($chatId, $messageId)
+    {
+        if($this->chat->id == $chatId){
+            $repository = app()->makeWith(MessageRepository::class, ['chat' => $this->chat]);
+
+            $this->messages->push($repository->find($messageId));
+
+            $this->dispatch('MessagesListUpdated');
+        }
     }
 
     public function render()

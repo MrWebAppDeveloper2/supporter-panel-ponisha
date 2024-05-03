@@ -25,12 +25,14 @@
                         <div class="d-flex overflow-hidden">
                             <div class="chat-message-wrapper flex-grow-1">
                                 @foreach($group as $message)
-                                    <div class="chat-message-text my-2">
+                                    <div @class(["chat-message-text", "my-2", 'unseen-message' => ($message->user_id != auth()->id() && $message->status != \App\Enums\Message\MessageStatus::SEEN->value)]) data-message-id="{{ $message->id }}">
                                         <p class="mb-0">{!! $message->body !!}</p>
                                     </div>
                                 @endforeach
                                 <div @class(["text-end" => ($group[0]->user_id == auth()->id()), "text-muted", "mt-1"])>
-                                    <i @class(["bx", "bx-check-double" => ($group[0]->user_id == auth()->id()), "text-success" => ($group[0]->status == \App\Enums\Message\MessageStatus::SEEN->value)])></i>
+                                    <i @class(["bx",
+                                        "bx-check-double" => ($group[0]->user_id == auth()->id()),
+                                        "text-success" => ($group->last()->status === \App\Enums\Message\MessageStatus::SEEN->value)])></i>
                                     <small>{{ \Illuminate\Support\Str::of($key)->match('(\d{2}:\d{2})') }}</small>
                                 </div>
                             </div>
@@ -62,7 +64,49 @@
             let chatHistoryBody = document.querySelector('.chat-history-body')
 
             chatHistoryBody.scrollTo(0, chatHistoryBody.scrollHeight + lastMessage.scrollHeight);
+
+            const visibleMessages = getVisibleMessages();
+
+            visibleMessages.forEach(notifySeenMessage)
         }, 500)
     })
+
+    // Get the chat history body element and all message elements
+    const chatHistoryBody = document.querySelector('.chat-history-body');
+
+    // Function to check if an element is in the viewport
+    function isInViewport(element) {
+        const rect = element.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+    }
+
+    // Function to extract visible messages
+    function getVisibleMessages() {
+        const messages = Array.from(chatHistoryBody.querySelectorAll('.unseen-message'));
+
+        const visibleMessages = messages.filter(message => isInViewport(message));
+        return visibleMessages;
+    }
+
+    function notifySeenMessage(messageEle){
+        console.log(messageEle)
+        messageEle.classList.remove('unseen-message')
+
+        let id = messageEle.getAttribute('data-message-id')
+
+        $wire.dispatch('i-seen-message', { messageId: id})
+    }
+
+    // Event listener for scroll events
+    chatHistoryBody.addEventListener('scroll', function() {
+        const visibleMessages = getVisibleMessages();
+
+        visibleMessages.forEach(notifySeenMessage)
+    });
 </script>
 @endscript

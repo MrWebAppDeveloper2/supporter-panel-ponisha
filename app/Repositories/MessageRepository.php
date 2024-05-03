@@ -39,6 +39,11 @@ class MessageRepository
         return $this->create($messageData);
     }
 
+    public function update(Message $message, array $data):bool
+    {
+        return $message->update($data);
+    }
+
     public function find(int $id):Message|null
     {
         return Message::find($id);

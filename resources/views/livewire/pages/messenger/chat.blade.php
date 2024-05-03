@@ -110,7 +110,7 @@
 
             <!-- Chat History -->
             @if(isset($chat))
-                <livewire:messenger.history :$chat/>
+                <livewire:messenger.history :chat="$chat" />
             @else
                 <div class="col app-chat-history bg-body d-flex align-items-center justify-content-center">
                     <p>گفتگویی انتخاب کنید</p>
