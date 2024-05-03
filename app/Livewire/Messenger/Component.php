@@ -11,9 +11,9 @@ class Component extends \Livewire\Component
         return config('chat.channel-prefix') . $chat->id;
     }
 
-    public function notifyOnlineStatus(int $chatId, bool $online)
+    public function notifyOnlineStatus(int $chatId, bool $isOnline)
     {
-        $this->dispatch('notify-online-status', chatId: $chatId, isOnline: $online);
+        $this->dispatch('notify-online-status', chatId: $chatId, isOnline: $isOnline);
     }
 
     public function notifyNewMessage(int $chatId, int $messageId)

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Chat;
 
 use App\Models\Chat;
 use App\Models\Ticket;
@@ -8,9 +8,14 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use function app;
+use function auth;
+use function config;
 
 class ChatRepository
 {
+    use HasTicketChatMethods;
+
     public function find(int $id):Chat|null
     {
         return Chat::find($id);
@@ -28,29 +33,6 @@ class ChatRepository
 
         if(!$chat->members()->sync($user_ids))
             return false;
-
-        return $chat;
-    }
-
-    public function createForTicket(Ticket $ticket):Chat|false
-    {
-        DB::beginTransaction();
-
-        $chatData = [
-            'name' => config('ticket.chat-name-prefix') . Str::words($ticket->title, 5),
-            'meta' => Ticket::class . ",{$ticket->id}",
-            'link' => config('ticket.chat-link-prefix') . $ticket->id,
-        ];
-
-        if(!$chat = $this->create($chatData, [auth()->id()]))
-            return false;
-
-        $messageRepository = app()->makeWith(MessageRepository::class, ['chat' => $chat]);
-
-        if(!$messageRepository->createInitialTicketMessage($ticket))
-            return false;
-
-        DB::commit();
 
         return $chat;
     }

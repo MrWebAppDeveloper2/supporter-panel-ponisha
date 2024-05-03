@@ -3,8 +3,7 @@
 namespace App\Livewire\Messenger;
 
 use App\Enums\Message\MessageStatus;
-use App\Events\SeenMessage;
-use App\Repositories\MessageRepository;
+use App\Repositories\Message\MessageRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Reactive;
@@ -16,19 +15,8 @@ class History extends Component
 
     public Collection $messages;
 
-    public bool $isContactOnline = false;
-
-//    protected function getListeners()
-//    {
-//        return [
-//            'NewMessageSentOnChat.' . $this->chat->id => 'pushMessage',
-//            'echo-presence:' . $this->getChatSocketChannelName($this->chat) . ',MessageCreated' => 'pushMessage',
-//            'echo-presence:' . $this->getChatSocketChannelName($this->chat) . ',SeenMessage' => 'contactSeenMyMessage',
-//            'echo-presence:' . $this->getChatSocketChannelName($this->chat) . ',here' => 'checkContactOnline',
-//            'echo-presence:' . $this->getChatSocketChannelName($this->chat) . ',joining' => 'contactWentOnline',
-//            'echo-presence:' . $this->getChatSocketChannelName($this->chat) . ',leaving' => 'contactWentOffline',
-//        ];
-//    }
+    #[Reactive]
+    public bool $isContactOnline;
 
     #[On('notify-online-status')]
     public function changeOnlineStatus($chatId, $isOnline)

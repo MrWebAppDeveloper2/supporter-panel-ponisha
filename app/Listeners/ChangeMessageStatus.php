@@ -4,9 +4,7 @@ namespace App\Listeners;
 
 use App\Enums\Message\MessageStatus;
 use App\Events\SeenMessage;
-use App\Repositories\MessageRepository;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
+use App\Repositories\Message\MessageRepository;
 
 class ChangeMessageStatus
 {

@@ -102,6 +102,10 @@
         $wire.dispatch('i-seen-message', { messageId: id})
     }
 
+    const visibleMessages = getVisibleMessages();
+
+    visibleMessages.forEach(notifySeenMessage)
+
     // Event listener for scroll events
     chatHistoryBody.addEventListener('scroll', function() {
         const visibleMessages = getVisibleMessages();

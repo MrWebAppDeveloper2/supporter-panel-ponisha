@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Messenger;
 
-use App\Repositories\MessageRepository;
+use App\Repositories\Message\MessageRepository;
 use Livewire\Attributes\Reactive;
 use Livewire\Attributes\Validate;
 

@@ -6,7 +6,7 @@ use App\Enums\Ticket\TicketStatus;
 use App\Enums\User\UserType;
 use App\Models\Chat;
 use App\Models\Ticket;
-use App\Repositories\ChatRepository;
+use App\Repositories\Chat\ChatRepository;
 use App\Repositories\TicketRepository;
 use Livewire\Attributes\Url;
 use Livewire\Component;

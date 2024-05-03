@@ -2,11 +2,8 @@
 
 namespace App\Livewire\Messenger;
 
-use App\Models\User;
-use App\Repositories\ChatRepository;
+use App\Repositories\Chat\ChatRepository;
 use Illuminate\Database\Eloquent\Collection;
-use function Laravel\Prompts\alert;
-use App\Livewire\Messenger\Component;
 
 class ChatList extends Component
 {

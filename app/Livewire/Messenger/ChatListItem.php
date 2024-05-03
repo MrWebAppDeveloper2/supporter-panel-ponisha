@@ -3,8 +3,7 @@
 namespace App\Livewire\Messenger;
 
 use App\Models\Chat as ChatModel;
-use App\Repositories\ChatRepository;
-use App\Repositories\MessageRepository;
+use App\Repositories\Message\MessageRepository;
 use Livewire\Attributes\On;
 
 class ChatListItem extends Component
