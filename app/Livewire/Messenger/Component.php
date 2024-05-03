@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Messenger;
 
+use App\Events\SeenMessage;
+
 class Component extends \Livewire\Component
 {
     public function getChatSocketChannelName(\App\Models\Chat $chat):string
@@ -27,5 +29,12 @@ class Component extends \Livewire\Component
     public function notifyNewMessageSent(int $chatId, int $messageId, string $body)
     {
         $this->dispatch('notify-new-message-sent', chatId: $chatId, messageId: $messageId, body: $body);
+    }
+
+    public function broadcastISeenMessage(int $chatId, int $messageId)
+    {
+        broadcast(new SeenMessage($messageId, $this->chat->id))->toOthers();
+
+        $this->dispatch('notify-i-seen-message', chatId: $chatId, messageId: $messageId);
     }
 }

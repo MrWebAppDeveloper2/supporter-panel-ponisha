@@ -57,7 +57,7 @@ class History extends Component
     #[On('i-seen-message')]
     public function iSeenMessage($messageId)
     {
-        broadcast(new SeenMessage($messageId, $this->chat->id))->toOthers();
+        $this->broadcastISeenMessage($this->chat->id, $messageId);
     }
 
     #[On('notify-new-message-sent')]

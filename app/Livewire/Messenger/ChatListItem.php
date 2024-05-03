@@ -64,9 +64,21 @@ class ChatListItem extends Component
 
         $this->lastMessage = $repository->find($event['id'])->body;
 
-        $this->newMessagesCount++;
+        $this->incrementUnseenMessages();
 
         $this->notifyNewMessage($this->chat->id, $event['id']);
+    }
+
+    public function incrementUnseenMessages()
+    {
+        $this->newMessagesCount++;
+    }
+
+    #[On("notify-i-seen-message")]
+    public function decrementUnseenMessages()
+    {
+        if($this->newMessagesCount > 0)
+            $this->newMessagesCount--;
     }
 
     public function contactSeenMessage($event)
