@@ -7,9 +7,11 @@ use App\Events\SeenMessage;
 use App\Repositories\MessageRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Reactive;
 
 class History extends Component
 {
+    #[Reactive]
     public \App\Models\Chat $chat;
 
     public Collection $messages;

@@ -3,12 +3,14 @@
 namespace App\Livewire\Messenger;
 
 use App\Repositories\MessageRepository;
+use Livewire\Attributes\Reactive;
 use Livewire\Attributes\Validate;
 
 class Sender extends Component
 {
     private MessageRepository $repository;
 
+    #[Reactive]
     public \App\Models\Chat $chat;
 
     #[Validate(['required', 'string'])]
