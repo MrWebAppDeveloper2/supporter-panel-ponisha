@@ -3,6 +3,7 @@
         <h5>تیکت ها</h5>
     </div>
     <div class="card-body">
+        <x-alert/>
         <div class="table-responsive text-nowrap overflow-visible">
             <table class="table table-striped">
                 <thead>
@@ -33,26 +34,18 @@
                             <small>{{ \Morilog\Jalali\Jalalian::forge($ticket->created_at)->format('H:i Y/m/d') }}</small>
                         </td>
                         <td>
-                            <div class="dropdown">
-                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                        data-bs-toggle="dropdown">
-                                    <i class="bx bx-dots-vertical-rounded"></i>
-                                </button>
-                                <div class="dropdown-menu">
-                                    @if($ticket->status == \App\Enums\Ticket\TicketStatus::WAITING->value)
-                                    <div class="dropdown-item">
-                                        <a wire:click="accept({{ $ticket }})" class="dropdown-item" href="#"><i class="bx bx-message-dots me-1"></i>پذیرش
-                                            تیکت</a>
-                                    </div>
-                                    @endif
-                                    @can('update', $ticket)
-                                        <a class="dropdown-item" href="#"><i class="bx bx-message-dots me-1"
-                                            wire:click="closeTicket({{ $ticket }})"
-                                            wire:confirm="ایا از بستن این تیکت مطمئن هستید ؟"></i>بستن تیکت
-                                        </a>
-                                    @endcan
-                                </div>
-                            </div>
+                            @if($ticket->status == \App\Enums\Ticket\TicketStatus::WAITING->value)
+                                <a wire:click="accept({{ $ticket }})" class="btn btn-outline-primary btn-sm" href="#"><i
+                                        class="bx bx-message-dots me-1"></i>پذیرش
+                                    تیکت</a>
+                            @else
+                                <a class="btn btn-outline-warning btn-sm" href="#"
+                                   wire:click="closeTicketInquiry({{ $ticket }})"
+                                   wire:confirm="ایا از ارسال درخواست بستن تیکت مطمئن هستید ؟">
+                                    <i class="bx bx-message-dots me-1"></i>درخواست
+                                    بستن تیکت
+                                </a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

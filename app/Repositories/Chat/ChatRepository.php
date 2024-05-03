@@ -41,4 +41,9 @@ class ChatRepository
     {
         $chat->members()->attach($member->id);
     }
+
+    public function kickMember(Chat $chat, User $member):void
+    {
+        $chat->members()->detach($member);
+    }
 }

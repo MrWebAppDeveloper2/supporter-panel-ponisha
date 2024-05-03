@@ -144,9 +144,29 @@ class TicketRepository
         return true;
     }
 
+    public function close(Ticket $ticket):bool
+    {
+        DB::beginTransaction();
+
+        $this->update($ticket, [
+            'status' => TicketStatus::CLOSED->value,
+        ]);
+
+        if(!$chat = $this->findRelevantChat($ticket))
+            return false;
+
+        $repository = app()->make(ChatRepository::class);
+
+        $repository->kickMember($chat, $ticket->recipient);
+
+        DB::commit();
+
+        return true;
+    }
+
     public function findRelevantChat(Ticket $ticket):Chat|null
     {
-        return Chat::where('meta', Ticket::class . ",$ticket->id")->first();
+        return Chat::withoutGlobalScopes()->where('meta', Ticket::class . ",$ticket->id")->first();
     }
 
     public function update(Ticket $ticket, array $data):bool

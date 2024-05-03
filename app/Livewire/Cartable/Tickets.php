@@ -4,6 +4,7 @@ namespace App\Livewire\Cartable;
 
 use App\Enums\Ticket\TicketStatus;
 use App\Models\Ticket;
+use App\Repositories\Message\MessageRepository;
 use App\Repositories\TicketRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
@@ -82,6 +83,17 @@ class Tickets extends Component
                 $repository->accept($ticket);
             }
         });
+    }
+
+    public function closeTicketInquiry(Ticket $ticket)
+    {
+        $ticketRepository = new TicketRepository();
+
+        $messageRepository = new MessageRepository($ticketRepository->findRelevantChat($ticket));
+
+        $messageRepository->createConfirmCloseTicketMessage($ticket);
+
+        session()->now('alert-success', 'پیام درخواست بستن تیکت ارسال شد!');
     }
 
     public function mount(TicketRepository $ticketRepository)

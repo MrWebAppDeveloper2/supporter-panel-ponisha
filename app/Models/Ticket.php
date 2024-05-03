@@ -36,11 +36,11 @@ class Ticket extends Model
     /**
      * Specify the user who open and accept ticket for answer and handling
      *
-     * @return HasOne
+     * @return BelongsTo
      */
-    public function recipient():HasOne
+    public function recipient():BelongsTo
     {
-        return $this->hasOne(User::class, 'recipient_id');
+        return $this->belongsTo(User::class, 'recipient_id');
     }
 
     /**
