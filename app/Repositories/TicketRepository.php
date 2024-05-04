@@ -149,10 +149,6 @@ class TicketRepository
     {
         DB::beginTransaction();
 
-        $this->update($ticket, [
-            'status' => TicketStatus::CLOSED->value,
-        ]);
-
         if(!$chat = $this->findRelevantChat($ticket))
             return false;
 
@@ -164,6 +160,10 @@ class TicketRepository
 
         if(!$messageRepository->createClosedTicketMessage($ticket))
             return false;
+
+        $this->update($ticket, [
+            'status' => TicketStatus::CLOSED->value,
+        ]);
 
         DB::commit();
 

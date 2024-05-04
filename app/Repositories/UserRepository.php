@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Collection;
 
 class UserRepository
 {
+    public function find(int $id):User|null
+    {
+        return User::find($id);
+    }
+
     public function update(User $user, array $data):bool
     {
         return $user->update($data);

@@ -35,7 +35,7 @@
                         </td>
                         <td>
                             @if($ticket->status == \App\Enums\Ticket\TicketStatus::WAITING->value)
-                                <a wire:click="accept({{ $ticket }})" class="btn btn-outline-primary btn-sm" href="#"><i
+                                <a wire:click="open({{ $ticket }})" class="btn btn-outline-primary btn-sm" href="#"><i
                                         class="bx bx-message-dots me-1"></i>پذیرش
                                     تیکت</a>
                             @else

@@ -63,12 +63,6 @@
                                 </td>
                                 <td>{{ \Morilog\Jalali\Jalalian::forge($ticket->created_at)->format('%D') }}</td>
                                 <td>
-                                    @can('update', $ticket)
-                                        <button class="btn btn-outline-warning btn-sm"
-                                                wire:click="closeTicket({{ $ticket }})"
-                                                wire:confirm="ایا از بستن این تیکت مطمئن هستید ؟">بستن تیکت
-                                        </button>
-                                    @endcan
                                     @can('view', $ticket)
                                         <button class="btn btn-outline-primary btn-sm">گفتگو</button>
                                     @endcan
