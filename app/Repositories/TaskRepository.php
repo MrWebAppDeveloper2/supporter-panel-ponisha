@@ -3,7 +3,9 @@
 namespace App\Repositories;
 
 use App\Models\Task;
+use App\Repositories\Chat\ChatRepository;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 class TaskRepository
 {
@@ -25,5 +27,22 @@ class TaskRepository
     public function allReceives(bool $pagination = true, int $perPage = 20)
     {
         return Task::where('recipient_id', auth()->id())->paginate($perPage);
+    }
+
+    public function create(array $data):Task|false
+    {
+        DB::beginTransaction();
+
+        if(!$task = Task::create($data))
+            return false;
+
+        $chatRepository = app()->make(ChatRepository::class);
+
+        if(!$chat = $chatRepository->createForTask($task))
+            return false;
+
+        DB::commit();
+
+        return $task;
     }
 }

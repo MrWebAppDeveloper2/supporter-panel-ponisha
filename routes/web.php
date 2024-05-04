@@ -64,6 +64,7 @@ Route::middleware(['auth', 'verified'])->group(function(){
     // Task
     Route::prefix('/task')->name('task.')->group(function(){
         Route::get('/', \App\Livewire\Task\Index::class)->name('index');
+        Route::get('/create', \App\Livewire\Task\Create::class)->name('create');
     });
 });
 //

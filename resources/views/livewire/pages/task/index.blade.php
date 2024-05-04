@@ -2,12 +2,12 @@
     <div class="card-header d-flex justify-content-between align-items-center">
         <h4 class="my-0">وظایف</h4>
 
-{{--        @can('create', \App\Models\Task::class)--}}
-{{--            <a href="{{ route('task.create') }}" class="btn btn-primary">--}}
-{{--                <i class='bx bxs-plus-circle' style="padding-left: 10px"></i>--}}
-{{--                <span>وظیفه جدید</span>--}}
-{{--            </a>--}}
-{{--        @endcan--}}
+        @can('create', \App\Models\Task::class)
+            <a href="{{ route('task.create') }}" class="btn btn-primary">
+                <i class='bx bxs-plus-circle' style="padding-left: 10px"></i>
+                <span>وظیفه جدید</span>
+            </a>
+        @endcan
     </div>
     <div class="card-body">
         <x-alert/>

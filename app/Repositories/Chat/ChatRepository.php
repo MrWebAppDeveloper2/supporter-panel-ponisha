@@ -14,7 +14,7 @@ use function config;
 
 class ChatRepository
 {
-    use HasTicketChatMethods;
+    use HasTicketChatMethods, HasTaskChatMethods;
 
     public function find(int $id):Chat|null
     {
