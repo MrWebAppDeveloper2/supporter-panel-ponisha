@@ -15,12 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->longText('description');
+            $table->string('status')->default(\App\Enums\Task\TaskStatus::SENT->value)->nullable();
             $table->foreignId('creator_id');
             $table->foreignId('recipient_id')->comment('کاربر');
             $table->timestamps();
 
-            $table->foreign('creator_id')->on(\App\Models\User::class)->references('id');
-            $table->foreign('recipient_id')->on(\App\Models\User::class)->references('id');
+            $table->foreign('creator_id')->on('users')->references('id');
+            $table->foreign('recipient_id')->on('users')->references('id');
         });
     }
 

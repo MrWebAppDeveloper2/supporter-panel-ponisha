@@ -73,7 +73,19 @@
                 </li>
             @endcan
 
-        <!-- Ticket -->
+        <!-- Task -->
+            @can('viewAny', \App\Models\Task::class)
+                <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/task'))])>
+                    <a wire:navigate
+                       href="{{ route('task.index', ['type' => \App\Enums\Task\TaskType::SUBMIT->name]) }}"
+                       class="menu-link">
+                        <i class='menu-icon bx bx-task'></i>
+                        <div>وظایف</div>
+                    </a>
+                </li>
+            @endcan
+
+        <!-- Cartable -->
             @if(\Illuminate\Support\Facades\Gate::allows('cartable'))
                 <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/cartable'))])>
                     <a wire:navigate
