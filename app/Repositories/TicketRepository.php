@@ -8,6 +8,7 @@ use App\Models\Chat;
 use App\Models\Ticket;
 use App\Models\User;
 use App\Repositories\Chat\ChatRepository;
+use App\Repositories\Message\MessageRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -155,9 +156,14 @@ class TicketRepository
         if(!$chat = $this->findRelevantChat($ticket))
             return false;
 
-        $repository = app()->make(ChatRepository::class);
+        $chatRepository = app()->make(ChatRepository::class);
 
-        $repository->kickMember($chat, $ticket->recipient);
+        $chatRepository->kickMember($chat, $ticket->recipient);
+
+        $messageRepository = app()->makeWith(MessageRepository::class, ['chat' => $chat]);
+
+        if(!$messageRepository->createClosedTicketMessage($ticket))
+            return false;
 
         DB::commit();
 
