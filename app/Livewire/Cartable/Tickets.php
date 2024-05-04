@@ -20,6 +20,7 @@ class Tickets extends Component
         foreach (auth()->user()->workgroups as $workgroup){
             $listeners["echo-private:workgroup.{$workgroup->id},NewTicket"] = 'newTicket';
             $listeners["echo-private:workgroup.{$workgroup->id},TicketAccepted"] = 'removeTicket';
+            $listeners["echo-private:workgroup.{$workgroup->id},TicketClosed"] = 'removeTicket';
         }
 
         return $listeners;
@@ -85,7 +86,7 @@ class Tickets extends Component
         });
     }
 
-    public function closeTicketInquiry(Ticket $ticket)
+    public function sendCloseTicketInquiry(Ticket $ticket)
     {
         $ticketRepository = new TicketRepository();
 

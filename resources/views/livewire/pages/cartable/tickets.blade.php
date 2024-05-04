@@ -40,7 +40,7 @@
                                     تیکت</a>
                             @else
                                 <a class="btn btn-outline-warning btn-sm" href="#"
-                                   wire:click="closeTicketInquiry({{ $ticket }})"
+                                   wire:click="sendCloseTicketInquiry({{ $ticket }})"
                                    wire:confirm="ایا از ارسال درخواست بستن تیکت مطمئن هستید ؟">
                                     <i class="bx bx-message-dots me-1"></i>درخواست
                                     بستن تیکت

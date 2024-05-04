@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\TicketClosed;
 use App\Models\Ticket;
 use App\Repositories\TicketRepository;
 use Illuminate\Http\Request;
@@ -23,6 +24,8 @@ class CloseTicketController extends Controller
         $this->ticketRepository->close($ticket) ?
             session()->flash('alert-success', 'تیکت بسته شد !'):
             session()->flash('alert-danger', 'خطایی پیش آمده است !');
+
+        broadcast(new TicketClosed($ticket))->toOthers();
 
         return redirect()->route('ticket.index', ['status' => 'closed']);
     }
