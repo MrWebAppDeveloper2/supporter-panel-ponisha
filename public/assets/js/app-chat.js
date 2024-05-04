@@ -38,12 +38,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Chat history scrollbar
-    if (chatHistoryBody) {
-      new PerfectScrollbar(chatHistoryBody, {
-        wheelPropagation: false,
-        suppressScrollX: true
-      });
-    }
+    // if (chatHistoryBody) {
+    //   new PerfectScrollbar(chatHistoryBody, {
+    //     wheelPropagation: false,
+    //     suppressScrollX: true
+    //   });
+    // }
 
     // Sidebar left scrollbar
     if (chatSidebarLeftBody) {

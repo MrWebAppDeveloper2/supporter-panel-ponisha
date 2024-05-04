@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignId('role_id')->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('customer_id')->nullable()->comment('If type of user was customer.')->constrained();
             $table->string('status')->nullable();
+            $table->boolean('is_online')->default(0)->comment('Indicate user online status !');
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();

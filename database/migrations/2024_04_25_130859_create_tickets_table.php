@@ -19,11 +19,11 @@ return new class extends Migration
             $table->foreignId('recipient_id')->nullable()
                 ->comment('The ID of the user receiving the ticket.
                     Initially, this field is empty, and for example, when the user opens the ticket, his ID is set to this field.');
-            $table->foreignId('customer_id')->constrained()->comment('The customer who created ticket.');
-            $table->string('status')->nullable();
+            $table->foreignId('user_id')->constrained()->comment('Ticket owner.');
+            $table->string('status')->default(\App\Enums\Ticket\TicketStatus::WAITING->value)->nullable();
             $table->timestamps();
 
-            $table->foreign('recipient_id')->on(\App\Models\User::class)->references('id');
+            $table->foreign('recipient_id')->on('users')->references('id');
         });
     }
 

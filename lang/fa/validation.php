@@ -196,6 +196,8 @@ return [
         'type' => 'نوع',
         'company_name' => 'نام شرکت',
         'economic_code' => 'کد اقتصادی',
+        'workgroup_id' => 'گروه کاری',
+        'description' => 'توضیحات',
     ],
 
 ];

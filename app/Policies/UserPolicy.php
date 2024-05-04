@@ -20,7 +20,8 @@ class UserPolicy
             return true;
 
         if($user->isOperator()){
-            return $user->role->permissions()
+            if($role = $user->role)
+            return $role->permissions()
                 ->where("name", BasicPermission::READ->value)
                 ->where('model', User::class)
                 ->exists();
@@ -35,7 +36,7 @@ class UserPolicy
     public function view(User $user, User $target): bool
     {
         if($user->isCustomer())
-            return false;
+            return $target->id == auth()->id();
 
         if($user->isAdmin())
             return true;

@@ -2,7 +2,7 @@
     <!-- Current Plan -->
     <div class="card-header d-flex justify-content-between">
         <h5 class="mb-0">مشخصات مشتری</h5>
-        <a href="{{ route('customer.index') }}" class="btn btn-warning" wire:navigate>بازگشت</a>
+        <a href="{{ \Illuminate\Support\Facades\URL::previous() }}" class="btn btn-warning" wire:navigate>بازگشت</a>
     </div>
     <div class="card-body">
         <div class="row">

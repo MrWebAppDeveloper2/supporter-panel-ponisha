@@ -18,7 +18,7 @@ class ChatFactory extends Factory
     public function definition(): array
     {
         return [
-            'link' => $this->faker->uuid,
+            'link' => $this->faker->unique()->uuid,
             'type' => $this->faker->randomElement(array_values(ChatType::cases())),
         ];
     }

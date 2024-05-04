@@ -5721,7 +5721,7 @@ readers do not read off random characters that represent icons */
   content: "\f519";
 }
 
-.fa-broadcast-tower::before {
+.fa-notify-tower::before {
   content: "\f519";
 }
 
