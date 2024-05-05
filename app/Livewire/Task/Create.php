@@ -3,8 +3,10 @@
 namespace App\Livewire\Task;
 
 use App\Enums\Task\TaskType;
+use App\Enums\User\UserType;
 use App\Events\TaskCreated;
 use App\Models\Task;
+use App\Models\User;
 use App\Repositories\TaskRepository;
 use App\Repositories\UserRepository;
 use Livewire\Attributes\Validate;
@@ -58,6 +60,6 @@ class Create extends Component
     public function render()
     {
         return view('livewire.pages.task.create')
-            ->with('users', $this->userRepository->allExceptCustomers());
+            ->with('users', User::where('type', '!=', UserType::CUSTOMER->value)->where('id', '!=', auth()->id())->get());
     }
 }
