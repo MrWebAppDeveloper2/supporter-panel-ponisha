@@ -55,7 +55,16 @@
                                 <td>{{ \Morilog\Jalali\Jalalian::forge($task->created_at)->format('%D') }}</td>
                                 <td>
                                     @can('view', $task)
-                                        <button class="btn btn-outline-primary btn-sm" wire:click="openChat({{ $task }})">گفتگو</button>
+                                        <button class="btn btn-outline-primary btn-sm"
+                                                wire:click="openChat({{ $task }})">گفتگو
+                                        </button>
+                                    @endcan
+                                    @can('close', $task)
+                                        <button class="btn btn-outline-warning btn-sm"
+                                                wire:click="close({{ $task }})"
+                                                wire:confirm="ایا از بستن این وظیفه مطمئن هستید ؟">
+                                            بستن وظیفه
+                                        </button>
                                     @endcan
                                 </td>
                             </tr>

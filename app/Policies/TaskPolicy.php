@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Enums\Permission\BasicPermission;
+use App\Enums\Task\TaskStatus;
 use App\Enums\User\UserType;
 use App\Models\Task;
 use App\Models\User;
@@ -98,6 +99,18 @@ class TaskPolicy
 
         return false;
     }
+
+    /**
+     * Determine whether the user can close the task or no.
+     */
+    public function close(User $user, Task $task): bool
+    {
+        return
+            $task->creator_id == $user->id
+            and
+            $task->status != TaskStatus::CLOSED->value;
+    }
+
 
     /**
      * Determine whether the user can restore the model.

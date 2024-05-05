@@ -31,14 +31,16 @@
                         </td>
                         <td>{{ \Morilog\Jalali\Jalalian::forge($task->created_at)->format('%D') }}</td>
                         <td>
-                            @can('update', $task)
-                                <button class="btn btn-outline-warning btn-sm"
-                                        wire:click="closeTicket({{ $task }})"
-                                        wire:confirm="ایا از بستن این تیکت مطمئن هستید ؟">بستن تیکت
+                            @can('view', $task)
+                                <button class="btn btn-outline-primary btn-sm" wire:click="open({{ $task }})">گفتگو
                                 </button>
                             @endcan
-                            @can('view', $task)
-                                <button class="btn btn-outline-primary btn-sm" wire:click="open({{ $task }})">گفتگو</button>
+                            @can('close', $task)
+                                <button class="btn btn-outline-warning btn-sm"
+                                        wire:click="close({{ $task }})"
+                                        wire:confirm="ایا از بستن این وظیفه مطمئن هستید ؟">
+                                    بستن وظیفه
+                                </button>
                             @endcan
                         </td>
                     </tr>

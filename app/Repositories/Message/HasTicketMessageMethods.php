@@ -37,7 +37,7 @@ trait HasTicketMessageMethods
         return $this->create($messageData);
     }
 
-    public function createClosedTicketMessage(Ticket $ticket):Message|false
+    public function createTicketClosedMessage(Ticket $ticket):Message|false
     {
         $ticketClosedMessage = app()->makeWith(TicketClosedMessage::class, ['ticket' => $ticket]);
 

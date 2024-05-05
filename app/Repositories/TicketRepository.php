@@ -158,7 +158,7 @@ class TicketRepository
 
         $messageRepository = app()->makeWith(MessageRepository::class, ['chat' => $chat]);
 
-        if(!$messageRepository->createClosedTicketMessage($ticket))
+        if(!$messageRepository->createTicketClosedMessage($ticket))
             return false;
 
         $this->update($ticket, [

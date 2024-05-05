@@ -6,6 +6,7 @@ use App\Enums\Task\TaskStatus;
 use App\Models\Chat;
 use App\Models\Task;
 use App\Repositories\Chat\ChatRepository;
+use App\Repositories\Message\MessageRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -55,6 +56,31 @@ class TaskRepository
         DB::commit();
 
         return $task;
+    }
+
+    public function close(Task $task):bool
+    {
+        DB::beginTransaction();
+
+        if(!$chat = $this->findRelevantChat($task))
+            return false;
+
+        $chatRepository = app()->make(ChatRepository::class);
+
+        $chatRepository->kickMember($chat, $task->recipient);
+
+        $messageRepository = app()->makeWith(MessageRepository::class, ['chat' => $chat]);
+
+        if(!$messageRepository->createTaskClosedMessage($task))
+            return false;
+
+        $this->update($task, [
+            'status' => TaskStatus::CLOSED->value,
+        ]);
+
+        DB::commit();
+
+        return true;
     }
 
     public function update(Task $task, array $data):bool

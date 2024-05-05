@@ -34,13 +34,13 @@ trait HasTaskMessageMethods
         return $this->create($messageData);
     }
 
-    public function createClosedTaskMessage(Task $task):Message|false
+    public function createTaskClosedMessage(Task $task):Message|false
     {
         $taskClosedMessage = app()->makeWith(TaskClosedMessage::class, ['task' => $task]);
 
         $messageData = [
             'body' => $taskClosedMessage->render()->render(),
-            'user_id' => $task->user_id
+            'user_id' => $task->creator_id
         ];
 
         return $this->create($messageData);

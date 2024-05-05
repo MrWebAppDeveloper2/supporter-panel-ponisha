@@ -31,11 +31,11 @@ class Task extends Model
     /**
      * The user who receives the task on its cartable
      *
-     * @return HasOne
+     * @return BelongsTo
      */
-    public function recipient(): HasOne
+    public function recipient(): BelongsTo
     {
-        return $this->hasOne(User::class, 'recipient_id');
+        return $this->belongsTo(User::class, 'recipient_id');
     }
 
     /**
