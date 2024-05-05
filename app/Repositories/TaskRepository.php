@@ -57,6 +57,11 @@ class TaskRepository
         return $task;
     }
 
+    public function update(Task $task, array $data):bool
+    {
+        return $task->update($data);
+    }
+
     public function find(int $id):Task|null
     {
         return Task::find($id);
@@ -64,6 +69,23 @@ class TaskRepository
 
     public function findRelevantChat(Task $task):Chat|null
     {
+        $this->setPendingStatus($task);
+
         return Chat::withoutGlobalScopes()->where('meta', Task::class . ",$task->id")->first();
+    }
+
+    /**
+     * Sets pending status for task if its recipient_id equivalent with current user id and its current status is sent.
+     *
+     * @param Task $task
+     * @return void
+     */
+    private function setPendingStatus(Task $task):void
+    {
+        if($task->recipient_id == auth()->id())
+            if($task->status == TaskStatus::SENT->value)
+                $this->update($task, [
+                    'status' => TaskStatus::PENDING->value
+                ]);
     }
 }
