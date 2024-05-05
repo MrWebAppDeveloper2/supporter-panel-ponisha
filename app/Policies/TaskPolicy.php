@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\Permission\BasicPermission;
 use App\Enums\User\UserType;
 use App\Models\Task;
 use App\Models\User;
@@ -14,10 +15,18 @@ class TaskPolicy
      */
     public function viewAny(User $user): bool
     {
-        return
-            $user->type == UserType::OPERATOR->value
-            or
-            $user->type == UserType::ADMIN->value;
+        if ($user->isAdmin())
+            return true;
+
+        if ($user->isOperator()) {
+            if ($role = $user->role)
+                return $role->permissions()
+                    ->where("name", BasicPermission::READ->value)
+                    ->where('model', Task::class)
+                    ->exists();
+        }
+
+        return false;
     }
 
     /**
@@ -29,6 +38,8 @@ class TaskPolicy
             $task->creator_id == $user->id
             or
             $task->recipient_id == $user->id;
+
+        return false;
     }
 
     /**
@@ -36,10 +47,18 @@ class TaskPolicy
      */
     public function create(User $user): bool
     {
-        return
-            auth()->user()->type == UserType::OPERATOR->value
-            or
-            auth()->user()->type == UserType::ADMIN->value;
+        if ($user->isAdmin())
+            return true;
+
+        if ($user->isOperator()) {
+            if ($role = $user->role)
+                return $role->permissions()
+                    ->where("name", BasicPermission::CREATE->value)
+                    ->where('model', Task::class)
+                    ->exists();
+        }
+
+        return false;
     }
 
     /**
@@ -47,7 +66,18 @@ class TaskPolicy
      */
     public function update(User $user, Task $task): bool
     {
-        //
+        if ($user->isAdmin())
+            return true;
+
+        if ($user->isOperator()) {
+            if ($task->creator_id == $user->id && $role = $user->role)
+                return $role->permissions()
+                    ->where("name", BasicPermission::UPDATE->value)
+                    ->where('model', Task::class)
+                    ->exists();
+        }
+
+        return false;
     }
 
     /**
@@ -55,7 +85,18 @@ class TaskPolicy
      */
     public function delete(User $user, Task $task): bool
     {
-        //
+        if ($user->isAdmin())
+            return true;
+
+        if ($user->isOperator()) {
+            if ($task->creator_id == $user->id && $role = $user->role)
+                return $role->permissions()
+                    ->where("name", BasicPermission::READ->value)
+                    ->where('model', Task::class)
+                    ->exists();
+        }
+
+        return false;
     }
 
     /**

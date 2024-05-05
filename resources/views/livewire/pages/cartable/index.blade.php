@@ -13,7 +13,7 @@
 
     <div class="col-xl-12 my-3">
         @can(['viewAny'], \App\Models\Task::class)
-            {{--                <livewire:cartable.tasks />--}}
+            <livewire:cartable.tasks />
         @else
             <div class="card">
                 <div class="card-body">

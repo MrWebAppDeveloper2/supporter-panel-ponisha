@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use App\Enums\Task\TaskStatus;
+use App\Models\Chat;
 use App\Models\Task;
 use App\Repositories\Chat\ChatRepository;
 use Illuminate\Database\Eloquent\Collection;
@@ -26,7 +28,16 @@ class TaskRepository
 
     public function allReceives(bool $pagination = true, int $perPage = 20)
     {
-        return Task::where('recipient_id', auth()->id())->paginate($perPage);
+        return $pagination ?
+            Task::where('recipient_id', auth()->id())->paginate($perPage):
+            Task::where('recipient_id', auth()->id())->get();
+    }
+
+    public function allNotClosedTasks(bool $pagination = true, int $perPage = 20)
+    {
+        return $pagination ?
+            Task::where('status', '!=', TaskStatus::CLOSED->value)->paginate($perPage):
+            Task::where('status', '!=', TaskStatus::CLOSED->value)->get();
     }
 
     public function create(array $data):Task|false
@@ -44,5 +55,10 @@ class TaskRepository
         DB::commit();
 
         return $task;
+    }
+
+    public function findRelevantChat(Task $task):Chat|null
+    {
+        return Chat::withoutGlobalScopes()->where('meta', Task::class . ",$task->id")->first();
     }
 }
