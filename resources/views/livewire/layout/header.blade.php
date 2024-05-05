@@ -77,7 +77,7 @@
             @can('viewAny', \App\Models\Task::class)
                 <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/task'))])>
                     <a wire:navigate
-                       href="{{ route('task.index', ['type' => \App\Enums\Task\TaskType::SUBMIT->name]) }}"
+                       href="{{ route('task.index', ['type' => \App\Enums\Task\TaskType::SUBMIT->value]) }}"
                        class="menu-link">
                         <i class='menu-icon bx bx-task'></i>
                         <div>وظایف</div>

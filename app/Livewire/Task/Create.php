@@ -40,7 +40,7 @@ class Create extends Component
 
         broadcast(new TaskCreated($task))->toOthers();
 
-        $this->redirect(route('task.index', ['type' => TaskType::SUBMIT->name]));
+        $this->redirect(route('task.index', ['type' => TaskType::SUBMIT->value]));
     }
 
     public function __construct()

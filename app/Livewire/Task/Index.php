@@ -8,6 +8,7 @@ use App\Events\TaskClosed;
 use App\Models\Chat;
 use App\Models\Task;
 use App\Repositories\Chat\ChatRepository;
+use App\Repositories\Message\MessageRepository;
 use App\Repositories\TaskRepository;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -24,6 +25,19 @@ class Index extends Component
         $chat = $this->taskRepository->findRelevantChat($task);
 
         $this->redirect(route('chat', $chat));
+    }
+
+    public function sendCloseInquiry(Task $task)
+    {
+        $taskRepository = app()->make(TaskRepository::class);
+
+        $messageRepository = app()->makeWith(MessageRepository::class, ['chat' => $taskRepository->findRelevantChat($task)]);
+
+        $messageRepository->createConfirmCloseTaskMessage($task);
+
+        session()->now('alert-focus', 'task');
+
+        session()->now('alert-success', 'پیام درخواست بستن تیکت ارسال شد!');
     }
 
     /**
@@ -60,7 +74,7 @@ class Index extends Component
         return view('livewire.pages.task.index')
             ->with(
                 'tasks',
-                    isset($this->type) && $this->type == TaskType::SUBMIT->name ?
+                    isset($this->type) && $this->type == TaskType::SUBMIT->value ?
                     $this->taskRepository->allSubmits() :
                     $this->taskRepository->allReceives()
             );
