@@ -4,6 +4,7 @@ namespace App\Livewire\Task;
 
 use App\Enums\Task\TaskType;
 use App\Enums\User\UserType;
+use App\Events\TaskClosed;
 use App\Models\Chat;
 use App\Models\Task;
 use App\Repositories\Chat\ChatRepository;
@@ -23,6 +24,23 @@ class Index extends Component
         $chat = $this->taskRepository->findRelevantChat($task);
 
         $this->redirect(route('chat', $chat));
+    }
+
+    /**
+     * Change task status to closed
+     *
+     * @param Task $task
+     * @return void
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function close(Task $task)
+    {
+        $this->authorize('close', $task);
+
+        $repository = app()->make(TaskRepository::class);
+
+        if($repository->close($task))
+            TaskClosed::dispatch($task);
     }
 
     public function __construct()

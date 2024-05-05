@@ -28,7 +28,7 @@ trait HasTaskMessageMethods
 
         $messageData = [
             'body' => $confirmCloseTask->render()->render(),
-            'user_id' => $task->user_id
+            'user_id' => $task->recipient_id
         ];
 
         return $this->create($messageData);

@@ -66,6 +66,13 @@
                                             بستن وظیفه
                                         </button>
                                     @endcan
+                                    @can('sendCloseInquiry', $task)
+                                        <button class="btn btn-outline-warning btn-sm"
+                                                wire:click="sendCloseInquiry({{ $task }})"
+                                                wire:confirm="ایا از ارسال درخواست بستن این وظیفه مطمئن هستید ؟">
+                                            ارسال درخواست بستن وظیفه
+                                        </button>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach

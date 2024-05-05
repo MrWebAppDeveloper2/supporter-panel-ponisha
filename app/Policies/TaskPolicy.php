@@ -111,6 +111,17 @@ class TaskPolicy
             $task->status != TaskStatus::CLOSED->value;
     }
 
+    /**
+     * Determine whether the user can send close the task inquiry or no.
+     */
+    public function sendCloseInquiry(User $user, Task $task):bool
+    {
+        return
+            $task->recipient_id == $user->id
+            and
+            $task->status == TaskStatus::PENDING->value;
+    }
+
 
     /**
      * Determine whether the user can restore the model.

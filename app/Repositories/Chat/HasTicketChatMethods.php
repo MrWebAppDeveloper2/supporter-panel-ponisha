@@ -33,8 +33,12 @@ trait HasTicketChatMethods
         return $chat;
     }
 
-    public function findRelevantTicket(Chat $chat):Ticket|null
+    public function findRelevantTicket(Chat|int $chat):Ticket|null
     {
+        if(is_int($chat))
+            if(!$chat = $this->find($chat))
+                return null;
+
         if(!$id = Str::of($chat->meta)->explode(',')[1])
             return null;
 

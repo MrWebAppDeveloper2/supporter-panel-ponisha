@@ -4,6 +4,7 @@ namespace App\Livewire\Cartable;
 
 use App\Events\TaskClosed;
 use App\Models\Task;
+use App\Repositories\Message\MessageRepository;
 use App\Repositories\TaskRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
@@ -62,6 +63,19 @@ class Tasks extends Component
         $repository = app()->make(TaskRepository::class);
 
         $this->redirect(route('chat', $repository->findRelevantChat($task)));
+    }
+
+    public function sendCloseInquiry(Task $task)
+    {
+        $taskRepository = app()->make(TaskRepository::class);
+
+        $messageRepository = app()->makeWith(MessageRepository::class, ['chat' => $taskRepository->findRelevantChat($task)]);
+
+        $messageRepository->createConfirmCloseTaskMessage($task);
+
+        session()->now('alert-focus', 'task');
+
+        session()->now('alert-success', 'پیام درخواست بستن تیکت ارسال شد!');
     }
 
     /**
