@@ -1,7 +1,6 @@
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
         <h5>وظایف</h5>
-        <a href="" class="btn btn-primary">ایجاد وظیفه</a>
     </div>
     <div class="card-body">
         <div class="table-responsive text-nowrap overflow-visible">
@@ -39,7 +38,7 @@
                                 </button>
                             @endcan
                             @can('view', $task)
-                                <button class="btn btn-outline-primary btn-sm">گفتگو</button>
+                                <button class="btn btn-outline-primary btn-sm" wire:click="open({{ $task }})">گفتگو</button>
                             @endcan
                         </td>
                     </tr>

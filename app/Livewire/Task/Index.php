@@ -22,13 +22,6 @@ class Index extends Component
     {
         $chat = $this->taskRepository->findRelevantChat($task);
 
-        if(!$chat and auth()->user() == UserType::CUSTOMER->value){
-            $chatRepository = app()->make(ChatRepository::class);
-
-            if($chat = $chatRepository->createForTicket($task))
-                abort(500, 'Create chat failed !');
-        }
-
         $this->redirect(route('chat', $chat));
     }
 

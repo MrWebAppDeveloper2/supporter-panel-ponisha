@@ -11,6 +11,26 @@ class Tasks extends Component
 {
     public Collection $tasks;
 
+    protected function getListeners()
+    {
+        return [
+            "echo-private:user." . auth()->id() . ",TaskCreated" => 'pushNewTask'
+        ];
+    }
+
+    public function pushNewTask($event)
+    {
+        $task = $event['task'];
+
+        $repository = app()->make(TaskRepository::class);
+
+        if($task = $repository->find($task['id'])){
+            $this->tasks->push($task);
+
+            $this->tasks = $this->tasks->sortByDesc('created_at');
+        }
+    }
+
     public function open(Task $task)
     {
         $repository = app()->make(TaskRepository::class);

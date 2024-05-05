@@ -57,6 +57,11 @@ class TaskRepository
         return $task;
     }
 
+    public function find(int $id):Task|null
+    {
+        return Task::find($id);
+    }
+
     public function findRelevantChat(Task $task):Chat|null
     {
         return Chat::withoutGlobalScopes()->where('meta', Task::class . ",$task->id")->first();
