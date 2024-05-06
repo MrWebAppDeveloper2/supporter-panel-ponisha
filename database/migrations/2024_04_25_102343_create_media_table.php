@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('creator_id');
             $table->timestamps();
 
-            $table->foreign('creator_id')->on(\App\Models\User::class)->references('id');
+            $table->foreign('creator_id')->on('users')->references('id');
         });
     }
 

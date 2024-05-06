@@ -92,6 +92,14 @@ Route::middleware(['auth', 'verified'])->group(function(){
         Route::get('/{bug}/edit', App\Livewire\Bug\Edit::class)->name('edit');
         Route::get('/{bug}', \App\Livewire\Bug\Show::class)->name('show');
     });
+
+    // Media
+    Route::prefix('/media')->name('media.')->group(function(){
+        Route::get('/', \App\Livewire\Media\Index::class)->name('index');
+//        Route::get('/create', \App\Livewire\Media\Create::class)->name('create');
+//        Route::get('/{media}/edit', App\Livewire\Media\Edit::class)->name('edit');
+//        Route::get('/{media}', \App\Livewire\Media\Show::class)->name('show');
+    });
 });
 //
 Route::view('profile', 'profile')
