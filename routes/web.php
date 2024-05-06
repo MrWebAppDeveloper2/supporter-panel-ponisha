@@ -88,7 +88,7 @@ Route::middleware(['auth', 'verified'])->group(function(){
     // Bug
     Route::prefix('/bug')->name('bug.')->group(function(){
         Route::get('/', \App\Livewire\Bug\Index::class)->name('index');
-//        Route::get('/create', \App\Livewire\Bug\Create::class)->name('create');
+        Route::get('/create', \App\Livewire\Bug\Create::class)->name('create');
 //        Route::get('/{bug}/edit', App\Livewire\Bug\Edit::class)->name('edit');
 //        Route::get('/{bug}', \App\Livewire\Bug\Show::class)->name('show');
     });

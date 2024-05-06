@@ -15,4 +15,9 @@ class BugRepository
     {
         return $bug->delete();
     }
+
+    public function create($data):Bug|false
+    {
+        return Bug::create($data);
+    }
 }

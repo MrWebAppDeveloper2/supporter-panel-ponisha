@@ -13,12 +13,6 @@ class BugPolicy
      */
     public function viewAny(User $user): bool
     {
-        if($user->isCustomer())
-            return false;
-
-        if($user->isAdmin())
-            return true;
-
         if($user->isOperator()){
             if($bug = $user->role)
                 return $bug->permissions()
@@ -27,7 +21,7 @@ class BugPolicy
                     ->exists();
         }
 
-        return false;
+        return true;
     }
 
     /**
@@ -36,10 +30,7 @@ class BugPolicy
     public function view(User $user, Bug $bug): bool
     {
         if($user->isCustomer())
-            return false;
-
-        if($user->isAdmin())
-            return true;
+            return $bug->creator_id == $user->id;
 
         if($user->isOperator()){
             return $user->role->permissions()
@@ -48,7 +39,7 @@ class BugPolicy
                 ->exists();
         }
 
-        return false;
+        return true;
     }
 
     /**
@@ -56,12 +47,6 @@ class BugPolicy
      */
     public function create(User $user): bool
     {
-        if($user->isCustomer())
-            return false;
-
-        if($user->isAdmin())
-            return true;
-
         if($user->isOperator()){
             return $user->role->permissions()
                 ->where("name", BasicPermission::CREATE->value)
@@ -69,7 +54,7 @@ class BugPolicy
                 ->exists();
         }
 
-        return false;
+        return true;
     }
 
     /**
@@ -78,10 +63,7 @@ class BugPolicy
     public function update(User $user, Bug $bug): bool
     {
         if($user->isCustomer())
-            return false;
-
-        if($user->isAdmin())
-            return true;
+            return $bug->creator_id == $user->id;
 
         if($user->isOperator()){
             return $user->role->permissions()
@@ -90,7 +72,7 @@ class BugPolicy
                 ->exists();
         }
 
-        return false;
+        return true;
     }
 
     /**
@@ -101,9 +83,6 @@ class BugPolicy
         if($user->isCustomer())
             return false;
 
-        if($user->isAdmin())
-            return true;
-
         if($user->isOperator()){
             return $user->role->permissions()
                 ->where("name", BasicPermission::DELETE->value)
@@ -111,7 +90,7 @@ class BugPolicy
                 ->exists();
         }
 
-        return false;
+        return true;
     }
 
     /**
@@ -119,12 +98,6 @@ class BugPolicy
      */
     public function restore(User $user, Bug $bug): bool
     {
-        if($user->isCustomer())
-            return false;
-
-        if($user->isAdmin())
-            return true;
-
         if($user->isOperator()){
             return $user->role->permissions()
                 ->where("name", BasicPermission::UPDATE->value)
@@ -132,7 +105,7 @@ class BugPolicy
                 ->exists();
         }
 
-        return false;
+        return true;
     }
 
     /**
@@ -140,12 +113,6 @@ class BugPolicy
      */
     public function forceDelete(User $user, Bug $bug): bool
     {
-        if($user->isCustomer())
-            return false;
-
-        if($user->isAdmin())
-            return true;
-
         if($user->isOperator()){
             return $user->role->permissions()
                 ->where("name", BasicPermission::DELETE->value)
@@ -153,6 +120,6 @@ class BugPolicy
                 ->exists();
         }
 
-        return false;
+        return true;
     }
 }

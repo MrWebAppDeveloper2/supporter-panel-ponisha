@@ -13,7 +13,7 @@ class Index extends Component
     public function delete(Bug $bug)
     {
         $this->authorize('delete', $bug);
-        
+
         $this->bugRepository->delete($bug)?
             session()->now('alert-success', 'حذف شد !'):
             session()->now('alert-danger', 'وجود خطا در سرور !');

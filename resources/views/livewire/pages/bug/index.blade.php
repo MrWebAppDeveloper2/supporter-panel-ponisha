@@ -1,11 +1,11 @@
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
         <h4 class="my-0">باگ های گزارش شده</h4>
-{{--        @can('create', \App\Models\Bug::class)--}}
-{{--        <div>--}}
-{{--            <a href="{{ route('bug.create') }}" class="btn btn-primary">ثبت باگ جدید</a>--}}
-{{--        </div>--}}
-{{--        @endcan--}}
+        @can('create', \App\Models\Bug::class)
+        <div>
+            <a href="{{ route('bug.create') }}" class="btn btn-primary">ثبت باگ جدید</a>
+        </div>
+        @endcan
     </div>
     <div class="card-body">
         <x-alert/>
