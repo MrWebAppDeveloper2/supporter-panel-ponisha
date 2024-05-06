@@ -122,4 +122,12 @@ class BugPolicy
 
         return true;
     }
+
+    /**
+     * Determine whether the user can change the bug status.
+     */
+    public function changeStatus(User $user, Bug $bug): bool
+    {
+        return $user->isAdmin();
+    }
 }
