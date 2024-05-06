@@ -15,6 +15,9 @@ class Upload extends Component
 
     private MediaRepository $mediaRepository;
 
+    #[Validate(['nullable', 'max:255'])]
+    public string $name;
+
     #[Validate(['file'])]
     public $file;
 
@@ -27,7 +30,7 @@ class Upload extends Component
 
         $this->mediaRepository->create([
             'path' => $path,
-            'name' => $this->file->getClientOriginalName(),
+            'name' => $this->name ?? $this->file->getClientOriginalName(),
             'creator_id' => auth()->id(),
         ])?
             session()->flash('alert-success', 'فایل جدید ذخیره شد.'):

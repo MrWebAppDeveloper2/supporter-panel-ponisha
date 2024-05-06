@@ -12,7 +12,14 @@
               x-on:livewire-upload-progress="progress = $event.detail.progress"
         >
             <div class="form-group p-3">
-                <label for="defaultFormControlInput" class="form-label">فایل</label>
+                <label for="defaultFormControlInput" class="form-label">نام</label>
+                <input type="text" @class(['form-control', 'is-invalid' => $errors->has('name')]) wire:model="name" id="defaultFormControlInput" placeholder="با چه نامی فایل را ذخیره کنیم ؟" aria-describedby="defaultFormControlHelp">
+                @error('name')
+                <span class="invalid-feedback">{{ $message }}</span>
+                @enderror
+            </div>
+            <div class="form-group p-3">
+                <label for="defaultFormControlInput" class="form-label">فایل *</label>
                 <input type="file" @class(['form-control', 'is-invalid' => $errors->has('file')]) wire:model="file">
                 <div class="d-flex flex-row justify-content-center align-items-center">
                     <div class="progress mt-3 px-0" x-show="uploading" style="width: 94%">
