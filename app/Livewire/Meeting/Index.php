@@ -5,9 +5,12 @@ namespace App\Livewire\Meeting;
 use App\Models\Meeting;
 use App\Repositories\MeetingRepository;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
+    use WithPagination;
+
     private MeetingRepository $repository;
 
     public function delete(Meeting $meeting)
@@ -30,6 +33,6 @@ class Index extends Component
     public function render()
     {
         return view('livewire.pages.meeting.index')
-            ->with('meetings', $this->repository->all());
+            ->with('meetings', $this->repository->paginate());
     }
 }

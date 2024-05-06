@@ -59,6 +59,9 @@
                 </tbody>
             </table>
         </div>
+        <div class="mt-3">
+            {{ $meetings->links('vendor.livewire.bootstrap') }}
+        </div>
     </div>
 </div>
 

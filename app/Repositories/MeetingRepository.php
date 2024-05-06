@@ -17,6 +17,11 @@ class MeetingRepository
         return Meeting::create($data);
     }
 
+    public function paginate(int $perPage = 20)
+    {
+        return Meeting::paginate($perPage);
+    }
+
     public function all(array $columns = ['*']):Collection
     {
         return Meeting::all($columns);
