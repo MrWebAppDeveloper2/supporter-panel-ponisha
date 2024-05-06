@@ -58,11 +58,11 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Reported bugs
      *
-     * @return MorphMany
+     * @return HasMany
      */
-    public function bugs():MorphMany
+    public function bugs():HasMany
     {
-        return $this->morphMany(Bug::class, 'creator');
+        return $this->hasMany(Bug::class, 'creator_id');
     }
 
     /**

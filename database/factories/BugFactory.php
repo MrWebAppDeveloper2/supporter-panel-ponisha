@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Enums\Bug\BugType;
+use App\Enums\Bug\BugStatus;
 use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -19,14 +19,11 @@ class BugFactory extends Factory
      */
     public function definition(): array
     {
-        $creator = $this->faker->randomElement([User::class, Customer::class]);
-
         return [
             'title' => $this->faker->title,
             'description' => $this->faker->realText,
-            'creator_type' => $creator::class,
-            'creator_id' => $creator::factory(),
-            'status' => $this->faker->randomElement(array_values(BugType::cases()))
+            'creator_id' => User::factory(),
+            'status' => $this->faker->randomElement(array_values(BugStatus::cases()))
         ];
     }
 
@@ -37,7 +34,7 @@ class BugFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'status' => BugType::FIXED->value,
+                'status' => BugStatus::FIXED->value,
             ];
         });
     }
@@ -49,7 +46,7 @@ class BugFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'status' => BugType::PENDING->value,
+                'status' => BugStatus::PENDING->value,
             ];
         });
     }

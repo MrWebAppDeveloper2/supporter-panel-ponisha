@@ -15,9 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->longText('description');
-            $table->morphs('creator');
-            $table->string('status')->nullable();
+            $table->foreignId('creator_id');
+            $table->string('status')->default(\App\Enums\Bug\BugStatus::PENDING->value)->nullable();
             $table->timestamps();
+
+            $table->foreign('creator_id')->on('users')->references('id');
         });
     }
 

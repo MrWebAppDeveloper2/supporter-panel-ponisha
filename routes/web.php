@@ -84,6 +84,14 @@ Route::middleware(['auth', 'verified'])->group(function(){
         Route::get('/{meeting}/edit', App\Livewire\Meeting\Edit::class)->name('edit');
         Route::get('/{meeting}', \App\Livewire\Meeting\Show::class)->name('show');
     });
+
+    // Bug
+    Route::prefix('/bug')->name('bug.')->group(function(){
+        Route::get('/', \App\Livewire\Bug\Index::class)->name('index');
+        Route::get('/create', \App\Livewire\Bug\Create::class)->name('create');
+        Route::get('/{bug}/edit', App\Livewire\Bug\Edit::class)->name('edit');
+        Route::get('/{bug}', \App\Livewire\Bug\Show::class)->name('show');
+    });
 });
 //
 Route::view('profile', 'profile')
