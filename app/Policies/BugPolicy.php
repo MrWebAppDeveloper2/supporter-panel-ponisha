@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\Enums\Permission\BasicPermission;
-use App\Models\Meeting;
+use App\Models\Bug;
 use App\Models\User;
 
-class MeetingPolicy
+class BugPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -20,10 +20,10 @@ class MeetingPolicy
             return true;
 
         if($user->isOperator()){
-            if($meeting = $user->role)
-                return $meeting->permissions()
+            if($bug = $user->role)
+                return $bug->permissions()
                     ->where("name", BasicPermission::READ->value)
-                    ->where('model', Meeting::class)
+                    ->where('model', Bug::class)
                     ->exists();
         }
 
@@ -33,7 +33,7 @@ class MeetingPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Meeting $meeting): bool
+    public function view(User $user, Bug $bug): bool
     {
         if($user->isCustomer())
             return false;
@@ -44,7 +44,7 @@ class MeetingPolicy
         if($user->isOperator()){
             return $user->role->permissions()
                 ->where("name", BasicPermission::READ->value)
-                ->where('model', Meeting::class)
+                ->where('model', Bug::class)
                 ->exists();
         }
 
@@ -65,7 +65,7 @@ class MeetingPolicy
         if($user->isOperator()){
             return $user->role->permissions()
                 ->where("name", BasicPermission::CREATE->value)
-                ->where('model', Meeting::class)
+                ->where('model', Bug::class)
                 ->exists();
         }
 
@@ -75,7 +75,7 @@ class MeetingPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Meeting $meeting): bool
+    public function update(User $user, Bug $bug): bool
     {
         if($user->isCustomer())
             return false;
@@ -86,7 +86,7 @@ class MeetingPolicy
         if($user->isOperator()){
             return $user->role->permissions()
                 ->where("name", BasicPermission::UPDATE->value)
-                ->where('model', Meeting::class)
+                ->where('model', Bug::class)
                 ->exists();
         }
 
@@ -96,7 +96,7 @@ class MeetingPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Meeting $meeting): bool
+    public function delete(User $user, Bug $bug): bool
     {
         if($user->isCustomer())
             return false;
@@ -107,7 +107,7 @@ class MeetingPolicy
         if($user->isOperator()){
             return $user->role->permissions()
                 ->where("name", BasicPermission::DELETE->value)
-                ->where('model', Meeting::class)
+                ->where('model', Bug::class)
                 ->exists();
         }
 
@@ -117,7 +117,7 @@ class MeetingPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Meeting $meeting): bool
+    public function restore(User $user, Bug $bug): bool
     {
         if($user->isCustomer())
             return false;
@@ -128,7 +128,7 @@ class MeetingPolicy
         if($user->isOperator()){
             return $user->role->permissions()
                 ->where("name", BasicPermission::UPDATE->value)
-                ->where('model', Meeting::class)
+                ->where('model', Bug::class)
                 ->exists();
         }
 
@@ -138,7 +138,7 @@ class MeetingPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Meeting $meeting): bool
+    public function forceDelete(User $user, Bug $bug): bool
     {
         if($user->isCustomer())
             return false;
@@ -149,7 +149,7 @@ class MeetingPolicy
         if($user->isOperator()){
             return $user->role->permissions()
                 ->where("name", BasicPermission::DELETE->value)
-                ->where('model', Meeting::class)
+                ->where('model', Bug::class)
                 ->exists();
         }
 

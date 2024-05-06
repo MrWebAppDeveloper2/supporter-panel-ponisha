@@ -21,7 +21,7 @@ class PurchasePolicy
 
         if($user->isOperator()){
             if($purchase = $user->purchase)
-                return $purchase->permissions()
+                return $user->role->permissions
                     ->where("name", BasicPermission::READ->value)
                     ->where('model', Purchase::class)
                     ->exists();
@@ -42,7 +42,7 @@ class PurchasePolicy
             return true;
 
         if($user->isOperator()){
-            return $user->purchase->permissions()
+            return $user->role->permissions()
                 ->where("name", BasicPermission::READ->value)
                 ->where('model', Purchase::class)
                 ->exists();
@@ -63,7 +63,7 @@ class PurchasePolicy
             return true;
 
         if($user->isOperator()){
-            return $user->purchase->permissions()
+            return $user->role->permissions()
                 ->where("name", BasicPermission::CREATE->value)
                 ->where('model', Purchase::class)
                 ->exists();
@@ -84,7 +84,7 @@ class PurchasePolicy
             return true;
 
         if($user->isOperator()){
-            return $user->purchase->permissions()
+            return $user->role->permissions()
                 ->where("name", BasicPermission::UPDATE->value)
                 ->where('model', Purchase::class)
                 ->exists();
@@ -105,7 +105,7 @@ class PurchasePolicy
             return true;
 
         if($user->isOperator()){
-            return $user->purchase->permissions()
+            return $user->role->permissions()
                 ->where("name", BasicPermission::DELETE->value)
                 ->where('model', Purchase::class)
                 ->exists();
@@ -126,7 +126,7 @@ class PurchasePolicy
             return true;
 
         if($user->isOperator()){
-            return $user->purchase->permissions()
+            return $user->role->permissions()
                 ->where("name", BasicPermission::UPDATE->value)
                 ->where('model', Purchase::class)
                 ->exists();
@@ -147,7 +147,7 @@ class PurchasePolicy
             return true;
 
         if($user->isOperator()){
-            return $user->purchase->permissions()
+            return $user->role->permissions()
                 ->where("name", BasicPermission::DELETE->value)
                 ->where('model', Purchase::class)
                 ->exists();

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Bug extends Model
 {
@@ -13,10 +13,10 @@ class Bug extends Model
     /**
      * The bug reporter.
      *
-     * @return MorphTo
+     * @return BelongsTo
      */
-    public function creator():MorphTo
+    public function creator():BelongsTo
     {
-        return $this->morphTo();
+        return $this->belongsTo(User::class);
     }
 }

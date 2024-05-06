@@ -15,9 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->longText('description');
-            $table->morphs('creator');
+            $table->foreignId('creator_id');
             $table->string('status')->nullable();
             $table->timestamps();
+
+            $table->foreign('creator_id')->on('users')->references('id');
         });
     }
 

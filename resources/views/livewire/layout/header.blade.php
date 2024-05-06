@@ -76,6 +76,18 @@
                 </li>
             @endcan
 
+        <!-- Bug -->
+            @can('viewAny', \App\Models\Bug::class)
+                <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/bug'))])>
+                    <a wire:navigate
+                       href="{{ route('bug.index') }}"
+                       class="menu-link">
+                        <i class='menu-icon bx bxs-bug'></i>
+                        <div>باگ ها</div>
+                    </a>
+                </li>
+            @endcan
+
         <!-- Ticket -->
             @can('viewAny', \App\Models\Ticket::class)
                 <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/ticket'))])>

@@ -16,15 +16,6 @@ class Customer extends Authenticatable
 
     public $guarded;
 
-    /**
-     * Reported bugs
-     *
-     * @return MorphMany
-     */
-    public function bugs():MorphMany
-    {
-        return $this->morphMany(Bug::class, 'creator');
-    }
 
     /**
      * All the meetings that the customer participated in
