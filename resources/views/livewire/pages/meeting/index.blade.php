@@ -22,7 +22,7 @@
                 @foreach($meetings as $meeting)
                     <tr wire:key="{{ $meeting->id }}">
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $meeting->title }}</td>
+                        <td><a href="{{ route('meeting.show', $meeting) }}">{{ \Illuminate\Support\Str::words($meeting->title, 6) }}</a></td>
                         <td class="d-none d-md-table-cell">{{ $meeting->customer->user->name }}</td>
                         <td class="d-none d-md-table-cell">{{ $meeting->date }}</td>
                         <td>
@@ -31,11 +31,11 @@
                                         data-bs-toggle="dropdown">
                                     <i class="bx bx-dots-vertical-rounded"></i>
                                 </button>
-{{--                                <div class="dropdown-menu">--}}
-{{--                                    @can('view', $meeting)--}}
-{{--                                        <a class="dropdown-item" href="{{ route('meeting.show', $meeting)}}"><i--}}
-{{--                                                class="bx bx-show-alt me-1"></i> مشاهده</a>--}}
-{{--                                    @endcan--}}
+                                <div class="dropdown-menu">
+                                    @can('view', $meeting)
+                                        <a class="dropdown-item" href="{{ route('meeting.show', $meeting)}}"><i
+                                                class="bx bx-show-alt me-1"></i> مشاهده</a>
+                                    @endcan
 
 {{--                                    @can('update', $meeting)--}}
 {{--                                        <a class="dropdown-item" href="{{ route('meeting.edit', $meeting)}}"><i--}}
