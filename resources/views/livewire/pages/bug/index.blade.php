@@ -41,10 +41,10 @@
 {{--                                                class="bx bx-show-alt me-1"></i> مشاهده</a>--}}
 {{--                                    @endcan--}}
 
-{{--                                    @can('update', $bug)--}}
-{{--                                        <a class="dropdown-item" href="{{ route('bug.edit', $bug)}}"><i--}}
-{{--                                                class="bx bx-edit-alt me-1"></i> ویرایش</a>--}}
-{{--                                    @endcan--}}
+                                    @can('update', $bug)
+                                        <a class="dropdown-item" href="{{ route('bug.edit', $bug)}}"><i
+                                                class="bx bx-edit-alt me-1"></i> ویرایش</a>
+                                    @endcan
 
                                     @can('delete', $bug)
                                         <button class="dropdown-item"

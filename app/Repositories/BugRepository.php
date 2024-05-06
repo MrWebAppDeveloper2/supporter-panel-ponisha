@@ -20,4 +20,9 @@ class BugRepository
     {
         return Bug::create($data);
     }
+
+    public function update(Bug $bug, array $data):bool
+    {
+        return $bug->update($data);
+    }
 }
