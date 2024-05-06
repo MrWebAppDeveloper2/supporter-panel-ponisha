@@ -25,10 +25,9 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $media->name }}</td>
                         {{--                        <td>--}}
-                        {{--                        </td>--}}
                         <td>
                             @can('download', $media)
-                                <button class="btn btn-sm btn-outline-primary">دانلود</button>
+                                <button class="btn btn-sm btn-outline-primary" wire:click="download({{ $media }})">دانلود</button>
                             @endcan
                             @can('delete', $media)
                                 <button class="btn btn-sm btn-outline-danger">حذف</button>
