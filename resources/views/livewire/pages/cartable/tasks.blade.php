@@ -1,48 +1,63 @@
-<div></div>
-{{--<div class="card">--}}
-{{--    <div class="card-header d-flex justify-content-between align-items-center">--}}
-{{--        <h5>وظایف</h5>--}}
-{{--        <a href="" class="btn btn-primary">ایجاد وظیفه</a>--}}
-{{--    </div>--}}
-{{--    <div class="card-body">--}}
-{{--        <div class="table-responsive text-nowrap overflow-visible">--}}
-{{--            <table class="table table-striped">--}}
-{{--                <thead>--}}
-{{--                <tr>--}}
-{{--                    <th>#</th>--}}
-{{--                    <th>عنوان</th>--}}
-{{--                    <th>وضعیت</th>--}}
-{{--                    <th>تاریخ</th>--}}
-{{--                    <th>عمل‌ها</th>--}}
-{{--                </tr>--}}
-{{--                </thead>--}}
-{{--                <tbody class="table-border-bottom-0">--}}
-{{--                @foreach($tickets as $ticket)--}}
-{{--                    <tr wire:key="{{ $ticket->id }}">--}}
-{{--                        <td>{{ $loop->iteration }}</td>--}}
-{{--                        <td class="underline">--}}
-{{--                            <a href="{{ route('ticket.show', $ticket) }}">{{ $ticket->title }}</a>--}}
-{{--                        </td>--}}
-{{--                        <td>--}}
-{{--                            <x-ticket-status :status="$ticket->status"/>--}}
-{{--                        </td>--}}
-{{--                        <td>{{ \Morilog\Jalali\Jalalian::forge($ticket->created_at)->format('%D') }}</td>--}}
-{{--                        <td>--}}
-{{--                            @can('update', $ticket)--}}
-{{--                                <button class="btn btn-outline-warning btn-sm"--}}
-{{--                                        wire:click="closeTicket({{ $ticket }})"--}}
-{{--                                        wire:confirm="ایا از بستن این تیکت مطمئن هستید ؟">بستن تیکت--}}
-{{--                                </button>--}}
-{{--                            @endcan--}}
-{{--                            @can('view', $ticket)--}}
-{{--                                <button class="btn btn-outline-primary btn-sm">گفتگو</button>--}}
-{{--                            @endcan--}}
-{{--                        </td>--}}
-{{--                    </tr>--}}
-{{--                @endforeach--}}
-{{--                </tbody>--}}
-{{--            </table>--}}
-{{--        </div>--}}
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5>وظایف</h5>
+    </div>
+    <div class="card-body">
+        @if(session()->get('alert-focus') == 'task')
+            <x-alert/>
+        @endif
+        <div class="table-responsive text-nowrap overflow-visible">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>عنوان</th>
+                    <th>وضعیت</th>
+                    <th>تاریخ</th>
+                    <th>عمل‌ها</th>
+                </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                @foreach($tasks as $task)
+                    <tr wire:key="{{ $task->id }}">
+                        <td>{{ $loop->iteration }}</td>
+                        <td class="underline">
+                            <a href="#" wire:click="open({{ $task }})">
+                                {{ \Illuminate\Support\Str::words($task->title, 3) }}
+                                @if($task->status == \App\Enums\Task\TaskStatus::SENT->value && $task->creator_id != auth()->id())
+                                    <small class="badge text-white bg-danger p-1">جدید</small>
+                                @endif
+                            </a>
+                        </td>
+                        <td>
+                            <x-task-status :status="$task->status"/>
+                        </td>
+                        <td>{{ \Morilog\Jalali\Jalalian::forge($task->created_at)->format('%D') }}</td>
+                        <td>
+                            @can('view', $task)
+                                <button class="btn btn-outline-primary btn-sm" wire:click="open({{ $task }})">گفتگو
+                                </button>
+                            @endcan
+                            @can('close', $task)
+                                <button class="btn btn-outline-warning btn-sm"
+                                        wire:click="close({{ $task }})"
+                                        wire:confirm="ایا از بستن این وظیفه مطمئن هستید ؟">
+                                    بستن وظیفه
+                                </button>
+                            @endcan
+                            @can('sendCloseInquiry', $task)
+                                <button class="btn btn-outline-warning btn-sm"
+                                        wire:click="sendCloseInquiry({{ $task }})"
+                                        wire:confirm="ایا از ارسال درخواست بستن این وظیفه مطمئن هستید ؟">
+                                    ارسال درخواست بستن وظیفه
+                                </button>
+                            @endcan
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
 
-{{--    </div>--}}
-{{--</div>--}}
+    </div>
+</div>

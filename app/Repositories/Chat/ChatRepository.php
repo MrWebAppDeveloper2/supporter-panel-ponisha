@@ -14,7 +14,7 @@ use function config;
 
 class ChatRepository
 {
-    use HasTicketChatMethods;
+    use HasTicketChatMethods, HasTaskChatMethods;
 
     public function find(int $id):Chat|null
     {
@@ -40,10 +40,14 @@ class ChatRepository
     public function joinMember(Chat $chat, User $member):void
     {
         $chat->members()->attach($member->id);
+
+        $chat->save();
     }
 
     public function kickMember(Chat $chat, User $member):void
     {
-        $chat->members()->detach($member);
+        $chat->members()->detach($member->id);
+
+        $chat->save();
     }
 }

@@ -88,9 +88,9 @@ class Tickets extends Component
 
     public function sendCloseTicketInquiry(Ticket $ticket)
     {
-        $ticketRepository = new TicketRepository();
+        $ticketRepository = app()->make(TicketRepository::class);
 
-        $messageRepository = new MessageRepository($ticketRepository->findRelevantChat($ticket));
+        $messageRepository = app()->makeWith(MessageRepository::class, ['chat' => $ticketRepository->findRelevantChat($ticket)]);
 
         $messageRepository->createConfirmCloseTicketMessage($ticket);
 

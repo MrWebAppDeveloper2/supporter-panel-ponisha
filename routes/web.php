@@ -60,6 +60,14 @@ Route::middleware(['auth', 'verified'])->group(function(){
     Route::prefix('/chat')->group(function(){
        Route::get('/{chat?}', \App\Livewire\Messenger\Chat::class)->name('chat');
     });
+
+    // Task
+    Route::prefix('/task')->name('task.')->group(function(){
+        Route::get('/', \App\Livewire\Task\Index::class)->name('index');
+        Route::get('/create', \App\Livewire\Task\Create::class)->name('create');
+        Route::get('/close/{task}', \App\Http\Controllers\CloseTaskController::class)->name('close');
+        Route::get('/referral/{task}', \App\Livewire\Task\Referral::class)->name('referral');
+    });
 });
 //
 Route::view('profile', 'profile')

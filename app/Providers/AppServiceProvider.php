@@ -23,7 +23,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::define('cartable', function (User $user){
-           return $user->type == UserType::OPERATOR->value;
+           return
+               $user->type == UserType::OPERATOR->value
+               or
+               $user->type == UserType::ADMIN->value;
         });
     }
 }

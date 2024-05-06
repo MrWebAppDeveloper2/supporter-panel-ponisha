@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\TaskUserTypeScope;
+use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -9,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
+#[ScopedBy(TaskUserTypeScope::class)]
 class Task extends Model
 {
     use HasFactory;
@@ -28,11 +31,11 @@ class Task extends Model
     /**
      * The user who receives the task on its cartable
      *
-     * @return HasOne
+     * @return BelongsTo
      */
-    public function recipient(): HasOne
+    public function recipient(): BelongsTo
     {
-        return $this->hasOne(User::class, 'recipient_id');
+        return $this->belongsTo(User::class, 'recipient_id');
     }
 
     /**

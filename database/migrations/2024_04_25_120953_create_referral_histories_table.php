@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreignId('destination_id');
             $table->timestamps();
 
-            $table->foreign('task_id')->on(\App\Models\Task::class)->references('id');
-            $table->foreign('destination_id')->on(\App\Models\User::class)->references('id');
+            $table->foreign('task_id')->on('tasks')->references('id');
+            $table->foreign('destination_id')->on('users')->references('id');
         });
     }
 

@@ -27,7 +27,7 @@ class OpenTicketAgain
      */
     public function handle(MessageCreated $event): void
     {
-        if(!$ticket = $this->chatRepository->findRelevantTicket($event->message->chat))
+        if(!$ticket = $this->chatRepository->findRelevantTicket($event->message->chat_id))
             return;
 
         if($ticket->status != TicketStatus::CLOSED->value)

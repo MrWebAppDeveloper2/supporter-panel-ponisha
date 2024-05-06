@@ -10,7 +10,7 @@ use function app;
 
 class MessageRepository
 {
-    use HasTicketMessageMethods;
+    use HasTicketMessageMethods, HasTaskMessageMethods;
 
     /**
      * Create a new class instance.
