@@ -20,7 +20,7 @@ class PurchaseFactory extends Factory
         return [
             'fullname' => $this->faker->name,
             'sale_date' => $this->faker->date,
-            'amount_paid' => rand(11111111, 9999999) . " تومان",
+            'amount_paid' => rand(11111111, 9999999),
             'phone' => $this->faker->phoneNumber,
             'description' => $this->faker->realText,
             'creator_id' => User::factory(),
