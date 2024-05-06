@@ -2,7 +2,7 @@
     <div class="card-header d-flex justify-content-between align-items-center">
         <h4 class="my-0">فروش</h4>
         <div>
-{{--            <a href="{{ route('meeting.create') }}" class="btn btn-primary">ثبت فروش جدید</a>--}}
+            <a href="{{ route('meeting.create') }}" class="btn btn-primary">ثبت جلسه جدید</a>
         </div>
     </div>
     <div class="card-body">
@@ -24,7 +24,7 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $meeting->title }}</td>
                         <td class="d-none d-md-table-cell">{{ $meeting->customer->user->name }}</td>
-                        <td class="d-none d-md-table-cell">{{ \Morilog\Jalali\Jalalian::forge($meeting->date)->format('%Y/%M/%D') }}</td>
+                        <td class="d-none d-md-table-cell">{{ $meeting->date }}</td>
                         <td>
                             <div class="dropdown">
                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow"

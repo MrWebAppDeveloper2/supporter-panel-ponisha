@@ -80,7 +80,7 @@ Route::middleware(['auth', 'verified'])->group(function(){
     // Meeting
     Route::prefix('/meeting')->name('meeting.')->group(function(){
         Route::get('/', \App\Livewire\Meeting\Index::class)->name('index');
-//        Route::get('/create', \App\Livewire\Meeting\Create::class)->name('create');
+        Route::get('/create', \App\Livewire\Meeting\Create::class)->name('create');
 //        Route::get('/{meeting}/edit', App\Livewire\Meeting\Edit::class)->name('edit');
 //        Route::get('/{meeting}', \App\Livewire\Meeting\Show::class)->name('show');
     });
