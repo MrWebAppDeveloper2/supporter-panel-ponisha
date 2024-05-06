@@ -74,9 +74,7 @@ Route::middleware(['auth', 'verified'])->group(function(){
         Route::get('/', \App\Livewire\Purchase\Index::class)->name('index');
         Route::get('/create', \App\Livewire\Purchase\Create::class)->name('create');
         Route::get('/{purchase}/edit', App\Livewire\Purchase\Edit::class)->name('edit');
-
-//        Route::get('/close/{purchase}', \App\Http\Controllers\ClosePurchaseController::class)->name('close');
-//        Route::get('/referral/{purchase}', \App\Livewire\Purchase\Referral::class)->name('referral');
+        Route::get('/{purchase}', \App\Livewire\Purchase\Show::class)->name('show');
     });
 });
 //

@@ -36,6 +36,11 @@
                                     <i class="bx bx-dots-vertical-rounded"></i>
                                 </button>
                                 <div class="dropdown-menu">
+                                    @can('view', $purchase)
+                                        <a class="dropdown-item" href="{{ route('purchase.show', $purchase)}}"><i
+                                                class="bx bx-show-alt me-1"></i> مشاهده</a>
+                                    @endcan
+
                                     @can('update', $purchase)
                                         <a class="dropdown-item" href="{{ route('purchase.edit', $purchase)}}"><i
                                                 class="bx bx-edit-alt me-1"></i> ویرایش</a>
