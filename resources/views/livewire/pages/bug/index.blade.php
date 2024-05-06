@@ -36,10 +36,10 @@
                                     <i class="bx bx-dots-vertical-rounded"></i>
                                 </button>
                                 <div class="dropdown-menu">
-{{--                                    @can('view', $bug)--}}
-{{--                                        <a class="dropdown-item" href="{{ route('bug.show', $bug)}}"><i--}}
-{{--                                                class="bx bx-show-alt me-1"></i> مشاهده</a>--}}
-{{--                                    @endcan--}}
+                                    @can('view', $bug)
+                                        <a class="dropdown-item" href="{{ route('bug.show', $bug)}}"><i
+                                                class="bx bx-show-alt me-1"></i> مشاهده جزئیات</a>
+                                    @endcan
 
                                     @can('update', $bug)
                                         <a class="dropdown-item" href="{{ route('bug.edit', $bug)}}"><i
