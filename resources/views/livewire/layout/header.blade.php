@@ -52,7 +52,7 @@
                 </li>
             @endcan
 
-        <!-- Task -->
+        <!-- Purchase -->
             @can('viewAny', \App\Models\Purchase::class)
                 <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/purchase'))])>
                     <a wire:navigate
@@ -64,6 +64,17 @@
                 </li>
             @endcan
 
+        <!-- Meeting -->
+            @can('viewAny', \App\Models\Meeting::class)
+                <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/meeting'))])>
+                    <a wire:navigate
+                       href="{{ route('meeting.index') }}"
+                       class="menu-link">
+                        <i class='menu-icon bx bxs-user-voice'></i>
+                        <div>صورت جلسات</div>
+                    </a>
+                </li>
+            @endcan
 
         <!-- Ticket -->
             @can('viewAny', \App\Models\Ticket::class)
