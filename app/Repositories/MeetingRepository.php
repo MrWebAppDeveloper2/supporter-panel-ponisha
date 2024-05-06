@@ -17,6 +17,11 @@ class MeetingRepository
         return Meeting::create($data);
     }
 
+    public function update(Meeting $meeting, array $data):bool
+    {
+        return $meeting->update($data);
+    }
+
     public function paginate(int $perPage = 20)
     {
         return Meeting::paginate($perPage);

@@ -39,10 +39,10 @@
                                                 class="bx bx-show-alt me-1"></i> مشاهده</a>
                                     @endcan
 
-{{--                                    @can('update', $meeting)--}}
-{{--                                        <a class="dropdown-item" href="{{ route('meeting.edit', $meeting)}}"><i--}}
-{{--                                                class="bx bx-edit-alt me-1"></i> ویرایش</a>--}}
-{{--                                    @endcan--}}
+                                    @can('update', $meeting)
+                                        <a class="dropdown-item" href="{{ route('meeting.edit', $meeting)}}"><i
+                                                class="bx bx-edit-alt me-1"></i> ویرایش</a>
+                                    @endcan
 
                                     @can('delete', $meeting)
                                         <button class="dropdown-item"
