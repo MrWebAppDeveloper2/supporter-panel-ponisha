@@ -30,16 +30,26 @@
                         <td>{{ $purchase->creator->name }}</td>
                         <td>{{ $purchase->sale_date }}</td>
                         <td>
-{{--                            @can('view', $purchase)--}}
-{{--                                <a href="{{ route('purchase.show', $purchase) }}" class="btn btn-outline-primary btn-sm"--}}
-{{--                                   wire:navigate>مشاهده جزئیات</a>--}}
-{{--                            @endcan--}}
-                            @can('delete', $purchase)
-                                <button class="btn btn-outline-danger btn-sm" type="button"
-                                        wire:click="delete({{ $purchase }})"
-                                        wire:confirm="آیا از حذف این فروش مطمئن هستید ؟">حذف
+                            <div class="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                        data-bs-toggle="dropdown">
+                                    <i class="bx bx-dots-vertical-rounded"></i>
                                 </button>
-                            @endcan
+                                <div class="dropdown-menu">
+                                    @can('update', $purchase)
+                                        <a class="dropdown-item" href="{{ route('purchase.edit', $purchase)}}"><i
+                                                class="bx bx-edit-alt me-1"></i> ویرایش</a>
+                                    @endcan
+
+                                    @can('delete', $purchase)
+                                        <button class="dropdown-item"
+                                                wire:click="delete({{ $purchase }})"
+                                                wire:confirm="آیا از حذف این فروش مطمئن هستید ؟"
+                                        ><i class="bx bx-trash me-1"></i> حذف
+                                        </button>
+                                    @endcan
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 @endforeach

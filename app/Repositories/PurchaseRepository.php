@@ -17,6 +17,11 @@ class PurchaseRepository
         return Purchase::create($data);
     }
 
+    public function update(Purchase $purchase, array $data):bool
+    {
+        return $purchase->update($data);
+    }
+
     public function delete(Purchase $purchase):bool
     {
         return $purchase->delete();
