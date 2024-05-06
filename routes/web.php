@@ -72,9 +72,9 @@ Route::middleware(['auth', 'verified'])->group(function(){
     // Purchase
     Route::prefix('/purchase')->name('purchase.')->group(function(){
         Route::get('/', \App\Livewire\Purchase\Index::class)->name('index');
-//        Route::get('/create', \App\Livewire\Task\Create::class)->name('create');
-//        Route::get('/close/{purchase}', \App\Http\Controllers\CloseTaskController::class)->name('close');
-//        Route::get('/referral/{purchase}', \App\Livewire\Task\Referral::class)->name('referral');
+        Route::get('/create', \App\Livewire\Purchase\Create::class)->name('create');
+//        Route::get('/close/{purchase}', \App\Http\Controllers\ClosePurchaseController::class)->name('close');
+//        Route::get('/referral/{purchase}', \App\Livewire\Purchase\Referral::class)->name('referral');
     });
 });
 //

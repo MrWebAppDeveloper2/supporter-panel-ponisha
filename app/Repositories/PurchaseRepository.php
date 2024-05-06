@@ -12,6 +12,11 @@ class PurchaseRepository
         return Purchase::all($columns);
     }
 
+    public function create(array $data):Purchase|false
+    {
+        return Purchase::create($data);
+    }
+
     public function delete(Purchase $purchase):bool
     {
         return $purchase->delete();

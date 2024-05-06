@@ -2,7 +2,7 @@
     <div class="card-header d-flex justify-content-between align-items-center">
         <h4 class="my-0">فروش</h4>
         <div>
-
+            <a href="{{ route('purchase.create') }}" class="btn btn-primary">ثبت فروش جدید</a>
         </div>
     </div>
     <div class="card-body">
@@ -28,7 +28,7 @@
                         <td>{{ number_format((int)$purchase->amount_paid) }} تومان</td>
                         <td>{{ $purchase->phone }}</td>
                         <td>{{ $purchase->creator->name }}</td>
-                        <td>{{ \Morilog\Jalali\Jalalian::forge($purchase->sale_date)->format('%D') }}</td>
+                        <td>{{ $purchase->sale_date }}</td>
                         <td>
 {{--                            @can('view', $purchase)--}}
 {{--                                <a href="{{ route('purchase.show', $purchase) }}" class="btn btn-outline-primary btn-sm"--}}
