@@ -9,7 +9,7 @@
         <form wire:submit="store" class="row">
             <div class="form-group p-3">
                 <label for="defaultFormControlInput" class="form-label">عنوان</label>
-                <input type="text" @class(['form-control', 'is-invalid' => $errors->has('title')]) wire:model="title" id="defaultFormControlInput" placeholder="نام نقش جدید" aria-describedby="defaultFormControlHelp">
+                <input type="text" @class(['form-control', 'is-invalid' => $errors->has('title')]) wire:model="title" id="defaultFormControlInput" placeholder="عنوان وظیفه" aria-describedby="defaultFormControlHelp">
                 @error('title')
                 <span class="invalid-feedback">{{ $message }}</span>
                 @enderror

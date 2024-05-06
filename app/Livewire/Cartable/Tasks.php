@@ -17,7 +17,8 @@ class Tasks extends Component
     {
         return [
             "echo-private:user." . auth()->id() . ",TaskCreated" => 'pushNewTask',
-            "echo-private:user." . auth()->id() . ",TaskClosed" => 'removeTask'
+            "echo-private:user." . auth()->id() . ",TaskClosed" => 'removeTask',
+            "echo-private:user." . auth()->id() . ",TaskReferred" => 'taskReferredListener'
         ];
     }
 
@@ -34,6 +35,13 @@ class Tasks extends Component
         }
     }
 
+    public function taskReferredListener($event)
+    {
+        if($event['origin_id'] == auth()->id())
+            $this->removeTask($event);
+        elseif($event['destination_id'] == auth()->id())
+            $this->pushNewTask($event);
+    }
 
     /**
      * Removes the task which sent with event from list

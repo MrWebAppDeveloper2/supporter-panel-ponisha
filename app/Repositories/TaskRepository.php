@@ -3,8 +3,11 @@
 namespace App\Repositories;
 
 use App\Enums\Task\TaskStatus;
+use App\Events\TaskReferred;
 use App\Models\Chat;
+use App\Models\ReferralHistory;
 use App\Models\Task;
+use App\Models\User;
 use App\Repositories\Chat\ChatRepository;
 use App\Repositories\Message\MessageRepository;
 use Illuminate\Database\Eloquent\Collection;
@@ -91,6 +94,41 @@ class TaskRepository
     public function find(int $id):Task|null
     {
         return Task::find($id);
+    }
+
+    public function referral(Task $task, User $destination):bool
+    {
+        DB::beginTransaction();
+
+        if(!$this->update($task, [
+            'recipient_id' => $destination->id
+        ]))
+            return false;
+
+        if(!$task->referralHistory()->create([
+            'destination_id' => $destination->id,
+        ]))
+            return false;
+
+        if(!$chat = $this->findRelevantChat($task))
+            return false;
+
+        $chatRepository = app()->make(ChatRepository::class);
+
+        $chatRepository->joinMember($chat, $destination);
+
+        $chatRepository->kickMember($chat, auth()->user());
+
+        $messageRepository = app()->makeWith(MessageRepository::class, ['chat' => $chat]);
+
+        if(!$messageRepository->createTaskReferredMessage($task, auth()->user()))
+            return false;
+
+        TaskReferred::dispatch($task, auth()->user());
+
+        DB::commit();
+
+        return true;
     }
 
     public function findRelevantChat(Task $task):Chat|null

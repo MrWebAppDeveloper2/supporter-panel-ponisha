@@ -66,6 +66,7 @@ Route::middleware(['auth', 'verified'])->group(function(){
         Route::get('/', \App\Livewire\Task\Index::class)->name('index');
         Route::get('/create', \App\Livewire\Task\Create::class)->name('create');
         Route::get('/close/{task}', \App\Http\Controllers\CloseTaskController::class)->name('close');
+        Route::get('/referral/{task}', \App\Livewire\Task\Referral::class)->name('referral');
     });
 });
 //

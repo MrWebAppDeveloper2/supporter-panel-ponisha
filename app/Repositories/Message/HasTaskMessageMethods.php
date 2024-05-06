@@ -4,9 +4,11 @@ namespace App\Repositories\Message;
 
 use App\Models\Message;
 use App\Models\Task;
+use App\Models\User;
 use App\View\Components\ConfirmCloseTaskMessage;
 use App\View\Components\InitialTaskMessage;
 use App\View\Components\TaskClosedMessage;
+use App\View\Components\TaskReferredMessage;
 
 trait HasTaskMessageMethods
 {
@@ -40,6 +42,18 @@ trait HasTaskMessageMethods
 
         $messageData = [
             'body' => $taskClosedMessage->render()->render(),
+            'user_id' => $task->creator_id
+        ];
+
+        return $this->create($messageData);
+    }
+
+    public function createTaskReferredMessage(Task $task, User $origin):Message|false
+    {
+        $taskReferredMessage = app()->makeWith(TaskReferredMessage::class, ['task' => $task, 'origin' => $origin]);
+
+        $messageData = [
+            'body' => $taskReferredMessage->render()->render(),
             'user_id' => $task->creator_id
         ];
 

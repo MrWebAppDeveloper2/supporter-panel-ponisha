@@ -122,6 +122,17 @@ class TaskPolicy
             $task->status == TaskStatus::PENDING->value;
     }
 
+    /**
+     * Determine whether the user can referral the task or no.
+     */
+    public function referral(User $user, Task $task):bool
+    {
+        return
+            $task->recipient_id == $user->id
+            and
+            $task->status == TaskStatus::PENDING->value;
+    }
+
 
     /**
      * Determine whether the user can restore the model.
