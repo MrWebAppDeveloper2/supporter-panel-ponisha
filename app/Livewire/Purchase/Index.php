@@ -2,22 +2,25 @@
 
 namespace App\Livewire\Purchase;
 
+use App\Models\Purchase;
 use App\Repositories\PurchaseRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
 
 class Index extends Component
 {
-    public Collection $purchases;
-
-    public function mount(PurchaseRepository $repository)
+    public function delete(Purchase $purchase)
     {
-        $this->purchases = $repository->all();
+        $repository = app()->make(PurchaseRepository::class);
+
+        $repository->delete($purchase) ?
+            session()->now('alert-success', 'حذف شد !'):
+            session()->now('alert-danger', 'وجود خطا در سرور !');
     }
 
-    public function render()
+    public function render(PurchaseRepository $repository)
     {
         return view('livewire.pages.purchase.index')
-            ->with('purchases', $this->purchases);
+            ->with('purchases', $repository->all());
     }
 }

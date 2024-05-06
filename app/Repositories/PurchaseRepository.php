@@ -11,4 +11,9 @@ class PurchaseRepository
     {
         return Purchase::all($columns);
     }
+
+    public function delete(Purchase $purchase):bool
+    {
+        return $purchase->delete();
+    }
 }

@@ -1,7 +1,9 @@
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
         <h4 class="my-0">فروش</h4>
+        <div>
 
+        </div>
     </div>
     <div class="card-body">
         <x-alert/>
@@ -32,12 +34,12 @@
 {{--                                <a href="{{ route('purchase.show', $purchase) }}" class="btn btn-outline-primary btn-sm"--}}
 {{--                                   wire:navigate>مشاهده جزئیات</a>--}}
 {{--                            @endcan--}}
-{{--                            @can('delete', $purchase)--}}
-{{--                                <button class="btn btn-outline-danger btn-sm" type="button"--}}
-{{--                                        wire:click="delete({{ $purchase }})"--}}
-{{--                                        wire:confirm="آیا از حذف این فروش مطمئن هستید ؟">حذف--}}
-{{--                                </button>--}}
-{{--                            @endcan--}}
+                            @can('delete', $purchase)
+                                <button class="btn btn-outline-danger btn-sm" type="button"
+                                        wire:click="delete({{ $purchase }})"
+                                        wire:confirm="آیا از حذف این فروش مطمئن هستید ؟">حذف
+                                </button>
+                            @endcan
                         </td>
                     </tr>
                 @endforeach
