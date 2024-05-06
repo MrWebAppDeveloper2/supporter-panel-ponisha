@@ -52,6 +52,19 @@
                 </li>
             @endcan
 
+        <!-- Task -->
+            @can('viewAny', \App\Models\Purchase::class)
+                <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/purchase'))])>
+                    <a wire:navigate
+                       href="{{ route('purchase.index') }}"
+                       class="menu-link">
+                        <i class='menu-icon bx bx-money'></i>
+                        <div>فروش</div>
+                    </a>
+                </li>
+            @endcan
+
+
         <!-- Ticket -->
             @can('viewAny', \App\Models\Ticket::class)
                 <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/ticket'))])>
