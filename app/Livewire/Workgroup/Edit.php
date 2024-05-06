@@ -33,7 +33,7 @@ class Edit extends Component
             session()->flash('alert-success', 'گروه کاری ویرایش شد !'):
             session()->flash('alert-danger', 'وجود خطا در سرور !');
 
-        $this->redirect(route('workgroup.index'), true);
+        $this->redirect(route('workgroup.index'));
     }
 
     public function render()

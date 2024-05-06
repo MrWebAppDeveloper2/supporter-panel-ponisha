@@ -37,7 +37,7 @@
             </div>
             <div class="form-group p-3" x-show="!uploading">
                 <button @class(['btn','btn-success', 'd-none' => !$file]) type="submit">آپلود</button>
-                <a class="btn btn-warning" href="{{ route('media.index') }}" wire:navigate>بازگشت</a>
+                <a class="btn btn-warning" href="{{ route('media.index') }}" >بازگشت</a>
             </div>
         </form>
     </div>

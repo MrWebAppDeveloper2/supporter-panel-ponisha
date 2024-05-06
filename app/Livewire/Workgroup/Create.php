@@ -27,7 +27,7 @@ class Create extends Component
 
         session()->flash('alert-success', 'گروه کاری جدید ایجاد شد !');
 
-        $this->redirect(route('workgroup.index'), true);
+        $this->redirect(route('workgroup.index'));
     }
 
     public function mount()

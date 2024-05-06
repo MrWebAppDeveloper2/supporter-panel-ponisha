@@ -36,7 +36,7 @@ class Permissions extends Component
 
         session()->flash('alert-success', 'ذخیره شد !');
 
-        $this->redirect(route('role.index'), true);
+        $this->redirect(route('role.index'));
     }
 
     public function mount(PermissionRepository $repository)

@@ -17,7 +17,7 @@
                     @if(auth()->user()->type != \App\Enums\User\UserType::CUSTOMER->value)
                         <li class="nav-item">
                             <a href="{{ route('ticket.index', ['status' => \App\Enums\Ticket\TicketStatus::WAITING->value]) }}"
-                               wire:navigate
+
                                 @class(['nav-link', 'active' => (request()->query('status') == \App\Enums\Ticket\TicketStatus::WAITING->value)])>در
                                 انتظار پاسخگو
                             </a>
@@ -25,14 +25,14 @@
                     @endcan
                     <li class="nav-item">
                         <a href="{{ route('ticket.index', ['status' => \App\Enums\Ticket\TicketStatus::PENDING->value]) }}"
-                           wire:navigate
+
                             @class(['nav-link', 'active' => (request()->query('status') == \App\Enums\Ticket\TicketStatus::PENDING->value)])>تیکت
                             های باز
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('ticket.index', ['status' => \App\Enums\Ticket\TicketStatus::CLOSED->value]) }}"
-                           wire:navigate
+
                             @class(['nav-link', 'active' => (request()->query('status') == \App\Enums\Ticket\TicketStatus::CLOSED->value)])>بسته
                             شده
                         </a>

@@ -3,7 +3,7 @@
         <h4 class="my-0">اضافه کردن کاربر به نقش {{ $role->name }}</h4>
 
         <div>
-            <a href="{{ route('role.users', $role) }}" class="btn btn-outline-warning" wire:navigate>بازگشت</a>
+            <a href="{{ route('role.users', $role) }}" class="btn btn-outline-warning" >بازگشت</a>
         </div>
     </div>
     <div class="card-body">

@@ -35,7 +35,7 @@
             <x-alert />
             <div class="d-flex justify-content-end flex-row">
                 <button class="btn btn-primary mx-2" type="submit">ذخیره</button>
-                <a class="btn btn-warning" href="{{ url()->previous() }}" wire:navigate>بازگشت</a>
+                <a class="btn btn-warning" href="{{ url()->previous() }}" >بازگشت</a>
             </div>
         </form>
     </div>

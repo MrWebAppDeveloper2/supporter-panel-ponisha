@@ -43,7 +43,7 @@ class Create extends Component
             session()->flash('alert-success', 'تیکت جدید با موفقیت ثبت شد !') :
             session()->flash('alert-danger', 'وجود خطا در سرور ! لطفا زمان دیگری امتحان کنید.');
 
-        $this->redirect(route('ticket.index'), true);
+        $this->redirect(route('ticket.index'));
     }
 
     public function render()

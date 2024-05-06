@@ -16,14 +16,14 @@
                 <ul class="nav nav-pills" role="tablist">
                     <li class="nav-item">
                         <a href="{{ route('task.index', ['type' => \App\Enums\Task\TaskType::SUBMIT->value]) }}"
-                           wire:navigate
+
                             @class(['nav-link', 'active' => (request()->query('type') == \App\Enums\Task\TaskType::SUBMIT->value)])>
                             {{ \App\Enums\Task\TaskType::SUBMIT->value }}
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('task.index', ['type' => \App\Enums\Task\TaskType::RECEIVED->value]) }}"
-                           wire:navigate
+
                             @class(['nav-link', 'active' => (request()->query('type') == \App\Enums\Task\TaskType::RECEIVED->value)])>
                             {{ \App\Enums\Task\TaskType::RECEIVED->value }}
                         </a>

@@ -10,7 +10,7 @@
             </div>
             <div class="form-group p-3">
                 <button class="btn btn-success" type="submit">ذخیره</button>
-                <a class="btn btn-warning" href="{{ route('workgroup.index') }}" wire:navigate>بازگشت</a>
+                <a class="btn btn-warning" href="{{ route('workgroup.index') }}" >بازگشت</a>
             </div>
         </form>
     </div>

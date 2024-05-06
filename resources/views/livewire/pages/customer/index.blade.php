@@ -28,7 +28,7 @@
                         <td>
                             @can('view', $customer)
                                 <a href="{{ route('customer.show', $customer) }}" class="btn btn-outline-primary btn-sm"
-                                   wire:navigate>مشاهده جزئیات</a>
+                                   >مشاهده جزئیات</a>
                             @endcan
                             @can('delete', $customer)
                                 <button class="btn btn-outline-danger btn-sm" type="button"

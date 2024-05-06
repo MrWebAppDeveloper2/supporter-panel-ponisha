@@ -25,7 +25,7 @@ class AddUser extends Component
             session()->flash('alert-success', 'کاربر اضافه شد !'):
             session()->flash('alert-danger', 'وجود خطا در سرور !');
 
-        $this->redirect(route('role.users', $this->role), true);
+        $this->redirect(route('role.users', $this->role));
     }
 
     public function remove(User $user)
@@ -36,7 +36,7 @@ class AddUser extends Component
             session()->flash('alert-success', 'کاربر از نقش حذف شد !'):
             session()->flash('alert-danger', 'وجود خطا در سرور !');
 
-        $this->redirect(route('role.users', $this->role), true);
+        $this->redirect(route('role.users', $this->role));
     }
 
     public function updatedSearch()

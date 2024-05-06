@@ -9,9 +9,9 @@
                 @enderror
             </div>
             <div class="form-group p-3">
-                <a class="btn btn-info" href="{{ route('role.permission', $role) }}" wire:navigate>دسترسی ها</a>
+                <a class="btn btn-info" href="{{ route('role.permission', $role) }}" >دسترسی ها</a>
                 <button class="btn btn-primary mx-2" type="submit">ویرایش</button>
-                <a class="btn btn-warning" href="{{ route('role.index') }}" wire:navigate>بازگشت</a>
+                <a class="btn btn-warning" href="{{ route('role.index') }}" >بازگشت</a>
             </div>
         </form>
     </div>

@@ -63,13 +63,13 @@ new #[Layout('layouts.guest')] class extends Component {
                 <button wire:submit="login()" class="btn btn-primary my-2">ورود</button>
                 @if (Route::has('password.request'))
                     <a class="underline text-center text-sm m-2"
-                       href="{{ route('password.request') }}" wire:navigate>
+                       href="{{ route('password.request') }}" >
                         کلمه عبور خود را فراموش کرده اید ؟
                     </a>
                 @endif
                 <p class="text-center">
                     ثبت نام نکرده اید؟
-                    <a href="{{ route('register') }}" wire:navigate class="underline">ثبت نام</a>
+                    <a href="{{ route('register') }}"  class="underline">ثبت نام</a>
                 </p>
             </div>
         </form>
@@ -77,7 +77,7 @@ new #[Layout('layouts.guest')] class extends Component {
 </div>
 
 {{--<div>--}}
-{{--    <a href="/" wire:navigate>--}}
+{{--    <a href="/" >--}}
 {{--        <x-application-logo class="w-20 h-20 fill-current text-gray-500" />--}}
 {{--    </a>--}}
 {{--</div>--}}

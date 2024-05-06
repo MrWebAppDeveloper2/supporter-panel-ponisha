@@ -31,7 +31,7 @@ class Edit extends Component
 
         session()->flash('alert-success', 'ویرایش شد !');
 
-        $this->redirect(route('role.index'), true);
+        $this->redirect(route('role.index'));
     }
 
     public function mount()

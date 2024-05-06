@@ -32,7 +32,7 @@ class Create extends Component
 
         session()->flash('alert-success', 'نقش جدید ایجاد شد !');
 
-        $this->redirect(route('role.permission', $role), true);
+        $this->redirect(route('role.permission', $role));
     }
 
     #[Layout('layouts.app')]

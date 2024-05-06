@@ -3,7 +3,7 @@
         <h4 class="my-0">گروه کاری ها</h4>
 
         @can('create', \App\Models\Workgroup::class)
-            <a href="{{ route('workgroup.create') }}" wire:navigate class="btn btn-primary">
+            <a href="{{ route('workgroup.create') }}"  class="btn btn-primary">
                 <i class='bx bxs-plus-circle' style="padding-left: 10px"></i>
                 <span>گروه کاری جدید</span>
             </a>
@@ -34,11 +34,11 @@
                                 </button>
                                 <div class="dropdown-menu">
                                     @can('view', $workgroup)
-                                        <a class="dropdown-item" href="{{ route('workgroup.users', $workgroup) }}" wire:navigate><i class='bx bxs-user-detail me-1'></i></i>اعضا</a>
+                                        <a class="dropdown-item" href="{{ route('workgroup.users', $workgroup) }}" ><i class='bx bxs-user-detail me-1'></i></i>اعضا</a>
                                     @endcan
 
                                     @can('update', $workgroup)
-                                        <a class="dropdown-item" href="{{ route('workgroup.edit', $workgroup)}}" wire:navigate><i class="bx bx-edit-alt me-1"></i> ویرایش</a>
+                                        <a class="dropdown-item" href="{{ route('workgroup.edit', $workgroup)}}" ><i class="bx bx-edit-alt me-1"></i> ویرایش</a>
                                     @endcan
 
                                     @can('delete', $workgroup)

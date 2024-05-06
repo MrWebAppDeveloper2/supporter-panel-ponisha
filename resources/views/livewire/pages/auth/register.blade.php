@@ -176,7 +176,7 @@ new #[Layout('layouts.guest')] class extends Component {
                 <button class="btn btn-success my-3" type="button" wire:click="register()">ثبت نام</button>
                 <p class="text-center">
                     ثبت نام کرده اید؟
-                    <a href="{{ route('login') }}" wire:navigate class="underline">ورود</a>
+                    <a href="{{ route('login') }}"  class="underline">ورود</a>
                 </p>
             </div>
         </div>

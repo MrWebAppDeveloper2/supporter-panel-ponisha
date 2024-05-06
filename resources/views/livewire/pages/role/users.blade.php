@@ -3,7 +3,7 @@
         <h4 class="my-0">کاربران نقش {{ $role->name }}</h4>
 
         <div>
-            <a href="{{ route('role.add.user', $role) }}" class="btn btn-outline-primary" wire:navigate>اضافه کردن کاربر</a>
+            <a href="{{ route('role.add.user', $role) }}" class="btn btn-outline-primary" >اضافه کردن کاربر</a>
         </div>
     </div>
     <div class="card-body">

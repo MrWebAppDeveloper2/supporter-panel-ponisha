@@ -3,7 +3,7 @@
         <ul class="menu-inner">
             <!-- Dashboard -->
             <li @class(['menu-item', 'active' => (request()->routeIs('dashboard'))])>
-                <a wire:navigate href="{{ route('dashboard') }}" class="menu-link">
+                <a  href="{{ route('dashboard') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-home-circle"></i>
                     <div>داشبورد</div>
                 </a>
@@ -11,7 +11,7 @@
             <!-- Role -->
             @can('viewAny', \App\Models\Role::class)
                 <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/role'))])>
-                    <a wire:navigate href="{{ route('role.index') }}" class="menu-link">
+                    <a  href="{{ route('role.index') }}" class="menu-link">
                         <i class='menu-icon bx bx-universal-access'></i>
                         <div>نقش ها</div>
                     </a>
@@ -21,7 +21,7 @@
         <!-- Workgroup -->
             @can('viewAny', \App\Models\Workgroup::class)
                 <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/workgroup'))])>
-                    <a wire:navigate href="{{ route('workgroup.index') }}" class="menu-link">
+                    <a  href="{{ route('workgroup.index') }}" class="menu-link">
                         <i class='menu-icon bx bx-group'></i>
                         <div>گروه کاری ها</div>
                     </a>
@@ -37,13 +37,13 @@
                     </a>
                     <ul class="menu-sub">
                         <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/user/operator'))])>
-                            <a wire:navigate href="{{ route('operator.index') }}" class="menu-link">
+                            <a  href="{{ route('operator.index') }}" class="menu-link">
                                 <i class="menu-icon tf-icons bx bx-headphone"></i>
                                 <div>اوپراتورها</div>
                             </a>
                         </li>
                         <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/user/customer'))])>
-                            <a wire:navigate href="{{ route('customer.index') }}" class="menu-link">
+                            <a  href="{{ route('customer.index') }}" class="menu-link">
                                 <i class="menu-icon tf-icons bx bxs-user-account"></i>
                                 <div>مشتری ها</div>
                             </a>
@@ -55,7 +55,7 @@
         <!-- Purchase -->
             @can('viewAny', \App\Models\Purchase::class)
                 <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/purchase'))])>
-                    <a wire:navigate
+                    <a
                        href="{{ route('purchase.index') }}"
                        class="menu-link">
                         <i class='menu-icon bx bx-money'></i>
@@ -67,7 +67,7 @@
         <!-- Meeting -->
             @can('viewAny', \App\Models\Meeting::class)
                 <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/meeting'))])>
-                    <a wire:navigate
+                    <a
                        href="{{ route('meeting.index') }}"
                        class="menu-link">
                         <i class='menu-icon bx bxs-user-voice'></i>
@@ -79,7 +79,7 @@
         <!-- Bug -->
             @can('viewAny', \App\Models\Bug::class)
                 <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/bug'))])>
-                    <a wire:navigate
+                    <a
                        href="{{ route('bug.index') }}"
                        class="menu-link">
                         <i class='menu-icon bx bxs-bug'></i>
@@ -91,7 +91,7 @@
         <!-- Media -->
             @can('viewAny', \App\Models\Media::class)
                 <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/media'))])>
-                    <a wire:navigate
+                    <a
                        href="{{ route('media.index') }}"
                        class="menu-link">
                         <i class='menu-icon bx bxs-coin-stack'></i>
@@ -104,14 +104,14 @@
             @can('viewAny', \App\Models\Ticket::class)
                 <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/ticket'))])>
                     @if(auth()->user()->type == \App\Enums\User\UserType::CUSTOMER)
-                        <a wire:navigate
+                        <a
                            href="{{ route('ticket.index', ['status' => (\App\Enums\Ticket\TicketStatus::PENDING->value)]) }}"
                            class="menu-link">
                             <i class='menu-icon bx bx-support'></i>
                             <div>تیکت ها</div>
                         </a>
                     @else
-                        <a wire:navigate
+                        <a
                            href="{{ route('ticket.index', ['status' => (\App\Enums\Ticket\TicketStatus::WAITING->value)]) }}"
                            class="menu-link">
                             <i class='menu-icon bx bx-support'></i>
@@ -124,7 +124,7 @@
         <!-- Task -->
             @can('viewAny', \App\Models\Task::class)
                 <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/task'))])>
-                    <a wire:navigate
+                    <a
                        href="{{ route('task.index', ['type' => \App\Enums\Task\TaskType::SUBMIT->value]) }}"
                        class="menu-link">
                         <i class='menu-icon bx bx-task'></i>
@@ -136,7 +136,7 @@
         <!-- Cartable -->
             @if(\Illuminate\Support\Facades\Gate::allows('cartable'))
                 <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/cartable'))])>
-                    <a wire:navigate
+                    <a
                        href="{{ route('cartable.index') }}"
                        class="menu-link">
                         <i class='menu-icon bx bx-briefcase'></i>

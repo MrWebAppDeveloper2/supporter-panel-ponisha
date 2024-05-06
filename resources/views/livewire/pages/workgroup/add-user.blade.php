@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-body">
         <div class="text-end pb-3">
-            <a href="{{ route('workgroup.users', $workgroup) }}" class="btn btn-outline-warning" wire:navigate>بازگشت</a>
+            <a href="{{ route('workgroup.users', $workgroup) }}" class="btn btn-outline-warning" >بازگشت</a>
         </div>
         <div class="d-flex justify-content-between">
             <h4>اضافه کردن عضو به گروه کاری {{ $workgroup->name }}</h4>
