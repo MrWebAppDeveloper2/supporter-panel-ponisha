@@ -23,15 +23,28 @@
                 @foreach($medias as $media)
                     <tr wire:key="{{ $media->id }}">
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $media->name }}</td>
+                        <td>{{ \Illuminate\Support\Str::limit($media->name, 20) }}</td>
                         {{--                        <td>--}}
                         <td>
-                            @can('download', $media)
-                                <button class="btn btn-sm btn-outline-primary" wire:click="download({{ $media }})">دانلود</button>
-                            @endcan
-                            @can('delete', $media)
-                                <button class="btn btn-sm btn-outline-danger">حذف</button>
-                            @endcan
+                            <div class="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                        data-bs-toggle="dropdown">
+                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    @can('download', $media)
+                                        <button type="button" class="dropdown-item" wire:click="download({{ $media }})"><i
+                                                class='bx bx-download me-1'></i>دانلود</button>
+                                    @endcan
+                                    @can('delete', $media)
+                                        <button type="button" class="dropdown-item"
+                                           wire:confirm="آیا از حذف این فایل مطمئن هستید ؟"
+                                           wire:click="delete({{ $media }})"
+                                        ><i class='bx bx-trash me-1'></i>حذف</button>
+                                    @endcan
+                                </div>
+                            </div>
+
                         </td>
                     </tr>
                 @endforeach

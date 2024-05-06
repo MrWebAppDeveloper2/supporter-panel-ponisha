@@ -18,6 +18,15 @@ class Index extends Component
         return Storage::disk(config('media.disk'))->download($media->path);
     }
 
+    public function delete(Media $media)
+    {
+        $this->authorize('delete', $media);
+
+        $this->mediaRepository->delete($media)?
+            session()->now('alert-success', 'فایل حذف شد !'):
+            session()->now('alert-danger', 'وجود خطا در سرور !');
+    }
+
     public function __construct()
     {
         $this->mediaRepository = app()->make(MediaRepository::class);
