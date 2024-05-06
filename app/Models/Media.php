@@ -10,6 +10,8 @@ class Media extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
+
     /**
      * The user who uploaded the media
      *

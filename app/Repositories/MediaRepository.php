@@ -10,4 +10,9 @@ class MediaRepository
     {
         return Media::paginate($perPage);
     }
+
+    public function create(array $data):Media|false
+    {
+        return Media::create($data);
+    }
 }

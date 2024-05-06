@@ -96,7 +96,7 @@ Route::middleware(['auth', 'verified'])->group(function(){
     // Media
     Route::prefix('/media')->name('media.')->group(function(){
         Route::get('/', \App\Livewire\Media\Index::class)->name('index');
-//        Route::get('/create', \App\Livewire\Media\Create::class)->name('create');
+        Route::get('/upload', \App\Livewire\Media\Upload::class)->name('upload');
 //        Route::get('/{media}/edit', App\Livewire\Media\Edit::class)->name('edit');
 //        Route::get('/{media}', \App\Livewire\Media\Show::class)->name('show');
     });
