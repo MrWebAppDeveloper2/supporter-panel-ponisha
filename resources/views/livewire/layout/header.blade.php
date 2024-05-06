@@ -88,6 +88,18 @@
                 </li>
             @endcan
 
+        <!-- Media -->
+            @can('viewAny', \App\Models\Media::class)
+                <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/media'))])>
+                    <a wire:navigate
+                       href="{{ route('media.index') }}"
+                       class="menu-link">
+                        <i class='menu-icon bx bxs-coin-stack'></i>
+                        <div>فایل ها</div>
+                    </a>
+                </li>
+            @endcan
+
         <!-- Ticket -->
             @can('viewAny', \App\Models\Ticket::class)
                 <li @class(['menu-item', 'active' => (\Illuminate\Support\Str::startsWith(request()->getRequestUri(), '/ticket'))])>
