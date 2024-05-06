@@ -10,4 +10,9 @@ class BugRepository
     {
         return Bug::paginate($perPage);
     }
+
+    public function delete(Bug $bug):bool
+    {
+        return $bug->delete();
+    }
 }

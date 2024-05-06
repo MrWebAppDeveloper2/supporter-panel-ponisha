@@ -46,13 +46,13 @@
 {{--                                                class="bx bx-edit-alt me-1"></i> ویرایش</a>--}}
 {{--                                    @endcan--}}
 
-{{--                                    @can('delete', $bug)--}}
-{{--                                        <button class="dropdown-item"--}}
-{{--                                                wire:click="delete({{ $bug }})"--}}
-{{--                                                wire:confirm="آیا از حذف این باگ مطمئن هستید ؟"--}}
-{{--                                        ><i class="bx bx-trash me-1"></i> حذف--}}
-{{--                                        </button>--}}
-{{--                                    @endcan--}}
+                                    @can('delete', $bug)
+                                        <button class="dropdown-item"
+                                                wire:click="delete({{ $bug }})"
+                                                wire:confirm="آیا از حذف این باگ مطمئن هستید ؟"
+                                        ><i class="bx bx-trash me-1"></i> حذف
+                                        </button>
+                                    @endcan
                                 </div>
                             </div>
                         </td>
