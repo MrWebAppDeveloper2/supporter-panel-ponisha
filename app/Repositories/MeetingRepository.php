@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Collection;
 
 class MeetingRepository
 {
+    public function delete(Meeting $meeting):bool
+    {
+        return $meeting->delete();
+    }
+
     public function create(array $data):Meeting|false
     {
         return Meeting::create($data);

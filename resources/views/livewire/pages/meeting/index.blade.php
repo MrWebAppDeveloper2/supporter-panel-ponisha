@@ -1,9 +1,11 @@
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
         <h4 class="my-0">فروش</h4>
+        @can('create', \App\Models\Meeting::class)
         <div>
             <a href="{{ route('meeting.create') }}" class="btn btn-primary">ثبت جلسه جدید</a>
         </div>
+        @endcan
     </div>
     <div class="card-body">
         <x-alert/>
@@ -42,13 +44,13 @@
 {{--                                                class="bx bx-edit-alt me-1"></i> ویرایش</a>--}}
 {{--                                    @endcan--}}
 
-{{--                                    @can('delete', $meeting)--}}
-{{--                                        <button class="dropdown-item"--}}
-{{--                                                wire:click="delete({{ $meeting }})"--}}
-{{--                                                wire:confirm="آیا از حذف این فروش مطمئن هستید ؟"--}}
-{{--                                        ><i class="bx bx-trash me-1"></i> حذف--}}
-{{--                                        </button>--}}
-{{--                                    @endcan--}}
+                                    @can('delete', $meeting)
+                                        <button class="dropdown-item"
+                                                wire:click="delete({{ $meeting }})"
+                                                wire:confirm="آیا از حذف این صورت جلسه مطمئن هستید ؟"
+                                        ><i class="bx bx-trash me-1"></i> حذف
+                                        </button>
+                                    @endcan
                                 </div>
                             </div>
                         </td>

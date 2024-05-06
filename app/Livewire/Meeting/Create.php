@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Meeting;
 
+use App\Models\Meeting;
 use App\Repositories\MeetingRepository;
 use App\Repositories\UserRepository;
 use Livewire\Attributes\Validate;
@@ -47,6 +48,11 @@ class Create extends Component
         $this->userRepository = app()->make(UserRepository::class);
 
         $this->meetingRepository = app()->make(MeetingRepository::class);
+    }
+
+    public function mount()
+    {
+        $this->authorize('create', Meeting::class);
     }
 
     public function render()
