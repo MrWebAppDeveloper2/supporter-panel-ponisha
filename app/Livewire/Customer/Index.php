@@ -5,9 +5,12 @@ namespace App\Livewire\Customer;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
+    use WithPagination;
+
     private UserRepository $userRepository;
 
     public function __construct()
@@ -30,6 +33,6 @@ class Index extends Component
     public function render(UserRepository $repository)
     {
         return view('livewire.pages.customer.index')
-            ->with('customers', $repository->allCustomers());
+            ->with('customers', $repository->allCustomers(true));
     }
 }

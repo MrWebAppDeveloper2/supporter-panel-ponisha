@@ -12,9 +12,13 @@ use App\Repositories\Message\MessageRepository;
 use App\Repositories\TaskRepository;
 use Livewire\Attributes\Url;
 use Livewire\Component;
+use Livewire\WithoutUrlPagination;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
+    use WithPagination, WithoutUrlPagination;
+
     #[Url]
     public string $type;
 
@@ -75,8 +79,8 @@ class Index extends Component
             ->with(
                 'tasks',
                     isset($this->type) && $this->type == TaskType::SUBMIT->value ?
-                    $this->taskRepository->allSubmits() :
-                    $this->taskRepository->allReceives()
+                    $this->taskRepository->allSubmits(true) :
+                    $this->taskRepository->allReceives(true)
             );
     }
 }

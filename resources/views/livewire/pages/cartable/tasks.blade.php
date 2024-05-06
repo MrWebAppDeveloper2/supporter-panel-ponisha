@@ -52,6 +52,11 @@
                                     ارسال درخواست بستن وظیفه
                                 </button>
                             @endcan
+                            @can('referral', $task)
+                                <a href="{{ route('task.referral', $task) }}" class="btn btn-outline-info btn-sm">
+                                    ارجاع وظیفه
+                                </a>
+                            @endcan
                         </td>
                     </tr>
                 @endforeach

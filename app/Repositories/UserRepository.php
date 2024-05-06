@@ -51,9 +51,12 @@ class UserRepository
             ->get();
     }
 
-    public function allCustomers():Collection
+    public function allCustomers(bool $pagination = false, int $perPage = 20):mixed
     {
-        return User::where('type', UserType::CUSTOMER->value)
-            ->get();
+        $query =  User::where('type', UserType::CUSTOMER->value);
+
+        return $pagination ?
+            $query->paginate($perPage):
+            $query->get();
     }
 }

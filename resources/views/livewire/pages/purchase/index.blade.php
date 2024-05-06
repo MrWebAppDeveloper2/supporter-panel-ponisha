@@ -61,6 +61,9 @@
                 </tbody>
             </table>
         </div>
+        <div class="mt-3">
+            {{ $purchases->links('vendor.livewire.bootstrap') }}
+        </div>
     </div>
 </div>
 

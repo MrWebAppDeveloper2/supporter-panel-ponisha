@@ -6,9 +6,12 @@ use App\Models\Purchase;
 use App\Repositories\PurchaseRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
+    use WithPagination;
+
     public function delete(Purchase $purchase)
     {
         $repository = app()->make(PurchaseRepository::class);
@@ -21,6 +24,6 @@ class Index extends Component
     public function render(PurchaseRepository $repository)
     {
         return view('livewire.pages.purchase.index')
-            ->with('purchases', $repository->all());
+            ->with('purchases', $repository->paginate());
     }
 }
