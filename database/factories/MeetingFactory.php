@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Customer;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,12 +18,17 @@ class MeetingFactory extends Factory
      */
     public function definition(): array
     {
+        $customer = Customer::factory()->create();
+
+        $userCustomer = User::factory()->for($customer)->create();
+
         return [
-            'title' => $this->faker->title,
+            'title' => $this->faker->name,
             'date' => $this->faker->date,
-            'customer_id' => Customer::factory(),
+            'customer_id' => $customer->id,
             'text' => $this->faker->realText,
             'participants' => $this->faker->name,
+            'creator_id' => User::factory(),
         ];
     }
 }
