@@ -15,6 +15,15 @@ use Illuminate\Support\Facades\DB;
 
 class TaskRepository
 {
+    public function count(array $where = [], ?string $taskStatus = null): int
+    {
+        return
+            Task::where($where)
+                ->when($taskStatus, function ($query) use ($taskStatus){
+                    $query->where('status', $taskStatus);
+                })->count();
+    }
+
     public function all(array $columns = ['*']):Collection
     {
         return Task::all();
