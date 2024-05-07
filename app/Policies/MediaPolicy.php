@@ -13,18 +13,17 @@ class MediaPolicy
      */
     public function viewAny(User $user): bool
     {
-        if($user->isCustomer())
+        if ($user->isCustomer())
             return false;
 
-        if($user->isAdmin())
+        if ($user->isAdmin())
             return true;
 
-        if($user->isOperator()){
-            if($media = $user->media)
-                return $user->role->permissions
-                    ->where("name", BasicPermission::READ->value)
-                    ->where('model', Media::class)
-                    ->exists();
+        if ($user->isOperator()) {
+            return $user->role->permissions()
+                ->where("name", BasicPermission::READ->value)
+                ->where('model', Media::class)
+                ->exists();
         }
 
         return false;
@@ -35,13 +34,13 @@ class MediaPolicy
      */
     public function download(User $user, Media $media): bool
     {
-        if($user->isCustomer())
+        if ($user->isCustomer())
             return false;
 
-        if($user->isAdmin())
+        if ($user->isAdmin())
             return true;
 
-        if($user->isOperator()){
+        if ($user->isOperator()) {
             return $user->role->permissions()
                 ->where("name", BasicPermission::READ->value)
                 ->where('model', Media::class)
@@ -56,13 +55,13 @@ class MediaPolicy
      */
     public function upload(User $user): bool
     {
-        if($user->isCustomer())
+        if ($user->isCustomer())
             return false;
 
-        if($user->isAdmin())
+        if ($user->isAdmin())
             return true;
 
-        if($user->isOperator()){
+        if ($user->isOperator()) {
             return $user->role->permissions()
                 ->where("name", BasicPermission::CREATE->value)
                 ->where('model', Media::class)
@@ -77,13 +76,13 @@ class MediaPolicy
      */
     public function update(User $user, Media $media): bool
     {
-        if($user->isCustomer())
+        if ($user->isCustomer())
             return false;
 
-        if($user->isAdmin())
+        if ($user->isAdmin())
             return true;
 
-        if($user->isOperator()){
+        if ($user->isOperator()) {
             return $user->role->permissions()
                 ->where("name", BasicPermission::UPDATE->value)
                 ->where('model', Media::class)
@@ -98,13 +97,13 @@ class MediaPolicy
      */
     public function delete(User $user, Media $media): bool
     {
-        if($user->isCustomer())
+        if ($user->isCustomer())
             return false;
 
-        if($user->isAdmin())
+        if ($user->isAdmin())
             return true;
 
-        if($user->isOperator()){
+        if ($user->isOperator()) {
             return $user->role->permissions()
                 ->where("name", BasicPermission::DELETE->value)
                 ->where('model', Media::class)

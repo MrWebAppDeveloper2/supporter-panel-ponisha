@@ -98,7 +98,7 @@
                                     },
                                     total: {
                                         show: true,
-                                        label: 'تیکت',
+                                        label: 'مجموع',
                                         color: legendColor,
                                         formatter: function (w) {
                                             return w.globals.seriesTotals.reduce(function (a, b) {
@@ -132,9 +132,9 @@
                 const ticketImpressionConfig = impressionChartConfig
 
                 impressionChartConfig.series = [
-                    {{ \App\Facades\TicketRepository::count(ticketStatus: \App\Enums\Ticket\TicketStatus::PENDING->value) }},
-                    {{ \App\Facades\TicketRepository::count(ticketStatus: \App\Enums\Ticket\TicketStatus::WAITING->value) }},
-                    {{ \App\Facades\TicketRepository::count(ticketStatus: \App\Enums\Ticket\TicketStatus::CLOSED->value) }},
+                    {{ \App\Facades\TicketRepositoryFacade::count(ticketStatus: \App\Enums\Ticket\TicketStatus::PENDING->value) }},
+                    {{ \App\Facades\TicketRepositoryFacade::count(ticketStatus: \App\Enums\Ticket\TicketStatus::WAITING->value) }},
+                    {{ \App\Facades\TicketRepositoryFacade::count(ticketStatus: \App\Enums\Ticket\TicketStatus::CLOSED->value) }},
                 ]
 
                 impressionChartConfig.labels = [
@@ -149,6 +149,25 @@
                 }
 
                 // task chart
+                const taskImpressionEle = document.querySelector('#task-impression');
+                const taskImpressionConfig = impressionChartConfig
+
+                impressionChartConfig.series = [
+                    {{ \App\Facades\TaskRepositoryFacade::count(taskStatus: \App\Enums\Task\TaskStatus::PENDING->value) }},
+                    {{ \App\Facades\TaskRepositoryFacade::count(taskStatus: \App\Enums\Task\TaskStatus::SENT->value) }},
+                    {{ \App\Facades\TaskRepositoryFacade::count(taskStatus: \App\Enums\Task\TaskStatus::CLOSED->value) }},
+                ]
+
+                impressionChartConfig.labels = [
+                    '{{ \App\Enums\Task\TaskStatus::PENDING->value }}',
+                    '{{ \App\Enums\Task\TaskStatus::SENT->value }}',
+                    '{{ \App\Enums\Task\TaskStatus::CLOSED->value}}'
+                ]
+
+                if (typeof taskImpressionEle !== undefined && taskImpressionEle !== null) {
+                    const taskImpressionChart = new ApexCharts(taskImpressionEle, taskImpressionConfig);
+                    taskImpressionChart.render();
+                }
             })();
 
         </script>
@@ -158,11 +177,13 @@
         <div class="card-body d-flex justify-content-around text-center" style="position: relative;">
             <!-- Ticket -->
             <div>
+                <h4>تیکت ها</h4>
                 <div id="ticket-impression" class="mt-2"></div>
             </div>
 
             <!-- Task -->
             <div>
+                <h4>وظایف</h4>
                 <div id="task-impression"></div>
             </div>
         </div>
