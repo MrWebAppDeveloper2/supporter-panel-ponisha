@@ -3,7 +3,7 @@
         <form wire:submit="store" class="row">
             <div class="form-group p-3">
                 <label for="defaultFormControlInput" class="form-label">نام</label>
-                <input type="text" @class(['form-control', 'is-invalid' => $errors->has('name')]) wire:model="name" id="defaultFormControlInput" placeholder="نام نقش جدید" aria-describedby="defaultFormControlHelp">
+                <input type="text" @class(['form-control', 'is-invalid' => $errors->has('name')]) wire:model="name" id="defaultFormControlInput" aria-describedby="defaultFormControlHelp">
                 @error('name')
                     <span class="invalid-feedback">{{ $message }}</span>
                 @enderror
