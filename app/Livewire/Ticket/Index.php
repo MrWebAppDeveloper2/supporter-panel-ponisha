@@ -25,16 +25,35 @@ class Index extends Component
 
     public function openChat(Ticket $ticket)
     {
-        $chat = Chat::where('meta', Ticket::class . ",$ticket->id")->first();
-
-        if(!$chat and auth()->user() == UserType::CUSTOMER->value){
-            $chatRepository = app()->make(ChatRepository::class);
-
-            if($chat = $chatRepository->createForTicket($ticket))
-                abort(500, 'Create chat failed !');
+        if(!$ticket->recipient_id){
+            $this->accept($ticket);
         }
 
-        $this->redirect(route('chat', $chat));
+        if($ticket->recipient_id == auth()->id()){
+            $repository = app()->make(TicketRepository::class);
+
+            $this->redirect(route('chat', $repository->findRelevantChat($ticket)));
+        }
+    }
+
+    /**
+     * Accept ticket for handling and chat with ticket owner
+     *
+     * @param Ticket $ticket
+     * @return void
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function accept(Ticket $ticket)
+    {
+        $lock = cache()->lock(config('ticket.accept-cache-lock-prefix') . $ticket->id, 2)->block(2, function() use ($ticket){
+            $ticket->fresh();
+
+            if($ticket->status == TicketStatus::WAITING->value){
+                $repository = app()->make(TicketRepository::class);
+
+                $repository->accept($ticket);
+            }
+        });
     }
 
     public function delete(Ticket $ticket)
