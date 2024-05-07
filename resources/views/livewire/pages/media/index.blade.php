@@ -23,7 +23,7 @@
                 @foreach($medias as $media)
                     <tr wire:key="{{ $media->id }}">
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ \Illuminate\Support\Str::limit($media->name, 20) }}</td>
+                        <td><span class="cursor-pointer text-primary" @can('download', $media) wire:click="download({{ $media }})"  @endcan href="#">{{ \Illuminate\Support\Str::limit($media->name, 20) }}</span></td>
                         {{--                        <td>--}}
                         <td>
                             <div class="dropdown">
