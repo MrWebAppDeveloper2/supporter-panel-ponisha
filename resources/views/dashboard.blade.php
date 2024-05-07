@@ -175,17 +175,21 @@
     </x-slot:script>
     <div class="card">
         <div class="card-body d-flex justify-content-around text-center" style="position: relative;">
+        @can('viewAny', \App\Models\Ticket::class)
             <!-- Ticket -->
-            <div>
-                <h4>تیکت ها</h4>
-                <div id="ticket-impression" class="mt-2"></div>
-            </div>
+                <div>
+                    <h4>تیکت ها</h4>
+                    <div id="ticket-impression" class="mt-2"></div>
+                </div>
+        @endcan
 
+        @can('viewAny', \App\Models\Task::class)
             <!-- Task -->
-            <div>
-                <h4>وظایف</h4>
-                <div id="task-impression"></div>
-            </div>
+                <div>
+                    <h4>وظایف</h4>
+                    <div id="task-impression"></div>
+                </div>
+            @endcan
         </div>
     </div>
 </x-app-layout>
