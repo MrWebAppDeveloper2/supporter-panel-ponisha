@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card overflow-auto" style="max-height: 50vh">
     <div class="card-header d-flex justify-content-between align-items-center">
         <h5>وظایف</h5>
     </div>

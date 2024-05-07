@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card overflow-auto" style="max-height: 50vh">
     <div class="card-header">
         <h5>تیکت ها</h5>
     </div>
