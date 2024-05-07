@@ -4,9 +4,9 @@ namespace App\Enums\Ticket;
 
 enum TicketStatus: string
 {
-    case PENDING = 'pending';
+    case PENDING = 'در حال رسیدگی';
 
-    case CLOSED = 'closed';
+    case CLOSED = 'بسته شده';
 
-    case WAITING = 'waiting'; // Waiting for receive with one of users
+    case WAITING = 'در انتظار اوپراتور'; // Waiting for receive with one of users
 }

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Enums\User\UserType;
+use App\Facades\TicketRepository;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -28,5 +29,7 @@ class AppServiceProvider extends ServiceProvider
                or
                $user->type == UserType::ADMIN->value;
         });
+
+        app()->singleton('ticket-repository', fn($app) => $app->make(\App\Repositories\TicketRepository::class));
     }
 }
