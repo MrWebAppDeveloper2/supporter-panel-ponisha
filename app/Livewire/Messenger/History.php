@@ -34,7 +34,7 @@ class History extends Component
                 ->first();
 
             return $message->created_at->format('Y-m-d H:i') . '_' . $message->user_id . ($changeUserAt ? '_before_message_' . $changeUserAt->id : '');
-        });
+        })->values();
     }
 
     #[On('notify-contact-seen-message')]
