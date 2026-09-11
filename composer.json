@@ -8,7 +8,7 @@
         "php": "^8.2",
         "jaydeep/laravel-preflight": "^1.0",
         "laravel/framework": "^13.0",
-        "laravel/reverb": "@beta",
+        "laravel/reverb": "^1.0",
         "laravel/tinker": "^3.0",
         "livewire/livewire": "^3.4",
         "livewire/volt": "^1.0",
